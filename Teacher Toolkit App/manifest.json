@@ -1,0 +1,16 @@
+{
+  "name": "Teacher Classroom Toolkit",
+  "short_name": "ClassToolkit",
+  "description": "Everything a Teacher Needs — In One Place. NEP 2020 & NCF 2023 aligned classroom management platform by Mateen Yousuf, SED J&K.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1426",
+  "theme_color": "#1a2e5a",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "author.jpg", "sizes": "192x192", "type": "image/jpeg", "purpose": "any maskable" },
+    { "src": "author.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any maskable" }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "en-IN"
+}

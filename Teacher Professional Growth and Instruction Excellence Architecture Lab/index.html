@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#0a1628"/>
+<meta name="description" content="Teacher Professional Growth & Instructional Excellence Architecture Lab"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="apple-touch-icon" href="icons/icon-192.png"/>
+<title>Teacher Excellence Lab | Mateen Yousuf</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0a1628;
+  --navy2:#0d1f3c;
+  --blue:#1a3a6e;
+  --accent:#2e6be6;
+  --gold:#c8a84b;
+  --gold2:#e8c96b;
+  --white:#f8f9fc;
+  --gray:#a8b4c8;
+  --light:#dde4f0;
+  --card:#111f3a;
+  --card2:#162447;
+  --success:#27ae60;
+  --warn:#e67e22;
+  --danger:#c0392b;
+  --font-head:'Playfair Display',Georgia,serif;
+  --font-body:'Source Sans 3','Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:var(--font-body);font-size:16px;line-height:1.6;min-height:100vh}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.25}
+
+/* ── SCREEN SYSTEM ── */
+.screen{display:none;min-height:100vh;animation:fadeIn .4s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ── NAV ── */
+#topnav{position:sticky;top:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,168,75,.2);display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.2rem}
+.nav-brand{font-family:var(--font-head);font-size:.95rem;color:var(--gold);cursor:pointer}
+.nav-btn{background:none;border:1px solid rgba(200,168,75,.4);color:var(--gold);padding:.35rem .75rem;border-radius:6px;cursor:pointer;font-size:.8rem;font-family:var(--font-body);transition:all .2s}
+.nav-btn:hover{background:var(--gold);color:var(--navy)}
+
+/* ── HOME ── */
+#home{background:linear-gradient(160deg,#060f1f 0%,#0a1628 40%,#0d2048 100%);padding:0}
+.home-hero{position:relative;overflow:hidden;padding:3rem 1.5rem 2rem;text-align:center}
+.home-hero::before{content:'';position:absolute;top:-60px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(46,107,230,.18) 0%,transparent 70%);pointer-events:none}
+.home-hero::after{content:'';position:absolute;bottom:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(200,168,75,.12) 0%,transparent 70%);pointer-events:none}
+.badge-strip{display:inline-flex;align-items:center;gap:.5rem;background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.35);border-radius:50px;padding:.35rem 1rem;font-size:.75rem;color:var(--gold2);margin-bottom:1.5rem;flex-wrap:wrap;justify-content:center}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.home-title{font-size:clamp(1.6rem,5vw,2.8rem);color:var(--white);margin-bottom:.5rem;line-height:1.15}
+.home-title span{color:var(--gold)}
+.home-sub{font-size:1rem;color:var(--gray);margin-bottom:.5rem}
+.home-author{font-size:.85rem;color:var(--gold2);margin-bottom:2rem;font-style:italic}
+
+/* Author card */
+.author-card{display:flex;align-items:center;gap:1rem;background:var(--card2);border:1px solid rgba(200,168,75,.2);border-radius:14px;padding:1rem 1.2rem;max-width:480px;margin:0 auto 2.5rem;text-align:left}
+.author-photo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0}
+.author-info h4{font-size:.95rem;color:var(--gold);margin-bottom:.15rem}
+.author-info p{font-size:.8rem;color:var(--gray);line-height:1.4}
+
+/* Main buttons */
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:600px;margin:0 auto 2rem;padding:0 .5rem}
+.main-btn{background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid rgba(46,107,230,.35);border-radius:14px;padding:1.2rem .8rem;cursor:pointer;text-align:center;transition:all .3s;color:var(--white);position:relative;overflow:hidden}
+.main-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(46,107,230,.15),transparent);opacity:0;transition:.3s}
+.main-btn:hover::before{opacity:1}
+.main-btn:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 25px rgba(46,107,230,.2)}
+.main-btn .btn-icon{font-size:1.8rem;margin-bottom:.5rem;display:block}
+.main-btn .btn-label{font-family:var(--font-head);font-size:.9rem;font-weight:600;color:var(--gold2);display:block}
+.main-btn .btn-desc{font-size:.72rem;color:var(--gray);margin-top:.3rem;display:block}
+
+/* Quick stats */
+.stats-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;padding:1rem;max-width:600px;margin:0 auto}
+.stat-chip{background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.2);border-radius:8px;padding:.5rem .9rem;text-align:center}
+.stat-chip .sv{font-family:var(--font-head);font-size:1.3rem;color:var(--gold);display:block}
+.stat-chip .sl{font-size:.7rem;color:var(--gray)}
+
+/* ── SECTION HEADER ── */
+.sec-header{background:linear-gradient(135deg,var(--navy2),var(--blue));padding:1.5rem;border-bottom:2px solid rgba(200,168,75,.2)}
+.sec-header h2{font-size:1.4rem;color:var(--gold);margin-bottom:.25rem}
+.sec-header p{font-size:.85rem;color:var(--gray)}
+
+/* ── FOUNDATIONS ── */
+#foundations .pages-nav{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;padding:1rem}
+.page-card{background:var(--card);border:1px solid rgba(200,168,75,.15);border-radius:10px;padding:.9rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.6rem}
+.page-card:hover{border-color:var(--gold);background:var(--card2)}
+.page-card .pg-num{background:var(--gold);color:var(--navy);border-radius:6px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+.page-card .pg-title{font-size:.78rem;color:var(--light);line-height:1.3}
+.page-content{padding:1.2rem;max-width:800px;margin:0 auto;display:none}
+.page-content.active{display:block}
+.page-content h3{font-size:1.3rem;color:var(--gold);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(200,168,75,.2)}
+.page-content h4{font-size:1rem;color:var(--gold2);margin:1rem 0 .4rem}
+.page-content p{color:var(--light);margin-bottom:.8rem;font-size:.9rem;line-height:1.7}
+.page-content ul{margin:.5rem 0 .8rem 1.2rem;color:var(--light);font-size:.9rem}
+.page-content ul li{margin-bottom:.3rem;line-height:1.6}
+.reflection-box{background:rgba(46,107,230,.08);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem;margin:1rem 0}
+.reflection-box .rb-title{font-size:.75rem;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.reflection-box p{color:var(--light);font-size:.85rem;margin:0}
+.self-eval{background:rgba(200,168,75,.06);border:1px solid rgba(200,168,75,.2);border-radius:8px;padding:1rem;margin:1rem 0}
+.self-eval .se-title{font-size:.75rem;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:.5rem}
+.leadership-note{background:rgba(39,174,96,.08);border-left:3px solid var(--success);border-radius:0 8px 8px 0;padding:.8rem;margin:1rem 0;font-size:.85rem;color:var(--light)}
+.back-btn{background:none;border:1px solid rgba(200,168,75,.3);color:var(--gold);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-size:.85rem;margin:1rem;transition:.2s}
+.back-btn:hover{background:var(--gold);color:var(--navy)}
+
+/* ── SELF ASSESSMENT ── */
+.assess-form{padding:1.2rem;max-width:700px;margin:0 auto}
+.dimension-card{background:var(--card);border:1px solid rgba(200,168,75,.15);border-radius:12px;padding:1.2rem;margin-bottom:1rem}
+.dimension-card h4{color:var(--gold2);margin-bottom:.8rem;font-size:.95rem}
+.slider-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem}
+.slider-row label{font-size:.82rem;color:var(--gray);width:140px;flex-shrink:0}
+.slider-row input[type=range]{flex:1;accent-color:var(--accent)}
+.slider-row .val{width:28px;text-align:center;font-size:.85rem;color:var(--gold);font-weight:600}
+.score-display{background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid rgba(200,168,75,.25);border-radius:14px;padding:1.5rem;text-align:center;margin:1.5rem 0}
+.score-ring{width:100px;height:100px;border-radius:50%;border:6px solid var(--card);background:conic-gradient(var(--accent) var(--pct,0%),var(--card) 0%);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative}
+.score-ring::before{content:'';position:absolute;inset:10px;border-radius:50%;background:var(--card2)}
+.score-ring span{position:relative;z-index:1;font-family:var(--font-head);font-size:1.4rem;color:var(--gold);font-weight:700}
+.scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+.score-item{background:rgba(200,168,75,.06);border-radius:8px;padding:.8rem;text-align:center}
+.score-item .si-val{font-size:1.3rem;color:var(--gold);font-family:var(--font-head)}
+.score-item .si-lbl{font-size:.72rem;color:var(--gray)}
+.action-btn{background:linear-gradient(135deg,var(--accent),#1a4fa8);color:#fff;border:none;padding:.8rem 2rem;border-radius:10px;cursor:pointer;font-family:var(--font-body);font-size:.9rem;font-weight:600;transition:.2s;width:100%;margin-top:1rem}
+.action-btn:hover{opacity:.9;transform:translateY(-1px)}
+
+/* ── GROWTH PLANNER ── */
+.planner-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}
+.focus-btn{background:var(--card);border:2px solid rgba(200,168,75,.15);border-radius:10px;padding:1rem;cursor:pointer;text-align:center;color:var(--light);font-family:var(--font-body);font-size:.85rem;transition:.2s}
+.focus-btn.selected{border-color:var(--gold);background:var(--card2);color:var(--gold2)}
+.focus-btn:hover{border-color:rgba(200,168,75,.4)}
+.plan-output{background:var(--card2);border:1px solid rgba(200,168,75,.2);border-radius:12px;padding:1.2rem;margin-top:1rem;display:none}
+.plan-output.show{display:block;animation:fadeIn .3s ease}
+.month-block{border-left:3px solid var(--accent);padding-left:1rem;margin-bottom:1.2rem}
+.month-block h4{color:var(--gold);margin-bottom:.5rem;font-size:.95rem}
+.task-item{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.4rem;font-size:.82rem;color:var(--light)}
+.task-item::before{content:'▸';color:var(--accent);flex-shrink:0;margin-top:2px}
+.checklist-item{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--light);margin-bottom:.35rem;cursor:pointer}
+.checklist-item input{accent-color:var(--accent)}
+
+/* ── SIMULATION ── */
+.sim-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.scenario-cards{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}
+.sc-card{background:var(--card);border:2px solid rgba(200,168,75,.12);border-radius:12px;padding:1rem;cursor:pointer;transition:.2s}
+.sc-card.selected{border-color:var(--gold);background:var(--card2)}
+.sc-card:hover{border-color:rgba(200,168,75,.35)}
+.sc-card .sc-icon{font-size:1.6rem;margin-bottom:.4rem}
+.sc-card .sc-name{font-size:.85rem;font-weight:600;color:var(--gold2);margin-bottom:.3rem}
+.sc-card .sc-desc{font-size:.75rem;color:var(--gray)}
+.strategy-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin:1rem 0}
+.strat-btn{background:var(--card);border:1px solid rgba(46,107,230,.25);border-radius:8px;padding:.7rem;text-align:center;cursor:pointer;font-size:.78rem;color:var(--light);transition:.2s}
+.strat-btn.selected{background:rgba(46,107,230,.2);border-color:var(--accent);color:var(--white)}
+.sim-results{background:var(--card2);border:1px solid rgba(200,168,75,.2);border-radius:12px;padding:1.2rem;margin-top:1rem;display:none}
+.sim-results.show{display:block;animation:fadeIn .3s ease}
+.result-bars{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem}
+.result-bar-item .rb-label{font-size:.8rem;color:var(--gray);margin-bottom:.3rem;display:flex;justify-content:space-between}
+.result-bar-item .rb-label span{color:var(--gold)}
+.bar-track{background:rgba(255,255,255,.08);border-radius:50px;height:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:50px;transition:width 1s ease;background:linear-gradient(90deg,var(--accent),var(--gold))}
+
+/* ── CPD TRACKER ── */
+.cpd-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.cpd-log-form{background:var(--card);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem}
+.form-row{margin-bottom:.8rem}
+.form-row label{display:block;font-size:.8rem;color:var(--gray);margin-bottom:.3rem}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--navy);border:1px solid rgba(200,168,75,.2);border-radius:8px;padding:.6rem .8rem;color:var(--white);font-family:var(--font-body);font-size:.85rem}
+.form-row textarea{resize:vertical;min-height:70px}
+.cpd-list{margin-top:1rem}
+.cpd-entry{background:var(--card2);border:1px solid rgba(200,168,75,.15);border-radius:10px;padding:.9rem;margin-bottom:.6rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.cpd-entry .ce-info h5{font-size:.85rem;color:var(--gold2);margin-bottom:.2rem}
+.cpd-entry .ce-info p{font-size:.75rem;color:var(--gray)}
+.cpd-entry .ce-badge{background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.25);border-radius:6px;padding:.25rem .6rem;font-size:.72rem;color:var(--gold)}
+.del-btn{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.9rem;padding:.3rem}
+.pgi-display{background:linear-gradient(135deg,var(--card2),var(--blue));border:1px solid rgba(200,168,75,.25);border-radius:12px;padding:1.2rem;text-align:center;margin-bottom:1.2rem}
+.pgi-val{font-size:2.2rem;font-family:var(--font-head);color:var(--gold);display:block}
+.pgi-lbl{font-size:.8rem;color:var(--gray)}
+
+/* ── DASHBOARD ── */
+.dash-body{padding:1.2rem;max-width:800px;margin:0 auto}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.8rem;margin-bottom:1.5rem}
+.kpi-card{background:var(--card);border:1px solid rgba(200,168,75,.15);border-radius:12px;padding:1rem;text-align:center}
+.kpi-card .kv{font-size:1.8rem;font-family:var(--font-head);color:var(--gold);display:block}
+.kpi-card .kl{font-size:.72rem;color:var(--gray);margin-top:.2rem}
+.kpi-card .kt{font-size:.65rem;color:var(--success);margin-top:.2rem}
+.radar-wrap{background:var(--card);border:1px solid rgba(200,168,75,.15);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem}
+.radar-wrap h4{color:var(--gold);margin-bottom:1rem;font-size:.95rem}
+#radarCanvas{max-width:300px;margin:0 auto;display:block}
+
+/* ── LESSON DESIGN ── */
+.lesson-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.lesson-output{background:var(--card2);border:1px solid rgba(200,168,75,.2);border-radius:12px;padding:1.2rem;margin-top:1rem;display:none}
+.lesson-output.show{display:block;animation:fadeIn .3s}
+.lo-section{border-left:3px solid var(--gold);padding-left:1rem;margin-bottom:1.2rem}
+.lo-section h4{color:var(--gold2);font-size:.9rem;margin-bottom:.5rem}
+.lo-tag{display:inline-block;background:rgba(46,107,230,.15);border:1px solid rgba(46,107,230,.3);color:var(--accent);border-radius:20px;padding:.2rem .7rem;font-size:.72rem;margin:.2rem}
+
+/* ── ETHICS ── */
+.ethics-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.ethics-scenario{background:var(--card);border-radius:12px;padding:1.2rem;margin-bottom:1rem}
+.ethics-scenario h4{color:var(--gold);margin-bottom:.8rem;font-size:.95rem}
+.ethics-choices{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.ec-btn{background:var(--navy);border:1px solid rgba(200,168,75,.2);border-radius:8px;padding:.8rem;cursor:pointer;color:var(--light);font-family:var(--font-body);font-size:.82rem;text-align:left;transition:.2s}
+.ec-btn:hover,.ec-btn.selected{border-color:var(--gold);background:rgba(200,168,75,.08);color:var(--gold2)}
+.ethics-result{display:none;background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);border-radius:8px;padding:1rem;margin-top:.8rem;font-size:.85rem;color:var(--light)}
+.ethics-result.show{display:block;animation:fadeIn .3s}
+
+/* ── REPORT ── */
+.report-body{padding:1.2rem;max-width:700px;margin:0 auto}
+.report-card{background:var(--card2);border:1px solid rgba(200,168,75,.2);border-radius:14px;padding:1.5rem;margin-bottom:1rem}
+.report-card h3{color:var(--gold);font-size:1.1rem;margin-bottom:1rem}
+.strength-item{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;font-size:.85rem;color:var(--light)}
+.strength-item::before{content:'✓';color:var(--success);font-weight:700}
+.growth-item{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;font-size:.85rem;color:var(--light)}
+.growth-item::before{content:'→';color:var(--warn)}
+.progress-row{margin-bottom:.8rem}
+.progress-label{font-size:.8rem;color:var(--gray);margin-bottom:.3rem;display:flex;justify-content:space-between}
+.progress-label span{color:var(--gold2)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--success);color:#fff;padding:.7rem 1.5rem;border-radius:50px;font-size:.85rem;font-weight:600;z-index:9999;transition:transform .3s;white-space:nowrap}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── MISC ── */
+.divider{height:1px;background:rgba(200,168,75,.12);margin:1rem 0}
+.tag{display:inline-block;background:rgba(200,168,75,.1);border:1px solid rgba(200,168,75,.25);color:var(--gold2);border-radius:4px;padding:.15rem .5rem;font-size:.72rem;margin:.2rem}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--gray)}
+.empty-state .es-icon{font-size:2.5rem;margin-bottom:.5rem}
+
+@media(max-width:480px){
+  .main-grid{grid-template-columns:1fr}
+  .focus-grid,.scenario-cards,.strategy-row{grid-template-columns:1fr}
+  .scores-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="topnav" style="display:none">
+  <span class="nav-brand" onclick="goHome()">🎓 Teacher Excellence Lab</span>
+  <button class="nav-btn" onclick="goHome()">⌂ Home</button>
+</nav>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div id="home" class="screen active">
+  <div class="home-hero">
+    <div class="badge-strip">
+      <span class="badge-dot"></span>
+      Aligned with NEP 2020
+      <span class="badge-dot"></span>
+      NCF 2023
+      <span class="badge-dot"></span>
+      Competency-Based Teaching
+    </div>
+    <h1 class="home-title">Teacher Professional Growth &<br><span>Instructional Excellence</span><br>Architecture Lab</h1>
+    <p class="home-sub">A Comprehensive Offline Platform for Teacher Development</p>
+    <p class="home-author">Developed by Mateen Yousuf &mdash; School Education Department, Kashmir</p>
+
+    <div class="author-card">
+      <img class="author-photo" src="author.jpg" alt="Mateen Yousuf" onerror="this.style.display='none'"/>
+      <div class="author-info">
+        <h4>Mateen Yousuf</h4>
+        <p>Teacher &amp; Educational Technology Architect<br/>School Education Department, Kashmir<br/>NEP 2020 · NCF 2023 Practitioner</p>
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <button class="main-btn" onclick="goTo('self-assess')">
+        <span class="btn-icon">📊</span>
+        <span class="btn-label">Instructional Self-Assessment</span>
+        <span class="btn-desc">Evaluate your teaching quality across 5 dimensions</span>
+      </button>
+      <button class="main-btn" onclick="goTo('planner')">
+        <span class="btn-icon">🗺️</span>
+        <span class="btn-label">Professional Growth Planner</span>
+        <span class="btn-desc">Build your 3-month CPD roadmap</span>
+      </button>
+      <button class="main-btn" onclick="goTo('simulation')">
+        <span class="btn-icon">🎮</span>
+        <span class="btn-label">Pedagogy Simulation Studio</span>
+        <span class="btn-desc">Practice with real classroom scenarios</span>
+      </button>
+      <button class="main-btn" onclick="goTo('foundations')">
+        <span class="btn-icon">📚</span>
+        <span class="btn-label">Framework & Teaching Excellence</span>
+        <span class="btn-desc">20 deep academic pages on teaching craft</span>
+      </button>
+      <button class="main-btn" onclick="goTo('cpd')">
+        <span class="btn-icon">📈</span>
+        <span class="btn-label">CPD Progression Tracker</span>
+        <span class="btn-desc">Log workshops, skills & reflections</span>
+      </button>
+      <button class="main-btn" onclick="goTo('dashboard')">
+        <span class="btn-icon">🏛️</span>
+        <span class="btn-label">Leadership Dashboard</span>
+        <span class="btn-desc">Full instructional excellence overview</span>
+      </button>
+      <button class="main-btn" onclick="goTo('lesson')">
+        <span class="btn-icon">✏️</span>
+        <span class="btn-label">Lesson Design Architect</span>
+        <span class="btn-desc">Generate competency-aligned lesson plans</span>
+      </button>
+      <button class="main-btn" onclick="goTo('ethics')">
+        <span class="btn-icon">⚖️</span>
+        <span class="btn-label">Ethics & Resilience Model</span>
+        <span class="btn-desc">Navigate professional challenges ethically</span>
+      </button>
+    </div>
+
+    <button class="main-btn" style="max-width:300px;margin:0 auto .5rem;" onclick="goTo('report')">
+      <span class="btn-icon">📋</span>
+      <span class="btn-label">Teacher Excellence Report</span>
+      <span class="btn-desc">Your complete professional profile</span>
+    </button>
+
+    <div class="stats-row" id="homeStats">
+      <div class="stat-chip"><span class="sv" id="stat-iq">–</span><span class="sl">Instructional Quality</span></div>
+      <div class="stat-chip"><span class="sv" id="stat-pg">–</span><span class="sl">Growth Index</span></div>
+      <div class="stat-chip"><span class="sv" id="stat-cpd">0</span><span class="sl">CPD Entries</span></div>
+      <div class="stat-chip"><span class="sv">20</span><span class="sl">Foundation Pages</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ FOUNDATIONS ══════════════════ -->
+<div id="foundations" class="screen">
+  <div class="sec-header">
+    <h2>📚 Foundations of Teaching Excellence</h2>
+    <p>20 structured academic pages aligned with NEP 2020 & NCF 2023</p>
+  </div>
+  <div id="foundationsIndex" class="pages-nav"></div>
+  <div id="foundationsContent"></div>
+</div>
+
+<!-- ══════════════════ SELF ASSESSMENT ══════════════════ -->
+<div id="self-assess" class="screen">
+  <div class="sec-header">
+    <h2>📊 Instructional Self-Assessment Tool</h2>
+    <p>Rate your teaching across 5 core dimensions. Results are saved locally.</p>
+  </div>
+  <div class="assess-form">
+    <div class="dimension-card">
+      <h4>📖 Lesson Clarity & Structure</h4>
+      <div class="slider-row"><label>Clear objectives stated</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s1"/><span class="val" id="v1">5</span></div>
+      <div class="slider-row"><label>Logical sequencing</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s2"/><span class="val" id="v2">5</span></div>
+      <div class="slider-row"><label>Language accessibility</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s3"/><span class="val" id="v3">5</span></div>
+    </div>
+    <div class="dimension-card">
+      <h4>🧠 Concept Depth & Rigor</h4>
+      <div class="slider-row"><label>Content accuracy</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s4"/><span class="val" id="v4">5</span></div>
+      <div class="slider-row"><label>Higher-order thinking</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s5"/><span class="val" id="v5">5</span></div>
+      <div class="slider-row"><label>Real-world connections</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s6"/><span class="val" id="v6">5</span></div>
+    </div>
+    <div class="dimension-card">
+      <h4>🤝 Student Engagement</h4>
+      <div class="slider-row"><label>Participation level</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s7"/><span class="val" id="v7">5</span></div>
+      <div class="slider-row"><label>Classroom energy</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s8"/><span class="val" id="v8">5</span></div>
+      <div class="slider-row"><label>Student questioning</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s9"/><span class="val" id="v9">5</span></div>
+    </div>
+    <div class="dimension-card">
+      <h4>❓ Questioning Level (Bloom's)</h4>
+      <div class="slider-row"><label>Analysis questions</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s10"/><span class="val" id="v10">5</span></div>
+      <div class="slider-row"><label>Evaluation questions</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s11"/><span class="val" id="v11">5</span></div>
+      <div class="slider-row"><label>Creation tasks</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s12"/><span class="val" id="v12">5</span></div>
+    </div>
+    <div class="dimension-card">
+      <h4>✅ Assessment Alignment & Inclusivity</h4>
+      <div class="slider-row"><label>Formative assessment use</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s13"/><span class="val" id="v13">5</span></div>
+      <div class="slider-row"><label>Differentiation strategies</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s14"/><span class="val" id="v14">5</span></div>
+      <div class="slider-row"><label>Feedback quality</label><input type="range" min="1" max="10" value="5" oninput="updateSlider(this)" id="s15"/><span class="val" id="v15">5</span></div>
+    </div>
+    <button class="action-btn" onclick="calcAssessment()">📊 Calculate My Instructional Profile</button>
+
+    <div class="score-display" id="assessResults" style="display:none">
+      <div class="score-ring" id="iqi-ring" style="--pct:50%"><span id="iqi-val">50</span></div>
+      <p style="color:var(--gray);font-size:.8rem">Instructional Quality Index</p>
+      <div class="scores-grid">
+        <div class="score-item"><div class="si-val" id="sc-clarity">–</div><div class="si-lbl">Clarity Score</div></div>
+        <div class="score-item"><div class="si-val" id="sc-depth">–</div><div class="si-lbl">Depth Score</div></div>
+        <div class="score-item"><div class="si-val" id="sc-engage">–</div><div class="si-lbl">Engagement Rating</div></div>
+        <div class="score-item"><div class="si-val" id="sc-assess">–</div><div class="si-lbl">Assessment Score</div></div>
+      </div>
+      <div id="assessFeedback" style="margin-top:1rem;padding:.8rem;background:rgba(200,168,75,.07);border-radius:8px;font-size:.85rem;color:var(--light);text-align:left"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ GROWTH PLANNER ══════════════════ -->
+<div id="planner" class="screen">
+  <div class="sec-header">
+    <h2>🗺️ Professional Growth Planner</h2>
+    <p>Select your focus area and generate a personalised 3-month CPD roadmap</p>
+  </div>
+  <div class="planner-body">
+    <h4 style="color:var(--gold2);margin-bottom:.5rem">Select Your Growth Focus:</h4>
+    <div class="focus-grid">
+      <button class="focus-btn" data-focus="assessment" onclick="selectFocus(this)">📝 Assessment Design</button>
+      <button class="focus-btn" data-focus="questioning" onclick="selectFocus(this)">❓ Higher-Order Questioning</button>
+      <button class="focus-btn" data-focus="management" onclick="selectFocus(this)">🏫 Classroom Management</button>
+      <button class="focus-btn" data-focus="inclusive" onclick="selectFocus(this)">🌈 Inclusive Strategies</button>
+      <button class="focus-btn" data-focus="experiential" onclick="selectFocus(this)">🔬 Experiential Pedagogy</button>
+      <button class="focus-btn" data-focus="technology" onclick="selectFocus(this)">💻 Technology Integration</button>
+    </div>
+    <button class="action-btn" onclick="generatePlan()" style="margin-top:.5rem">🗺️ Generate My Growth Plan</button>
+    <div class="plan-output" id="planOutput"></div>
+  </div>
+</div>
+
+<!-- ══════════════════ SIMULATION ══════════════════ -->
+<div id="simulation" class="screen">
+  <div class="sec-header">
+    <h2>🎮 Pedagogy Simulation Studio</h2>
+    <p>Select a classroom scenario, choose your strategy, and see projected outcomes</p>
+  </div>
+  <div class="sim-body">
+    <h4 style="color:var(--gold2);margin-bottom:.3rem">Select Scenario:</h4>
+    <div class="scenario-cards" id="scenarioCards"></div>
+    <div id="strategySection" style="display:none">
+      <h4 style="color:var(--gold2);margin:.8rem 0 .3rem">Choose Your Pedagogical Strategy:</h4>
+      <div class="strategy-row" id="strategyButtons"></div>
+      <button class="action-btn" onclick="runSimulation()" style="margin-top:.5rem">▶ Run Simulation</button>
+    </div>
+    <div class="sim-results" id="simResults"></div>
+  </div>
+</div>
+
+<!-- ══════════════════ CPD TRACKER ══════════════════ -->
+<div id="cpd" class="screen">
+  <div class="sec-header">
+    <h2>📈 CPD Progression Tracker</h2>
+    <p>Log your professional development activities and track growth</p>
+  </div>
+  <div class="cpd-body">
+    <div class="pgi-display">
+      <span class="pgi-val" id="pgiVal">0.0</span>
+      <span class="pgi-lbl">Professional Growth Index</span>
+    </div>
+    <div class="cpd-log-form">
+      <h4 style="color:var(--gold2);margin-bottom:.8rem">Log New CPD Activity</h4>
+      <div class="form-row"><label>Activity Title</label><input type="text" id="cpdTitle" placeholder="e.g. NEP 2020 Workshop"/></div>
+      <div class="form-row"><label>Category</label>
+        <select id="cpdCat">
+          <option value="workshop">Workshop Attended</option>
+          <option value="skill">Skill Practiced</option>
+          <option value="reflection">Reflection Session</option>
+          <option value="peer">Peer Collaboration</option>
+          <option value="reading">Professional Reading</option>
+          <option value="observation">Classroom Observation</option>
+        </select>
+      </div>
+      <div class="form-row"><label>Date</label><input type="date" id="cpdDate"/></div>
+      <div class="form-row"><label>Notes / Reflection</label><textarea id="cpdNotes" placeholder="What did you learn? How will you apply it?"></textarea></div>
+      <button class="action-btn" onclick="addCPDEntry()">+ Add CPD Entry</button>
+    </div>
+    <div id="cpdList"><div class="empty-state"><div class="es-icon">📂</div><p>No CPD entries yet. Log your first activity above.</p></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════ DASHBOARD ══════════════════ -->
+<div id="dashboard" class="screen">
+  <div class="sec-header">
+    <h2>🏛️ Teacher Leadership Dashboard</h2>
+    <p>Your complete instructional excellence overview</p>
+  </div>
+  <div class="dash-body">
+    <div class="kpi-grid" id="dashKPIs"></div>
+    <div class="radar-wrap">
+      <h4>Leadership Competency Radar</h4>
+      <canvas id="radarCanvas" width="300" height="300"></canvas>
+    </div>
+    <button class="action-btn" onclick="printReport()">🖨️ Print / Save Dashboard</button>
+  </div>
+</div>
+
+<!-- ══════════════════ LESSON DESIGN ══════════════════ -->
+<div id="lesson" class="screen">
+  <div class="sec-header">
+    <h2>✏️ Lesson Design Architect</h2>
+    <p>Generate a competency-aligned lesson plan based on NEP 2020 & NCF 2023</p>
+  </div>
+  <div class="lesson-body">
+    <div class="cpd-log-form">
+      <div class="form-row"><label>Subject</label><input type="text" id="lesSubject" placeholder="e.g. Science, Mathematics, History"/></div>
+      <div class="form-row"><label>Topic / Chapter</label><input type="text" id="lesTopic" placeholder="e.g. Photosynthesis, Fractions"/></div>
+      <div class="form-row"><label>Grade / Class</label><input type="text" id="lesGrade" placeholder="e.g. Class 8, Grade 10"/></div>
+      <div class="form-row"><label>Learning Outcomes (comma separated)</label><input type="text" id="lesOutcomes" placeholder="e.g. Explain the process, Apply the formula"/></div>
+      <div class="form-row"><label>Duration</label>
+        <select id="lesDuration">
+          <option>30 minutes</option>
+          <option selected>45 minutes</option>
+          <option>60 minutes</option>
+          <option>90 minutes (double period)</option>
+        </select>
+      </div>
+    </div>
+    <button class="action-btn" onclick="generateLesson()">✏️ Generate Lesson Plan</button>
+    <div class="lesson-output" id="lessonOutput"></div>
+  </div>
+</div>
+
+<!-- ══════════════════ ETHICS ══════════════════ -->
+<div id="ethics" class="screen">
+  <div class="sec-header">
+    <h2>⚖️ Professional Ethics & Resilience Model</h2>
+    <p>Navigate real-world professional challenges with ethical clarity</p>
+  </div>
+  <div class="ethics-body" id="ethicsBody"></div>
+</div>
+
+<!-- ══════════════════ REPORT ══════════════════ -->
+<div id="report" class="screen">
+  <div class="sec-header">
+    <h2>📋 Teacher Excellence Report</h2>
+    <p>Your complete professional instructional profile</p>
+  </div>
+  <div class="report-body" id="reportBody"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast">✓ Saved</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA & STATE
+// ══════════════════════════════════════════
+const FOUNDATIONS_DATA = [
+  {title:"Teacher as Transformational Agent",
+   body:`<p>Teaching is among the most consequential professions in human civilization. The transformational teacher is not merely a transmitter of information but an architect of minds, a sculptor of character, and a catalyst for societal change. NEP 2020 explicitly recognises the teacher as a nation-builder — a professional whose daily interactions shape the intellectual, emotional, and civic capacities of future generations.</p>
+   <p>Transformational teaching rests on four pillars: vision (a clear picture of what students can become), relationship (genuine care and connection with learners), expertise (deep content and pedagogical knowledge), and agency (the capacity to initiate change rather than merely respond to it). When these four elements align, the classroom becomes a space of genuine transformation.</p>
+   <h4>What Makes Teaching Transformational?</h4>
+   <p>Research consistently shows that the single greatest in-school factor influencing student learning is teacher quality — not facilities, technology, or even curriculum. A transformational teacher reframes every lesson as an opportunity to develop a student's ability to think, question, empathize, and create. They ask not just "Did the student remember the content?" but "Did this lesson change how the student sees the world?"</p>
+   <p>In the Kashmir context, where students navigate rich cultural heritage alongside rapidly changing economic and social landscapes, the transformational teacher serves as a bridge — connecting traditional wisdom to modern competencies, local identity to global citizenship.</p>
+   <h4>Characteristics of Transformational Teachers</h4>
+   <ul>
+     <li>They maintain high expectations for every student, regardless of background</li>
+     <li>They model intellectual curiosity — they are perpetual learners themselves</li>
+     <li>They build classroom cultures of psychological safety where risk-taking is celebrated</li>
+     <li>They design learning experiences that connect to students' lives</li>
+     <li>They provide specific, timely, and growth-oriented feedback</li>
+     <li>They mentor beyond the classroom — visible in school culture and community</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Think of a teacher who transformed your own life. What specific qualities, actions, or moments made them memorable? How do those qualities appear (or not appear) in your own practice today?</p></div>
+   <h4>Transformational vs Transactional Teaching</h4>
+   <p>Transactional teaching is exchange-based: the teacher delivers content, students receive and reproduce it during assessments. This model, while efficient, produces learners who are dependent on external instruction and struggle when facing novel problems. Transformational teaching, by contrast, develops internal motivation, critical thinking, and the ability to generate new knowledge.</p>
+   <p>NEP 2020 mandates a shift from transactional to transformational pedagogy across all levels. This means redesigning assessment, restructuring classroom interaction, and reorienting professional development.</p>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Rate yourself (1–10) on each transformational quality: High expectations for all students / Visible intellectual curiosity / Psychological safety in classroom / Real-world lesson connections / Quality of feedback given. Where is your highest score? Where is your greatest opportunity for growth?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Transformational teachers naturally become school leaders — not because of position but because of influence. Your commitment to excellence becomes a model that shapes the professional culture of your entire school community.</div>`
+  },
+  {title:"NEP 2020 and Teacher Development",
+   body:`<p>The National Education Policy 2020 represents the most comprehensive reimagining of Indian education in more than three decades. At its philosophical core, NEP 2020 places the teacher at the centre of educational reform — not as an implementer of policy, but as a co-creator of it. Understanding this policy is not merely professional duty; it is a prerequisite for being an effective educator in contemporary India.</p>
+   <h4>Key Provisions for Teacher Development in NEP 2020</h4>
+   <p>NEP 2020 envisions a transformation of teacher education from a largely procedural system to one that develops deep professional expertise. The policy mandates: a four-year integrated B.Ed programme replacing the current two-year model; mandatory continuous professional development of at least 50 hours per year; creation of school complexes where teachers collaborate across institutions; and the development of subject-specialist teachers even at the primary level.</p>
+   <ul>
+     <li><strong>50-hour annual CPD mandate:</strong> Teachers must engage in structured professional development each year, documented through digital portfolios</li>
+     <li><strong>Mentoring system:</strong> Senior experienced teachers are designated as mentors to guide junior colleagues</li>
+     <li><strong>School complexity model:</strong> Groups of schools share resources, including specialist teachers</li>
+     <li><strong>Merit-based career progression:</strong> Promotion linked to demonstrated pedagogical competence and student outcomes</li>
+     <li><strong>Teachers as researchers:</strong> NEP encourages teachers to document and publish classroom practices</li>
+   </ul>
+   <h4>The Competency Framework Under NEP 2020</h4>
+   <p>NEP 2020 moves education decisively toward competency-based rather than content-based standards. For teachers, this means demonstrating competencies in content knowledge, pedagogical knowledge, assessment literacy, reflective practice, and professional collaboration — not merely completing prescribed training hours.</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Review the 50-hour annual CPD mandate. What professional development have you engaged in over the past 12 months? How does it align with the competencies NEP 2020 identifies as essential? What gaps exist?</p></div>
+   <h4>NEP 2020 and Local Context</h4>
+   <p>For teachers in Jammu & Kashmir, NEP 2020 implementation occurs within a specific administrative and cultural context. The state's rich multilingual heritage aligns well with NEP's emphasis on mother-tongue instruction in early years and its promotion of local knowledge systems. The policy's flexibility allows schools to contextualise the curriculum — an opportunity teachers in Kashmir can use to weave local ecology, history, and culture into NEP-aligned learning experiences.</p>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Write down three specific ways your current teaching practice already aligns with NEP 2020 principles. Then identify three areas where you need to grow to fully embody NEP's vision. This becomes the foundation of your professional development plan.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Teachers who deeply understand NEP 2020 become invaluable resources in their schools. Consider facilitating a brief session for colleagues on one NEP principle you find most transformative.</div>`
+  },
+  {title:"NCF 2023 Pedagogical Shifts",
+   body:`<p>The National Curriculum Framework 2023 (NCF 2023) translates the vision of NEP 2020 into concrete pedagogical principles and curriculum design guidance. It is the operational companion to NEP's philosophical foundations. For classroom teachers, NCF 2023 provides the most practical guidance on how to redesign daily instruction.</p>
+   <h4>The Five Stages: NIPUN to Secondary</h4>
+   <p>NCF 2023 organises learning across five stages — Foundational (ages 3–8), Preparatory (ages 8–11), Middle (ages 11–14), Secondary (ages 14–18), and Senior Secondary (ages 18–19+). Each stage has its own curriculum framework with distinct pedagogical emphasis. Teachers must understand not just their own stage but how it connects to the stages before and after — what competencies students arrive with and what they need to be prepared for.</p>
+   <h4>Key Pedagogical Shifts in NCF 2023</h4>
+   <ul>
+     <li><strong>From content delivery to competency development:</strong> The emphasis shifts from what is taught to what students can do with what they learn</li>
+     <li><strong>From textbook-centred to inquiry-centred learning:</strong> Textbooks become one resource among many; student questioning and investigation become central</li>
+     <li><strong>From uniform assessment to multidimensional evaluation:</strong> Assessment captures creativity, collaboration, communication, and critical thinking alongside content knowledge</li>
+     <li><strong>From subject silos to integrative understanding:</strong> Thematic connections across subjects are actively encouraged</li>
+     <li><strong>From teacher talk to student discourse:</strong> Classroom dialogue replaces unidirectional lecture</li>
+   </ul>
+   <h4>Experiential Learning as Core Methodology</h4>
+   <p>NCF 2023 places experiential learning — learning by doing, exploring, and reflecting — at the centre of good pedagogy. This includes hands-on activities, project-based learning, community engagement, and arts integration. For teachers in resource-constrained environments, this is an invitation to use the rich experiential resources available in local communities, natural environments, and cultural practices.</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Choose one recent lesson you taught. Map it against the NCF 2023 shifts listed above. Which shifts were evident in your lesson? Which were absent? What would the lesson look like if you incorporated one additional NCF shift?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Design a 5-minute classroom activity that embodies at least three of the NCF 2023 pedagogical shifts simultaneously. Consider: How does the activity develop competency? How does it involve inquiry? How does it integrate more than one subject domain?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> NCF 2023 alignment is increasingly being used as a framework for school quality reviews. Teachers who document their NCF-aligned practices create evidence that is valuable both for their own professional portfolios and for institutional accreditation.</div>`
+  },
+  {title:"Competency-Based Instruction",
+   body:`<p>Competency-based instruction represents a fundamental reorientation of teaching — from focusing on what is covered to focusing on what students can independently do. A competency is not a knowledge item to be memorised; it is an integrated ability to apply knowledge, skills, and values in authentic contexts. Designing competency-based instruction requires a significant shift in how teachers think about lesson goals, learning activities, and assessment.</p>
+   <h4>Understanding Competency Structures</h4>
+   <p>Each competency has three components that must be developed together: knowledge (the conceptual understanding), skills (the ability to perform), and dispositions (the attitudes and values that guide application). A competency is only authentic when all three components are present. A student who knows what photosynthesis is but cannot design an investigation into plant growth, and does not value scientific inquiry, has not developed genuine scientific competency.</p>
+   <ul>
+     <li><strong>Knowledge:</strong> Declarative understanding — facts, concepts, principles, theories</li>
+     <li><strong>Skills:</strong> Procedural ability — application, analysis, synthesis, evaluation, creation</li>
+     <li><strong>Dispositions:</strong> Attitudinal orientations — curiosity, persistence, empathy, ethical commitment</li>
+   </ul>
+   <h4>Designing Competency-Based Lessons</h4>
+   <p>The backward design model (Wiggins & McTighe) is the most effective framework for competency-based lesson design. Begin with the desired competency: what should students be able to do by the end of this lesson/unit? Then design assessment tasks that would demonstrate that competency. Finally, design learning experiences that build toward those assessment tasks.</p>
+   <p>This reverse-engineering approach ensures that every activity in the lesson serves the competency goal — eliminating activities that are engaging but pedagogically disconnected.</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Select one upcoming lesson. State its objective in competency terms: "By the end of this lesson, students will be able to [verb] [content] in [context]." Now examine your planned activities: Do all of them contribute directly to this competency? Are any activities present out of habit rather than necessity?</p></div>
+   <h4>Assessment in Competency-Based Instruction</h4>
+   <p>Traditional assessment measures recall. Competency-based assessment measures performance in authentic or near-authentic contexts. This means designing tasks where students must apply their learning: write a persuasive letter, design an experiment, solve an unfamiliar problem, create a product for a real audience, or evaluate competing arguments. The assessment task itself becomes the deepest learning experience.</p>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Review five recent assessment tasks you have given students. For each one, categorise it: Does it primarily test recall, understanding, application, or authentic competency demonstration? What would it take to shift one of these assessments to a higher category?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Competency-based instruction requires curriculum mapping — identifying which competencies are developed in which units, and ensuring all essential competencies receive adequate instructional time. This is a school-level leadership task that benefits from teacher collaboration.</div>`
+  },
+  {title:"Designing Conceptual Lessons",
+   body:`<p>Conceptual learning — the development of deep, transferable understanding — is the gold standard of teaching excellence. When students truly understand a concept (rather than merely memorising its definition), they can apply it in unfamiliar contexts, explain it in their own words, connect it to other ideas, and use it to generate new insights. Designing lessons that produce conceptual understanding requires a different kind of planning than designing lessons for content coverage.</p>
+   <h4>The Architecture of a Conceptual Lesson</h4>
+   <p>A conceptual lesson has five essential phases: Activation (connecting to prior knowledge), Engagement (creating cognitive dissonance or curiosity), Exploration (student-led investigation), Explanation (consolidating and naming the concept), and Elaboration (applying the concept in new contexts). This structure, adapted from the 5E instructional model, ensures that students construct understanding rather than receive it.</p>
+   <h4>Identifying the Core Concept</h4>
+   <p>Every great lesson is organised around one central conceptual understanding — not a topic, but an idea that can be expressed as a complete thought. "Photosynthesis" is a topic; "Plants convert light energy into chemical energy through a process that sustains almost all life on Earth" is a conceptual understanding. The more precisely a teacher can articulate the central concept, the more focused and effective the lesson design becomes.</p>
+   <ul>
+     <li>Identify the central concept before designing any activity</li>
+     <li>Express it as a complete sentence (a "big idea" or "enduring understanding")</li>
+     <li>Ensure all activities build toward this central understanding</li>
+     <li>Design the closing activity to surface whether students have reached the understanding</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Choose a topic you will teach in the next two weeks. Can you state its central conceptual understanding in a single sentence? Show this sentence to a colleague — does it capture the deepest, most transferable insight in the topic? Refine it together.</p></div>
+   <h4>Handling Misconceptions</h4>
+   <p>Conceptual lessons must anticipate and address common student misconceptions. Research in cognitive science shows that misconceptions are not absences of knowledge — they are alternative frameworks students have constructed through prior experience. Simply presenting correct information does not dislodge them; the teacher must create a learning experience that makes the misconception visible, tests it against evidence, and supports students in reconstructing their understanding.</p>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>For one upcoming lesson, list three common misconceptions students arrive with. For each, design a brief activity that surfaces the misconception and provides evidence that challenges it. This is the most cognitively demanding aspect of lesson design — and the most impactful.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Teachers who can articulate the central conceptual understanding of every lesson they teach are ready for curriculum leadership roles. This skill — identifying the essential learning within a topic — is the foundation of curriculum design, vertical alignment, and assessment development.</div>`
+  },
+  {title:"Formative Assessment Practices",
+   body:`<p>Formative assessment is perhaps the most powerful tool available to a classroom teacher. Unlike summative assessment (which measures what students have learned at the end of a unit), formative assessment provides real-time information about what students are understanding, misunderstanding, and struggling with — during the learning process, when the teacher can still do something about it.</p>
+   <h4>Why Formative Assessment Transforms Outcomes</h4>
+   <p>Research by Dylan Wiliam and colleagues demonstrates that regular, effective formative assessment produces greater learning gains than almost any other single instructional intervention. When teachers consistently check for understanding and use that information to adjust their instruction, students learn more deeply and retain knowledge longer. The key phrase is "use that information" — formative assessment only works when it informs teaching decisions, not merely when it generates marks.</p>
+   <h4>Core Formative Assessment Strategies</h4>
+   <ul>
+     <li><strong>Exit tickets:</strong> Brief written responses at the end of a lesson to three questions — one fact, one understanding, one application. Sorted by the teacher to plan the next lesson.</li>
+     <li><strong>Hinge questions:</strong> A single carefully designed question at the critical conceptual point of a lesson. Student responses reveal whether to proceed, reteach, or differentiate.</li>
+     <li><strong>Think-Pair-Share:</strong> Students formulate their own response, discuss with a partner, then share with the class. Provides information at three levels simultaneously.</li>
+     <li><strong>Whiteboards/Slates:</strong> Students write responses and hold up simultaneously — immediate class-wide visibility of understanding.</li>
+     <li><strong>Concept mapping:</strong> Students create visual representations of their understanding, revealing the connections (and gaps) they see between ideas.</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>In your most recent week of teaching, how many times did you use a strategy that gave you information about every student's understanding simultaneously? How did you use that information to adjust what you taught next? Be specific.</p></div>
+   <h4>Feedback as Formative Assessment</h4>
+   <p>The quality of feedback is what determines whether formative assessment produces learning. Effective feedback must be: specific (about a particular aspect of the work), timely (provided while the student can still act on it), forward-looking (pointing toward improvement rather than merely evaluating), and student-actionable (the student can do something with it without direct teacher intervention). Generic praise ("Good work!") or evaluation-only feedback ("7/10") fails all four criteria.</p>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Review five pieces of feedback you have given students in the past month. For each, assess: Was it specific? Was it timely? Was it forward-looking? Was it actionable? Calculate your "feedback quality score." What pattern do you notice?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Formative assessment literacy is a school-wide leadership priority. Teachers who develop expertise in this area are positioned to lead whole-school assessment reform — one of the most high-impact contributions a teacher-leader can make.</div>`
+  },
+  {title:"Higher-Order Questioning",
+   body:`<p>The questions a teacher asks during a lesson are among the most powerful determinants of the cognitive level at which students engage with content. Low-level questions (recall, identification, definition) produce low-level thinking. Higher-order questions — those requiring analysis, evaluation, and creation — produce the deep cognitive engagement that leads to lasting understanding and intellectual development.</p>
+   <h4>Bloom's Taxonomy as a Questioning Framework</h4>
+   <p>Bloom's revised taxonomy (Anderson & Krathwohl, 2001) provides a practical framework for categorising and elevating questioning. The six levels — Remember, Understand, Apply, Analyse, Evaluate, Create — represent a rough hierarchy of cognitive demand. While all levels have their place, research consistently shows that Indian classrooms are disproportionately weighted toward the first two levels, even at secondary and senior secondary stages.</p>
+   <h4>Characteristics of Higher-Order Questions</h4>
+   <ul>
+     <li>They have more than one defensible answer</li>
+     <li>They require students to use evidence to support a claim</li>
+     <li>They connect ideas across different domains or topics</li>
+     <li>They create genuine uncertainty — even the teacher may not know the "best" answer</li>
+     <li>They provoke student-to-student discussion rather than student-to-teacher exchange</li>
+   </ul>
+   <h4>Practical Questioning Techniques</h4>
+   <p>Effective higher-order questioning requires not just good questions but good questioning technique. Wait time — the silence between asking a question and accepting a response — is critical. Research shows most teachers wait less than one second; extending wait time to 3–5 seconds significantly increases the quality and quantity of student responses. Other techniques include Cold Calling (randomly selecting students rather than accepting volunteers), No Opt-Out (returning to a student who said "I don't know" after others have contributed), and Bounce (directing one student's answer back to another for evaluation).</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Record or have a colleague observe one of your lessons. Categorise every question you ask by Bloom's level. What percentage fall at analysis, evaluation, or creation level? What is the average wait time before you accept an answer? What does this data reveal about your questioning practice?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Choose one upcoming lesson and design exactly five questions for it: one at each of the top five Bloom's levels (Understand through Create). Script them precisely. Use all five during the lesson and note which produced the richest student thinking.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Higher-order questioning is one of the most observable and coachable aspects of teaching quality. Teachers who develop expertise in this area make excellent instructional coaches — able to help colleagues elevate their questioning practice through structured observation and feedback.</div>`
+  },
+  {title:"Classroom Dialogue & Engagement",
+   body:`<p>The quality of classroom dialogue — not just talk, but the substantive intellectual exchange between teacher and students, and among students themselves — is one of the most reliable indicators of classroom quality. When classrooms are characterised by rich dialogue, students develop language, reasoning, and the ability to consider multiple perspectives. When classrooms are dominated by teacher talk and recall-level exchanges, these capacities atrophy.</p>
+   <h4>The IRE Pattern and Its Limitations</h4>
+   <p>The most common pattern of classroom interaction is IRE: Initiation (teacher asks a question), Response (student answers), Evaluation (teacher judges the answer). This pattern, while efficient for checking factual recall, severely limits genuine intellectual exchange. It positions the teacher as the sole arbiter of truth, discourages student-to-student interaction, and produces passive rather than active learners.</p>
+   <h4>Towards Dialogic Teaching</h4>
+   <p>Robin Alexander's concept of dialogic teaching identifies five principles for productive classroom dialogue: collective (everyone contributes and is heard), reciprocal (participants respond to and build on each other's ideas), supportive (students feel safe to take intellectual risks), cumulative (the dialogue builds progressively rather than restating), and purposeful (directed toward specific learning goals).</p>
+   <ul>
+     <li>Use discussion protocols: Socratic seminar, fishbowl, structured academic controversy</li>
+     <li>Build in think time before discussion to ensure quality contributions</li>
+     <li>Teach students to respond to each other's ideas, not just to the teacher</li>
+     <li>Ask students to build on, challenge, or connect to previous contributions</li>
+     <li>Resist the urge to evaluate every student contribution — redirect and explore instead</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>In your classroom, who talks more — you or your students? In a typical 45-minute lesson, how many minutes of genuine student-to-student intellectual exchange occur? What structural changes to your lessons would increase this time significantly?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>In your next lesson, try this: after every student response, instead of evaluating it, ask another student "What do you think about what [Student Name] just said?" Track how this changes the energy and quality of classroom exchange.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Classroom dialogue is a school culture issue as much as an individual teacher issue. Schools that explicitly value and develop students' ability to engage in substantive intellectual discussion produce graduates who are significantly better prepared for higher education and civic life.</div>`
+  },
+  {title:"Inclusive Classroom Strategies",
+   body:`<p>Inclusion in education means more than physical presence — it means that every student, regardless of ability, background, learning style, or life experience, has access to meaningful, challenging, and supportive learning experiences. NCF 2023 and NEP 2020 both place inclusion at the centre of educational quality: a classroom is only as good as its commitment to the learning of its most marginalised student.</p>
+   <h4>Understanding the Dimensions of Diversity</h4>
+   <p>Inclusive practice requires teachers to be aware of the multiple dimensions of diversity present in every classroom: academic diversity (different levels of prior knowledge and learning pace), linguistic diversity (students whose home language differs from the language of instruction), socioeconomic diversity (different access to resources and stability outside school), disability diversity (students with physical, cognitive, or sensory differences), and cultural diversity (different value systems, communication styles, and ways of knowing).</p>
+   <h4>Universal Design for Learning (UDL)</h4>
+   <p>Universal Design for Learning provides the most comprehensive framework for inclusive instruction. UDL asks teachers to offer multiple means of: representation (presenting content in visual, auditory, and tactile forms), action and expression (allowing students to demonstrate learning in diverse ways), and engagement (connecting learning to diverse motivations and interests). When lessons are designed with UDL principles, they become more accessible to all students — not just those with identified needs.</p>
+   <ul>
+     <li>Provide content in multiple formats (visual diagrams, spoken explanation, hands-on models)</li>
+     <li>Offer varied ways to demonstrate learning (oral, written, visual, performance)</li>
+     <li>Create flexible grouping structures that change regularly</li>
+     <li>Connect content to students' cultural knowledge and lived experience</li>
+     <li>Use cooperative learning structures that create interdependence</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Think of the three students in your class who are most at risk of disengaging from learning. What do you know about the specific barriers each one faces? What does your current teaching do to address these specific barriers? What more could you do?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Audit your most recent unit of instruction against UDL principles. Did you offer multiple means of representation? Multiple means of expression? Multiple means of engagement? Identify the dimension where your inclusive practice is weakest and design one specific addition to address it.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Schools that excel at inclusion perform better overall — not in spite of attending to diverse needs but because of it. The practices that make learning accessible for the most challenged learners make it richer and more effective for everyone.</div>`
+  },
+  {title:"Differentiated Instruction",
+   body:`<p>Differentiated instruction is the practice of adjusting content, process, product, and learning environment to match the diverse readiness levels, learning profiles, and interests of students. It is the practical operationalisation of the belief that all students deserve access to challenging, engaging learning — and that access requires teachers to respond thoughtfully to student differences rather than teaching to an imaginary "average" student.</p>
+   <h4>The Four Dimensions of Differentiation</h4>
+   <ul>
+     <li><strong>Content differentiation:</strong> Adjusting what students learn (compacting for advanced learners, providing scaffolded prerequisite content for those who need it)</li>
+     <li><strong>Process differentiation:</strong> Adjusting how students engage with content (varying the complexity of tasks, the degree of scaffolding, the level of abstraction)</li>
+     <li><strong>Product differentiation:</strong> Adjusting how students demonstrate learning (choice of format, level of complexity, degree of independence)</li>
+     <li><strong>Environment differentiation:</strong> Adjusting the physical and social classroom environment to support different working styles</li>
+   </ul>
+   <h4>Practical Differentiation in Large Classes</h4>
+   <p>Many teachers in India manage classes of 40–60 students, making individualised differentiation feel impossibly demanding. The key is tiered differentiation — designing three versions of core learning tasks (foundational, standard, extended) that address the same essential understanding at different levels of complexity and abstraction. Students work at the level that provides appropriate challenge without frustration.</p>
+   <p>Flexible grouping is another essential tool: regrouping students regularly based on specific skill needs rather than maintaining fixed "ability groups" that calcify into permanent hierarchies. Groups that change every two or three weeks prevent the social stigma associated with permanent low tracks.</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>In your most recent lesson, what proportion of students were working at an appropriate level of challenge — not too easy, not too frustrating? What does this tell you about the degree to which your current instruction is differentiated? What is one concrete change you could make to increase appropriate challenge for more students?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Take one upcoming assignment and design three tiered versions: a foundational version (scaffolded, concrete, step-by-step), a standard version (moderate complexity, some scaffolding), and an extended version (high complexity, open-ended, student-directed). The core learning objective should be the same across all three tiers.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Differentiated instruction requires significant preparation time, which is why it benefits from collaborative planning. Teachers who work together to design tiered materials and share the planning load make differentiation sustainable — and model the collaborative professional culture NEP 2020 envisions.</div>`
+  },
+  {title:"Feedback as Growth Engine",
+   body:`<p>Among all the factors within a teacher's direct control, the quality of feedback may have the most significant impact on student learning growth. Hattie's synthesis of over 800 meta-analyses identifies feedback as having an effect size of 0.73 — nearly double the average effect of educational interventions. Yet most feedback in classrooms is either insufficient (a single mark or grade), evaluative rather than developmental, or provided too late to influence the learning it was meant to address.</p>
+   <h4>The GROWTH Feedback Framework</h4>
+   <ul>
+     <li><strong>G — Goal-referenced:</strong> Feedback is tied to specific learning objectives</li>
+     <li><strong>R — Regular:</strong> Provided frequently throughout the learning process</li>
+     <li><strong>O — Observable:</strong> Focuses on specific, visible aspects of the work</li>
+     <li><strong>W — Worthwhile:</strong> Addresses the most significant growth opportunity, not every error</li>
+     <li><strong>T — Timely:</strong> Provided while the learning is still live and actionable</li>
+     <li><strong>H — Hopeful:</strong> Communicated in a way that builds confidence and agency</li>
+   </ul>
+   <h4>Student Self and Peer Feedback</h4>
+   <p>The most scalable and arguably most powerful form of feedback is peer feedback — students evaluating each other's work against clear criteria. When students give and receive peer feedback, they internalise quality standards, develop critical evaluation skills, and expand their capacity for self-regulation. This does not diminish the teacher's role but amplifies the feedback bandwidth available in any classroom.</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Recall a piece of feedback you gave a student that genuinely changed their performance. What made that feedback effective? What conditions were present? How can you replicate those conditions more systematically across all your feedback interactions?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Pilot a "feedback protocol" in your next assessment cycle. Return student work with: one specific strength (evidence-based), one specific growth opportunity (growth-language), and one actionable next step. Ask students to act on the feedback before submitting a revised version. Measure whether the revision shows growth.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> A school-wide feedback culture — where all teachers use consistent, high-quality feedback practices — multiplies individual teacher impact exponentially. Leading a workshop on feedback quality is one of the highest-leverage professional contributions an expert teacher can make.</div>`
+  },
+  {title:"Reflective Teaching Practice",
+   body:`<p>Reflective teaching — the systematic, critical examination of one's own practice — is the engine of continuous professional growth. Teachers who reflect regularly on their teaching do not simply accumulate years of experience; they accumulate years of learning. The difference between a teacher with 20 years of experience and a teacher who has had the same year of experience 20 times is the quality and consistency of their reflective practice.</p>
+   <h4>What Reflection Is (and Is Not)</h4>
+   <p>Genuine reflection is not rumination (going over what went wrong without producing insight) or self-criticism (internal negative evaluation without forward movement). It is a structured process of: describing what happened (What did I do? What did students do?), analysing why it happened (What underlying factors explain this outcome?), evaluating (What was effective? What was not? What does the evidence say?), and planning (What will I do differently next time?). This cycle, repeated consistently, transforms experience into expertise.</p>
+   <h4>Structured Reflection Tools</h4>
+   <ul>
+     <li><strong>Teaching journals:</strong> Daily or weekly written reflections on specific lessons, incidents, or patterns</li>
+     <li><strong>Lesson study:</strong> Collaborative observation and analysis of a co-planned lesson</li>
+     <li><strong>Video analysis:</strong> Recording a lesson and reviewing specific aspects with a clear analytical framework</li>
+     <li><strong>Student feedback surveys:</strong> Regular anonymous input from students on what is helping their learning</li>
+     <li><strong>Portfolio documentation:</strong> Collecting artefacts (lesson plans, student work, feedback) with reflective commentary</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>When did you last look at a specific aspect of your teaching with genuine critical curiosity — not to confirm what you already believe but to discover something you did not know? What did you discover? How did it change your practice?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Commit to writing a 100-word teaching reflection every day for the next two weeks. Focus each entry on one specific teaching decision: What did you decide? Why? What happened as a result? What would you change? After two weeks, read all 14 entries and identify the three most significant patterns in your practice.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Reflective teachers naturally become mentors — because they have developed the habit of analysing teaching practice and can articulate what they observe and why it matters. Sharing your reflective practice openly with colleagues models the intellectual humility that characterises truly excellent educators.</div>`
+  },
+  {title:"Mentoring & Peer Observation",
+   body:`<p>Professional growth is rarely a solitary endeavour. Research consistently shows that the most significant professional learning occurs in collaborative contexts — when teachers observe each other teach, discuss what they see with precision and care, and collectively develop their practice. Mentoring and peer observation are not add-ons to professional development; they are the most powerful forms of it available.</p>
+   <h4>The Mentoring Relationship</h4>
+   <p>Effective mentoring is a structured professional relationship in which a more experienced practitioner supports a less experienced one in developing specific competencies and professional identity. It is not supervision (evaluation against external standards) or counselling (emotional support without professional focus). A good mentor maintains a dual focus: on the mentee's development and on student outcomes — always asking, "How does this mentee's growth ultimately benefit the students they teach?"</p>
+   <h4>The Observation Cycle</h4>
+   <p>Effective peer observation follows a three-stage cycle: pre-observation conference (the observing teacher and the observed teacher discuss the lesson plan, the specific focus for observation, and the data the observer will collect), observation (the observer collects specific, non-evaluative data on the agreed focus), and post-observation conference (a structured discussion of the evidence collected, leading to specific professional commitments).</p>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>When did you last invite a trusted colleague to observe your teaching with a specific analytical focus? What prevented you from doing so more recently? What would need to change — practically or culturally — for peer observation to become a regular part of your professional practice?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Schools that establish peer observation as a regular, non-evaluative professional practice show consistently stronger teacher development outcomes. A teacher-leader who champions this culture — by being the first to open their classroom and model reflective discussion — can catalyse school-wide transformation.</div>`
+  },
+  {title:"Professional Ethics",
+   body:`<p>Professional ethics in teaching encompasses far more than following rules or avoiding misconduct. At its deepest level, it is the commitment to act always in the best educational and developmental interests of students — even when that is uncomfortable, inconvenient, or professionally costly. An ethical teacher is not merely compliant; they are a moral agent who takes responsibility for the quality and integrity of their professional practice.</p>
+   <h4>Core Ethical Principles for Teachers</h4>
+   <ul>
+     <li><strong>Fidelity to student learning:</strong> Every professional decision is evaluated against its impact on student development</li>
+     <li><strong>Non-maleficence:</strong> Actively avoiding practices that harm students' self-concept, motivation, or wellbeing</li>
+     <li><strong>Justice:</strong> Ensuring equitable access to learning opportunities regardless of student background</li>
+     <li><strong>Honesty:</strong> Truthfulness in assessment, professional claims, and communication with families</li>
+     <li><strong>Respect for autonomy:</strong> Supporting students in developing their own thinking and judgment</li>
+     <li><strong>Professional solidarity:</strong> Maintaining collegial relationships while refusing to collude in unethical practices</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Have you ever faced a professional situation where doing the ethical thing required personal courage or professional risk? How did you respond? What did that experience reveal about your professional values and your capacity for ethical action under pressure?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Ethical teachers become ethical schools. When teacher-leaders model ethical decision-making — particularly in difficult situations — they build the institutional culture that protects students and elevates the profession.</div>`
+  },
+  {title:"Data-Informed Instruction",
+   body:`<p>Data-informed instruction is the practice of systematically collecting, analysing, and acting on evidence about student learning to make better teaching decisions. It is distinct from data-driven instruction, which implies mechanical compliance with numerical outputs. The word "informed" is deliberate: data provides input to teacher professional judgment, not a substitute for it.</p>
+   <h4>Types of Instructional Data</h4>
+   <ul>
+     <li><strong>Assessment data:</strong> Performance on quizzes, tests, assignments, exit tickets</li>
+     <li><strong>Observation data:</strong> Teacher observations of student engagement, confusion, and mastery during instruction</li>
+     <li><strong>Student self-report data:</strong> Student ratings of their own confidence, confusion, and effort</li>
+     <li><strong>Work sample data:</strong> Analysis of specific errors and misconceptions in student work</li>
+     <li><strong>Attendance and participation data:</strong> Patterns in who is and isn't engaging</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>What specific data did you use last week to make a teaching decision? Be as concrete as possible. What did the data show? What decision did it inform? What would you have done differently without this data?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Data literacy is increasingly a teacher leadership competency. Teachers who can help colleagues collect, interpret, and act on student learning data are positioned for curriculum coordinator, HOD, and instructional coach roles.</div>`
+  },
+  {title:"Integrating Experiential Learning",
+   body:`<p>Experiential learning — the process of learning through direct experience, reflection on that experience, and conceptualisation of principles from it — is the pedagogical approach most deeply aligned with how human beings naturally learn. John Dewey's foundational insight that "education is not preparation for life; education is life itself" points toward the classroom as a space where authentic, consequential experience is the primary vehicle for learning.</p>
+   <h4>Kolb's Experiential Learning Cycle</h4>
+   <p>David Kolb's model describes experiential learning as a four-stage cycle: Concrete Experience (doing something, having an experience), Reflective Observation (stepping back and observing the experience), Abstract Conceptualisation (forming principles or theories from the observation), and Active Experimentation (applying those principles in new contexts). Effective experiential lessons move students through all four stages, not just the first.</p>
+   <ul>
+     <li>Design activities that create genuine, first-hand experience (experiments, simulations, role-plays, projects)</li>
+     <li>Build in structured reflection time after every experiential activity</li>
+     <li>Guide students to extract transferable principles from their experience</li>
+     <li>Create opportunities to apply those principles in new, varied contexts</li>
+     <li>Use the local environment (Kashmir's natural landscape, cultural heritage) as a learning laboratory</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>In which of your recent lessons did students have the most direct, first-hand engagement with the content being studied? What was the quality of the reflection and conceptualisation that followed? How might you design the experiential element of more lessons you teach regularly?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Experiential learning requires teachers to relinquish some control over the learning process — a professionally demanding shift. Teachers who develop this capacity and can support colleagues in doing the same are advancing a transformational cultural shift in their schools.</div>`
+  },
+  {title:"Technology with Pedagogical Purpose",
+   body:`<p>Technology in education has been both enormously overpromised and enormously underutilised. The research on technology's impact on learning is mixed — sometimes positive, sometimes neutral, sometimes negative — because technology's impact depends entirely on how it is used pedagogically. A poorly designed digital activity produces worse learning than a well-designed non-digital one. Technology should serve learning; learning should not serve technology.</p>
+   <h4>The SAMR Model for Technology Integration</h4>
+   <p>The SAMR model (Substitution, Augmentation, Modification, Redefinition) provides a framework for evaluating the quality of technology integration. At the substitution level, technology replaces a traditional tool with no functional change. At the redefinition level, technology enables the creation of new tasks previously inconceivable without it. Most classroom technology use sits at the bottom two levels; the goal is to move toward modification and redefinition.</p>
+   <ul>
+     <li>Ask "What does this technology enable that was not possible before?" before integrating it</li>
+     <li>Use technology to extend student reach beyond the classroom (collaboration, research, publication)</li>
+     <li>Use technology to personalise learning (adaptive practice, differentiated resources)</li>
+     <li>Use technology to make abstract concepts visible (simulations, visualisations, models)</li>
+     <li>Critically evaluate technology's impact on attention, depth of processing, and social development</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Review the last time you used technology in your classroom. Where on the SAMR model would you place that use? What would it look like to move it one level higher? Is there a case for removing the technology altogether and using a more effective non-digital approach?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> The most valuable technology leadership role for a teacher is helping colleagues develop critical frameworks for evaluating technology — not simply promoting adoption but developing the professional judgment to use technology purposefully, selectively, and effectively.</div>`
+  },
+  {title:"Teacher Leadership & Influence",
+   body:`<p>Teacher leadership is the exercise of influence beyond the classroom — not through formal authority but through expertise, credibility, and the willingness to take responsibility for something larger than one's own students. NEP 2020 explicitly envisions teachers as leaders of educational reform, not merely recipients of it. A teacher who influences only the 40 students in their classroom makes a significant contribution; a teacher who influences the professional practice of 10 colleagues makes a contribution 10 times larger.</p>
+   <h4>Forms of Teacher Leadership</h4>
+   <ul>
+     <li><strong>Curricular leadership:</strong> Leading the design and alignment of curriculum within a subject area or across grades</li>
+     <li><strong>Instructional coaching:</strong> Supporting colleagues in developing specific teaching practices through observation and feedback</li>
+     <li><strong>Professional development facilitation:</strong> Designing and delivering professional learning for colleagues</li>
+     <li><strong>Community engagement:</strong> Building relationships between the school and the wider community</li>
+     <li><strong>Policy advocacy:</strong> Contributing to educational policy development through professional associations and government consultations</li>
+     <li><strong>Research and publication:</strong> Documenting and sharing classroom-based research that contributes to the professional knowledge base</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Where in your school and professional community do you currently exercise leadership influence? What is one additional form of teacher leadership that aligns with your strengths and interests? What would it take — specifically — to step into that role in the next six months?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> The most powerful teacher leaders are those who systematically develop other teacher leaders — who build the capacity of their colleagues to lead, rather than accumulating influence for themselves. This multiplier approach is the foundation of sustainable educational transformation.</div>`
+  },
+  {title:"Avoiding Burnout & Maintaining Purpose",
+   body:`<p>Teaching is one of the most emotionally and cognitively demanding professions in existence. Teachers make hundreds of complex professional decisions every day, manage the social and emotional needs of dozens of young people simultaneously, and carry the weight of their students' futures in their professional consciousness. Without deliberate strategies for sustainability, many teachers experience burnout — a state of chronic exhaustion, cynicism, and reduced efficacy that harms both the teacher and their students.</p>
+   <h4>Understanding Burnout in Teaching</h4>
+   <p>Burnout has three dimensions: emotional exhaustion (feeling drained and depleted by the demands of the work), depersonalisation (developing a detached or cynical stance toward students and colleagues), and reduced personal accomplishment (losing the sense that one's work is making a meaningful difference). Teachers in India face particular burnout risks: large class sizes, high administrative load, insufficient professional autonomy, and limited systemic recognition of the complexity of teaching work.</p>
+   <h4>Evidence-Based Strategies for Sustainability</h4>
+   <ul>
+     <li><strong>Purpose clarity:</strong> Regularly reconnecting with the deep "why" of teaching — the vision of what students can become through your work</li>
+     <li><strong>Professional community:</strong> Maintaining relationships with colleagues who understand the demands of teaching and provide mutual support</li>
+     <li><strong>Autonomy and mastery:</strong> Actively seeking areas of professional practice where you have genuine expertise and creative control</li>
+     <li><strong>Recovery rituals:</strong> Developing deliberate practices (exercise, creative work, contemplative practice) that restore energy rather than merely reduce it</li>
+     <li><strong>Boundary protection:</strong> Establishing clear professional boundaries that protect personal time and recovery</li>
+     <li><strong>Celebrating progress:</strong> Systematically noticing and marking student growth and professional achievement</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>On a scale of 1–10, how energised and purposeful do you currently feel about your teaching? What is the single factor most undermining your professional energy? What is one concrete action you could take this week to address it?</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> Teacher wellbeing is a school leadership responsibility, not just an individual one. Teacher-leaders who advocate for structural changes that support sustainable practice — reasonable workloads, collaborative planning time, professional recognition — are making a leadership contribution of lasting value.</div>`
+  },
+  {title:"Designing a Career of Excellence",
+   body:`<p>A career of teaching excellence is not an accident — it is designed. The teachers who look back after 20 or 30 years with deep professional satisfaction and a sense of having made a lasting impact are those who approached their career with intentionality: setting long-term professional goals, seeking out developmental experiences aligned with those goals, building relationships that supported their growth, and consistently reflecting on the quality of their impact.</p>
+   <h4>The Architecture of a Teaching Career</h4>
+   <p>A teaching career can be understood in three phases: Foundation (the first 3–5 years, focused on developing basic teaching competencies and professional identity), Development (years 5–15, focused on deepening expertise, extending influence, and taking on leadership roles), and Mastery (years 15+, focused on mentoring, knowledge creation, and systemic impact). Each phase requires different development strategies and different forms of professional support.</p>
+   <h4>Career Development Planning</h4>
+   <ul>
+     <li>Write a 5-year professional vision: Where do you want to be? What do you want to be known for?</li>
+     <li>Identify the 3–5 competencies you need to develop to realise that vision</li>
+     <li>Map the experiences, relationships, and learning opportunities that will build those competencies</li>
+     <li>Create a 12-month action plan with specific milestones</li>
+     <li>Build in quarterly review points to assess progress and adjust the plan</li>
+     <li>Find a mentor who has walked the path you want to walk</li>
+   </ul>
+   <div class="reflection-box"><div class="rb-title">🪞 Reflection Prompt</div><p>Imagine yourself at the end of your teaching career, looking back. What do you most want to have achieved? What do you want colleagues and former students to say about your contribution? Does your current professional life align with this vision? If not, what needs to change?</p></div>
+   <div class="self-eval"><div class="se-title">📝 Self-Evaluation Exercise</div><p>Write your professional vision statement — 100 words that capture what you most deeply want your teaching career to stand for. Read it every morning for one month. Notice how it changes your daily professional decisions.</p></div>
+   <div class="leadership-note">🌟 <strong>Leadership Note:</strong> The greatest contribution a teacher-leader can make to their profession is to develop the next generation of teacher-leaders — to be, for others, the mentor whose guidance they themselves needed at the beginning of their career. This is the deepest form of professional legacy.</div>`
+  }
+];
+
+const SIMULATION_SCENARIOS=[
+  {id:'low-engage',icon:'😴',name:'Low Engagement Class',desc:'Students appear disinterested; minimal participation; frequent off-task behaviour'},
+  {id:'mixed-ability',icon:'🌈',name:'Mixed Ability Classroom',desc:'Wide gap between high and low performing students; hard to pitch lessons'},
+  {id:'syllabus-pressure',icon:'⏱️',name:'High Syllabus Pressure',desc:'Too much content, too little time; depth vs breadth tension'},
+  {id:'assessment-reform',icon:'📝',name:'Assessment Reform',desc:'Transitioning from rote tests to competency-based assessment amid resistance'}
+];
+
+const STRATEGIES=['Inquiry-Based Learning','Direct Instruction','Cooperative Groups','Differentiated Tasks','Gamification','Socratic Dialogue'];
+
+const ETHICS_SCENARIOS=[
+  {q:'A senior colleague asks you to inflate a student\'s grade to prevent parental complaint. What do you do?',choices:['Comply to avoid conflict','Discuss with colleague about ethics','Report to principal immediately','Explain to parent why grade is accurate'],best:3,feedback:'Maintaining assessment integrity is foundational to professional ethics. The correct action is to engage the parent directly with evidence of the student\'s performance, maintaining both accuracy and dignity.'},
+  {q:'You discover a student from a disadvantaged background is being excluded by peers during group activities. How do you respond?',choices:['Ignore to avoid escalating','Redesign grouping structures','Speak privately to excluding students','Report to counsellor only'],best:1,feedback:'Redesigning structural conditions that enable exclusion is the most systemic and effective response. This addresses the root cause rather than merely managing symptoms.'},
+  {q:'Administrative pressure asks you to prioritise exam results over genuine learning. How do you navigate this?',choices:['Fully comply','Teach to the test exclusively','Integrate deep learning within exam preparation','Openly defy administration'],best:2,feedback:'The most professionally sophisticated response is to design instruction that achieves both: genuine conceptual understanding that also produces strong examination performance. This requires skilled lesson design, not compromise.'}
+];
+
+const CPD_WEIGHTS={workshop:3,skill:2.5,reflection:2,peer:2.5,reading:1.5,observation:2};
+
+// ── LocalStorage helpers
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+
+let state={
+  assessScores: load('assessScores',null),
+  cpdEntries: load('cpdEntries',[]),
+  growthFocus: load('growthFocus',''),
+  lessonData: load('lessonData',null)
+};
+
+// ── Screen navigation
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('topnav').style.display='flex';
+  window.scrollTo(0,0);
+  if(id==='foundations') renderFoundationsIndex();
+  if(id==='dashboard') renderDashboard();
+  if(id==='cpd') renderCPDList();
+  if(id==='report') renderReport();
+  if(id==='ethics') renderEthics();
+  if(id==='simulation') renderSimulation();
+  if(id==='self-assess') restoreAssessment();
+}
+function goHome(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('home').classList.add('active');
+  document.getElementById('topnav').style.display='none';
+  updateHomeStats();
+  window.scrollTo(0,0);
+}
+
+// ── Toast
+function showToast(msg='✓ Saved'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ── Update home stats
+function updateHomeStats(){
+  const sc=load('assessScores',null);
+  document.getElementById('stat-iq').textContent=sc?sc.iqi+'%':'–';
+  document.getElementById('stat-pg').textContent=calcPGI().toFixed(1);
+  document.getElementById('stat-cpd').textContent=load('cpdEntries',[]).length;
+}
+
+// ══════════════════════════════════════════
+//  FOUNDATIONS
+// ══════════════════════════════════════════
+function renderFoundationsIndex(){
+  const idx=document.getElementById('foundationsIndex');
+  idx.innerHTML=FOUNDATIONS_DATA.map((p,i)=>`
+    <div class="page-card" onclick="showPage(${i})">
+      <div class="pg-num">${i+1}</div>
+      <div class="pg-title">${p.title}</div>
+    </div>`).join('');
+  document.getElementById('foundationsContent').innerHTML='';
+}
+
+function showPage(i){
+  const p=FOUNDATIONS_DATA[i];
+  document.getElementById('foundationsIndex').style.display='none';
+  const c=document.getElementById('foundationsContent');
+  c.innerHTML=`
+    <button class="back-btn" onclick="backToIndex()">← Back to All Pages</button>
+    <div class="page-content active">
+      <h3>${i+1}. ${p.title}</h3>
+      ${p.body}
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+function backToIndex(){
+  document.getElementById('foundationsIndex').style.display='grid';
+  document.getElementById('foundationsContent').innerHTML='';
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════════
+//  SELF ASSESSMENT
+// ══════════════════════════════════════════
+function updateSlider(el){
+  const num=el.id.replace('s','');
+  document.getElementById('v'+num).textContent=el.value;
+}
+
+function restoreAssessment(){
+  const sc=load('assessScores',null);
+  if(!sc) return;
+  // restore sliders
+  for(let i=1;i<=15;i++){
+    const el=document.getElementById('s'+i);
+    if(el&&sc.raw&&sc.raw[i-1]){el.value=sc.raw[i-1];document.getElementById('v'+i).textContent=sc.raw[i-1]}
+  }
+  showAssessResults(sc);
+}
+
+function calcAssessment(){
+  const vals=[];
+  for(let i=1;i<=15;i++) vals.push(parseInt(document.getElementById('s'+i).value));
+  
+  const clarity=Math.round((vals[0]+vals[1]+vals[2])/3*10);
+  const depth=Math.round((vals[3]+vals[4]+vals[5])/3*10);
+  const engage=Math.round((vals[6]+vals[7]+vals[8])/3*10);
+  const questioning=Math.round((vals[9]+vals[10]+vals[11])/3*10);
+  const assessment=Math.round((vals[12]+vals[13]+vals[14])/3*10);
+  
+  // Weighted IQI: clarity 20%, depth 25%, engage 20%, questioning 20%, assessment 15%
+  const iqi=Math.round(clarity*0.20+depth*0.25+engage*0.20+questioning*0.20+assessment*0.15);
+  
+  const sc={iqi,clarity,depth,engage,questioning,assessment,raw:vals};
+  save('assessScores',sc);
+  state.assessScores=sc;
+  showAssessResults(sc);
+  showToast('✓ Assessment saved');
+}
+
+function showAssessResults(sc){
+  document.getElementById('assessResults').style.display='block';
+  document.getElementById('iqi-val').textContent=sc.iqi;
+  document.getElementById('iqi-ring').style.setProperty('--pct',sc.iqi+'%');
+  document.getElementById('sc-clarity').textContent=sc.clarity+'%';
+  document.getElementById('sc-depth').textContent=sc.depth+'%';
+  document.getElementById('sc-engage').textContent=sc.engage+'%';
+  document.getElementById('sc-assess').textContent=sc.assessment+'%';
+  
+  let fb='';
+  const lowest=Math.min(sc.clarity,sc.depth,sc.engage,sc.assessment);
+  if(sc.iqi>=80) fb='🌟 Excellent instructional profile! Your teaching demonstrates strong alignment with NEP 2020 competencies. Focus on sustaining this quality while sharing your expertise with colleagues.';
+  else if(sc.iqi>=60) fb='✅ Solid foundation with clear growth areas. You are developing as an effective teacher. Prioritise the dimension with your lowest score for your next CPD cycle.';
+  else if(sc.iqi>=40) fb='📈 Emerging practice with significant growth opportunities. Use the Growth Planner to build a focused development pathway. Every dimension below 60% represents a high-impact improvement target.';
+  else fb='🌱 Early stage practice — excellent self-awareness to identify current gaps. Begin with Classroom Dialogue and Formative Assessment as foundational competencies that unlock improvement across all other dimensions.';
+  
+  document.getElementById('assessFeedback').innerHTML=fb;
+  document.getElementById('assessResults').scrollIntoView({behavior:'smooth'});
+}
+
+// ══════════════════════════════════════════
+//  GROWTH PLANNER
+// ══════════════════════════════════════════
+let selectedFocus='';
+function selectFocus(btn){
+  document.querySelectorAll('.focus-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedFocus=btn.dataset.focus;
+}
+
+const PLANS={
+  assessment:{title:'Assessment Design Mastery',
+    m1:['Study formative assessment research (Wiliam & Leahy)','Design 5 exit ticket templates for your main subjects','Pilot hinge questions in at least 3 lessons','Peer observation: observe a colleague with strong assessment practices'],
+    m2:['Develop a tiered rubric for one major unit','Train students in peer feedback protocols','Create a class data wall to track formative assessment trends','Present one learning review to your HOD'],
+    m3:['Design a portfolio assessment task for one unit','Lead a 30-minute departmental session on formative assessment','Document and evaluate your assessment practice over the term'],
+    checklist:['I use at least one formative check per lesson','I adjust my teaching based on assessment data','I provide specific, forward-looking feedback','I involve students in self and peer assessment']
+  },
+  questioning:{title:'Higher-Order Questioning Mastery',
+    m1:['Map Bloom\'s taxonomy to your upcoming unit topics','Script 5 higher-order questions per lesson (minimum 2 weeks)','Practice wait time extension (3-5 seconds minimum)','Record one lesson and analyse your questioning pattern'],
+    m2:['Introduce Socratic seminar to one class','Train students in academic discussion protocols','Design "hinge" questions for critical lesson moments','Collaborate with a colleague to review question quality'],
+    m3:['Facilitate a student-led Socratic seminar','Create a questioning toolkit for your subject area','Present your questioning development journey to colleagues'],
+    checklist:['My questions require reasoning, not just recall','I use adequate wait time before accepting answers','Students respond to each other, not just to me','I design questions before each lesson, not spontaneously']
+  },
+  management:{title:'Classroom Management Excellence',
+    m1:['Audit your current classroom routines and transitions','Implement one clear, consistent procedure for each transition','Design a positive behaviour recognition system','Read: The First Days of School (Wong & Wong)'],
+    m2:['Build class norms collaboratively with students','Develop a non-verbal cueing system','Create a restorative conversation protocol for conflicts','Observe a colleague with exemplary management practice'],
+    m3:['Evaluate the impact of your changed procedures on learning time','Share your management toolkit with colleagues','Develop a whole-class social contract for the next academic year'],
+    checklist:['Transitions are smooth and take under 2 minutes','Expectations are explicit, consistent, and reinforced positively','I address behaviour before it escalates','Students know routines without being told each time']
+  },
+  inclusive:{title:'Inclusive Teaching Excellence',
+    m1:['Conduct a class profile: identify every learner\'s specific strengths and challenges','Learn UDL principles and apply to one upcoming unit','Design one lesson with three-tier differentiation','Reach out to the family of one at-risk student'],
+    m2:['Implement flexible grouping structures across two weeks','Create a multilingual word wall for key concepts','Design assessment alternatives for 3 different learning profiles','Collaborate with special educator if available'],
+    m3:['Document case studies of 3 students who showed growth through inclusive strategies','Lead a staff development session on UDL principles','Advocate for one structural change that would improve inclusion in your school'],
+    checklist:['I know each student\'s specific learning strengths and challenges','My lessons offer multiple ways to access content','Assessment allows multiple modes of expression','No student is consistently excluded from meaningful participation']
+  },
+  experiential:{title:'Experiential Pedagogy Mastery',
+    m1:['Map your term topics to possible experiential activities','Design one field study or community engagement activity','Pilot one inquiry-based investigation (science or social studies focus)','Study Kolb\'s Experiential Learning Cycle'],
+    m2:['Implement project-based learning for one unit','Design structured reflection tools to follow each experiential activity','Connect one lesson to local community knowledge or environment','Document student engagement and learning in experiential lessons'],
+    m3:['Present an experiential learning unit design at a staff meeting','Propose one regular school-community partnership activity','Create a guide for colleagues on implementing experiential learning in your subject'],
+    checklist:['Students have hands-on, first-hand engagement with key content','Structured reflection follows every experiential activity','I connect learning to students\' local environment and community','Students apply learning in authentic contexts, not just test conditions']
+  },
+  technology:{title:'Technology Integration with Pedagogical Purpose',
+    m1:['Audit your current technology use against the SAMR model','Identify one topic where technology can reach modification/redefinition level','Explore one digital tool for student collaboration or inquiry','Read research on effective technology integration (not vendor materials)'],
+    m2:['Implement one student digital project with real audience publication','Use technology for differentiated practice with immediate feedback','Develop digital literacy skills alongside subject content','Evaluate student learning with and without technology'],
+    m3:['Lead a staff session on pedagogically-purposeful technology use','Design a technology integration guideline for your department','Create a digital portfolio process for student learning documentation'],
+    checklist:['Technology is used because it enables something not otherwise possible','Students create with technology, not just consume through it','Technology use is evaluated for its learning impact','Digital literacy is explicitly taught alongside subject content']
+  }
+};
+
+function generatePlan(){
+  if(!selectedFocus){showToast('⚠ Please select a focus area');return;}
+  const plan=PLANS[selectedFocus];
+  if(!plan) return;
+  save('growthFocus',selectedFocus);
+  const out=document.getElementById('planOutput');
+  out.innerHTML=`
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem">📋 ${plan.title} — 3-Month CPD Roadmap</h3>
+    <div class="month-block">
+      <h4>Month 1: Foundation Building</h4>
+      ${plan.m1.map(t=>`<div class="task-item">${t}</div>`).join('')}
+    </div>
+    <div class="month-block">
+      <h4>Month 2: Deep Practice</h4>
+      ${plan.m2.map(t=>`<div class="task-item">${t}</div>`).join('')}
+    </div>
+    <div class="month-block">
+      <h4>Month 3: Leadership & Documentation</h4>
+      ${plan.m3.map(t=>`<div class="task-item">${t}</div>`).join('')}
+    </div>
+    <div class="divider"></div>
+    <h4 style="color:var(--gold2);margin-bottom:.6rem">📋 Observation & Practice Checklist</h4>
+    ${plan.checklist.map((c,i)=>`<label class="checklist-item"><input type="checkbox" id="chk${i}" onchange="savePlanCheck()"> ${c}</label>`).join('')}
+    <div style="margin-top:1rem;padding:.8rem;background:rgba(200,168,75,.06);border-radius:8px;font-size:.8rem;color:var(--gray)">
+      📌 Tip: Log each completed activity in the CPD Tracker to build your Professional Growth Index.
+    </div>`;
+  out.classList.add('show');
+  out.scrollIntoView({behavior:'smooth'});
+  showToast('✓ Growth plan generated');
+}
+
+function savePlanCheck(){
+  const checks=[];
+  document.querySelectorAll('[id^="chk"]').forEach(c=>checks.push(c.checked));
+  save('planChecks',checks);
+}
+
+// ══════════════════════════════════════════
+//  SIMULATION
+// ══════════════════════════════════════════
+let selScenario=null, selStrategy=null;
+
+function renderSimulation(){
+  const sc=document.getElementById('scenarioCards');
+  sc.innerHTML=SIMULATION_SCENARIOS.map(s=>`
+    <div class="sc-card" id="sc-${s.id}" onclick="selectScenario('${s.id}')">
+      <div class="sc-icon">${s.icon}</div>
+      <div class="sc-name">${s.name}</div>
+      <div class="sc-desc">${s.desc}</div>
+    </div>`).join('');
+  document.getElementById('strategySection').style.display='none';
+  document.getElementById('simResults').classList.remove('show');
+  selScenario=null;selStrategy=null;
+}
+
+function selectScenario(id){
+  document.querySelectorAll('.sc-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('sc-'+id).classList.add('selected');
+  selScenario=id;
+  const ss=document.getElementById('strategySection');
+  ss.style.display='block';
+  ss.innerHTML=`<h4 style="color:var(--gold2);margin:.8rem 0 .3rem">Choose Your Pedagogical Strategy:</h4>
+    <div class="strategy-row">${STRATEGIES.map((s,i)=>`<div class="strat-btn" id="strat-${i}" onclick="selectStrategy(${i},'${s}')">${s}</div>`).join('')}</div>
+    <button class="action-btn" onclick="runSimulation()" style="margin-top:.5rem">▶ Run Simulation</button>`;
+  document.getElementById('simResults').classList.remove('show');
+  selStrategy=null;
+}
+
+function selectStrategy(i,name){
+  document.querySelectorAll('.strat-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('strat-'+i).classList.add('selected');
+  selStrategy=name;
+}
+
+function runSimulation(){
+  if(!selScenario||!selStrategy){showToast('⚠ Select scenario and strategy');return;}
+  
+  // Deterministic scoring based on scenario/strategy pairing
+  const matrix={
+    'low-engage':{'Inquiry-Based Learning':[85,78,82],'Direct Instruction':[52,48,65],'Cooperative Groups':[78,82,75],'Differentiated Tasks':[72,80,70],'Gamification':[80,75,72],'Socratic Dialogue':[82,70,78]},
+    'mixed-ability':{'Differentiated Tasks':[88,85,82],'Cooperative Groups':[82,80,78],'Direct Instruction':[55,50,60],'Inquiry-Based Learning':[75,82,72],'Gamification':[68,72,65],'Socratic Dialogue':[72,78,70]},
+    'syllabus-pressure':{'Direct Instruction':[78,55,72],'Differentiated Tasks':[72,68,75],'Cooperative Groups':[65,70,78],'Inquiry-Based Learning':[58,75,65],'Gamification':[60,65,68],'Socratic Dialogue':[62,72,70]},
+    'assessment-reform':{'Inquiry-Based Learning':[82,78,85],'Socratic Dialogue':[85,80,82],'Differentiated Tasks':[80,82,78],'Direct Instruction':[60,52,65],'Cooperative Groups':[78,75,80],'Gamification':[68,65,72]}
+  };
+  
+  const scores=matrix[selScenario]?.[selStrategy]||[65,60,70];
+  const [align,growth,stability]=scores;
+  
+  const res=document.getElementById('simResults');
+  const scenarioName=SIMULATION_SCENARIOS.find(s=>s.id===selScenario).name;
+  res.innerHTML=`
+    <h4 style="color:var(--gold);margin-bottom:.3rem">Simulation Results</h4>
+    <p style="font-size:.82rem;color:var(--gray);margin-bottom:1rem">Scenario: <strong style="color:var(--gold2)">${scenarioName}</strong> → Strategy: <strong style="color:var(--gold2)">${selStrategy}</strong></p>
+    <div class="result-bars">
+      <div class="result-bar-item">
+        <div class="rb-label">Pedagogical Alignment Score <span>${align}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:0%" data-w="${align}%"></div></div>
+      </div>
+      <div class="result-bar-item">
+        <div class="rb-label">Student Growth Projection <span>${growth}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:0%" data-w="${growth}%"></div></div>
+      </div>
+      <div class="result-bar-item">
+        <div class="rb-label">Classroom Stability Indicator <span>${stability}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:0%" data-w="${stability}%"></div></div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;padding:.9rem;background:rgba(200,168,75,.06);border-radius:8px;font-size:.82rem;color:var(--light)">
+      ${getSimFeedback(selScenario,selStrategy,align)}
+    </div>`;
+  res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>{
+    res.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w);
+  },200);
+}
+
+function getSimFeedback(sc,st,score){
+  if(score>=80) return `✅ <strong>Excellent alignment!</strong> ${st} is highly effective for this scenario. Students are likely to experience meaningful engagement and genuine learning growth. Continue this approach and document your practice.`;
+  if(score>=65) return `👍 <strong>Good alignment.</strong> ${st} works reasonably well here. To maximise impact, consider combining it with a formative assessment check midway through the lesson to identify students who may need additional support.`;
+  return `⚠️ <strong>Limited alignment.</strong> While ${st} has pedagogical value, it may not be the optimal approach for this scenario. Consider supplementing with strategies that more directly address the specific challenge this scenario presents.`;
+}
+
+// ══════════════════════════════════════════
+//  CPD TRACKER
+// ══════════════════════════════════════════
+function calcPGI(){
+  const entries=load('cpdEntries',[]);
+  let total=0;
+  entries.forEach(e=>{total+=(CPD_WEIGHTS[e.cat]||1)});
+  // PGI = sqrt(total_weighted_activities) * 10, capped at 100
+  return Math.min(100,Math.sqrt(total)*10);
+}
+
+function addCPDEntry(){
+  const title=document.getElementById('cpdTitle').value.trim();
+  const cat=document.getElementById('cpdCat').value;
+  const date=document.getElementById('cpdDate').value;
+  const notes=document.getElementById('cpdNotes').value.trim();
+  if(!title){showToast('⚠ Please enter an activity title');return;}
+  const entries=load('cpdEntries',[]);
+  entries.unshift({id:Date.now(),title,cat,date:date||new Date().toISOString().slice(0,10),notes});
+  save('cpdEntries',entries);
+  document.getElementById('cpdTitle').value='';
+  document.getElementById('cpdNotes').value='';
+  document.getElementById('cpdDate').value='';
+  renderCPDList();
+  showToast('✓ CPD entry saved');
+}
+
+function deleteCPD(id){
+  const entries=load('cpdEntries',[]).filter(e=>e.id!==id);
+  save('cpdEntries',entries);
+  renderCPDList();
+}
+
+const CAT_LABELS={workshop:'Workshop',skill:'Skill',reflection:'Reflection',peer:'Peer Collab',reading:'Reading',observation:'Observation'};
+
+function renderCPDList(){
+  const pgi=calcPGI();
+  document.getElementById('pgiVal').textContent=pgi.toFixed(1);
+  const entries=load('cpdEntries',[]);
+  const list=document.getElementById('cpdList');
+  if(!entries.length){list.innerHTML='<div class="empty-state"><div class="es-icon">📂</div><p>No CPD entries yet. Log your first activity above.</p></div>';return;}
+  list.innerHTML=entries.map(e=>`
+    <div class="cpd-entry">
+      <div class="ce-info">
+        <h5>${e.title}</h5>
+        <p>${e.date}${e.notes?' · '+e.notes.slice(0,60)+(e.notes.length>60?'...':''):''}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:.4rem;flex-shrink:0">
+        <span class="ce-badge">${CAT_LABELS[e.cat]||e.cat}</span>
+        <button class="del-btn" onclick="deleteCPD(${e.id})">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════
+function renderDashboard(){
+  const sc=load('assessScores',null);
+  const pgi=calcPGI();
+  const entries=load('cpdEntries',[]);
+  const iqi=sc?sc.iqi:0;
+  const innovIdx=Math.round((pgi*0.4)+(iqi*0.3)+((entries.filter(e=>e.cat==='peer').length*10)));
+  const mentorScore=Math.min(100,entries.filter(e=>e.cat==='observation'||e.cat==='peer').length*15);
+  const reformReady=Math.round((iqi*0.5)+(pgi*0.3)+(mentorScore*0.2));
+  
+  const kpis=[
+    {v:iqi+'%',l:'Instructional Quality',t:'from self-assessment'},
+    {v:pgi.toFixed(1),l:'Professional Growth Index',t:entries.length+' activities logged'},
+    {v:Math.min(100,innovIdx)+'%',l:'Innovation Index',t:'CPD & IQI composite'},
+    {v:mentorScore+'%',l:'Mentoring Contribution',t:'peer & observation activities'},
+    {v:Math.min(100,reformReady)+'%',l:'Reform Readiness',t:'NEP 2020 alignment'},
+    {v:entries.length,l:'Total CPD Activities',t:'this professional cycle'}
+  ];
+  
+  document.getElementById('dashKPIs').innerHTML=kpis.map(k=>`
+    <div class="kpi-card">
+      <span class="kv">${k.v}</span>
+      <div class="kl">${k.l}</div>
+      <div class="kt">${k.t}</div>
+    </div>`).join('');
+  
+  // Draw radar
+  const canvas=document.getElementById('radarCanvas');
+  const ctx=canvas.getContext('2d');
+  const data=[iqi,pgi,Math.min(100,innovIdx),mentorScore,Math.min(100,reformReady)];
+  const labels=['Quality','Growth','Innovation','Mentoring','Reform'];
+  drawRadar(ctx,canvas.width,canvas.height,data,labels);
+}
+
+function drawRadar(ctx,w,h,data,labels){
+  const cx=w/2,cy=h/2,r=Math.min(w,h)/2-30;
+  const n=data.length;
+  ctx.clearRect(0,0,w,h);
+  
+  // Grid
+  for(let ring=1;ring<=5;ring++){
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const ang=(i/n)*Math.PI*2-Math.PI/2;
+      const pr=r*(ring/5);
+      const x=cx+Math.cos(ang)*pr,y=cy+Math.sin(ang)*pr;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(200,168,75,0.12)';
+    ctx.stroke();
+  }
+  
+  // Axes
+  for(let i=0;i<n;i++){
+    const ang=(i/n)*Math.PI*2-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(ang)*r,cy+Math.sin(ang)*r);
+    ctx.strokeStyle='rgba(200,168,75,0.2)';
+    ctx.stroke();
+  }
+  
+  // Data polygon
+  ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const ang=(i/n)*Math.PI*2-Math.PI/2;
+    const pr=r*(data[i]/100);
+    const x=cx+Math.cos(ang)*pr,y=cy+Math.sin(ang)*pr;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(46,107,230,0.25)';
+  ctx.fill();
+  ctx.strokeStyle='#2e6be6';
+  ctx.lineWidth=2;
+  ctx.stroke();
+  
+  // Dots
+  for(let i=0;i<n;i++){
+    const ang=(i/n)*Math.PI*2-Math.PI/2;
+    const pr=r*(data[i]/100);
+    const x=cx+Math.cos(ang)*pr,y=cy+Math.sin(ang)*pr;
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='#c8a84b';
+    ctx.fill();
+  }
+  
+  // Labels
+  ctx.font='11px Source Sans 3,sans-serif';
+  ctx.fillStyle='#a8b4c8';
+  ctx.textAlign='center';
+  for(let i=0;i<n;i++){
+    const ang=(i/n)*Math.PI*2-Math.PI/2;
+    const x=cx+Math.cos(ang)*(r+18),y=cy+Math.sin(ang)*(r+18)+4;
+    ctx.fillText(labels[i],x,y);
+  }
+}
+
+function printReport(){
+  window.print();
+}
+
+// ══════════════════════════════════════════
+//  LESSON DESIGN
+// ══════════════════════════════════════════
+function generateLesson(){
+  const subj=document.getElementById('lesSubject').value.trim()||'General Subject';
+  const topic=document.getElementById('lesTopic').value.trim()||'Selected Topic';
+  const grade=document.getElementById('lesGrade').value.trim()||'Middle School';
+  const outcomes=document.getElementById('lesOutcomes').value.trim()||'Understand, Apply, and Evaluate key concepts';
+  const dur=document.getElementById('lesDuration').value;
+  
+  const outcomeList=outcomes.split(',').map(o=>o.trim()).filter(Boolean);
+  
+  const lessonData={subj,topic,grade,outcomes:outcomeList,dur};
+  save('lessonData',lessonData);
+  
+  const out=document.getElementById('lessonOutput');
+  out.innerHTML=`
+    <div class="lo-section">
+      <h4>📋 Lesson Overview</h4>
+      <p><strong style="color:var(--gold2)">Subject:</strong> ${subj} &nbsp;|&nbsp; <strong style="color:var(--gold2)">Topic:</strong> ${topic} &nbsp;|&nbsp; <strong style="color:var(--gold2)">Grade:</strong> ${grade} &nbsp;|&nbsp; <strong style="color:var(--gold2)">Duration:</strong> ${dur}</p>
+    </div>
+    <div class="lo-section">
+      <h4>🎯 Learning Outcomes (Competency-Aligned)</h4>
+      ${outcomeList.map(o=>`<span class="lo-tag">✓ ${o}</span>`).join(' ')}
+      <p style="margin-top:.6rem;font-size:.82rem;color:var(--gray)">NCF 2023 competency level: <strong style="color:var(--gold2)">Application → Analysis → Evaluation</strong></p>
+    </div>
+    <div class="lo-section">
+      <h4>🧩 5E Lesson Structure</h4>
+      <div class="task-item"><strong style="color:var(--gold2)">1. Engage (5 min):</strong> Activate prior knowledge using a thought-provoking question: "What do you already know about ${topic}? Where have you encountered this in real life?" Record student responses on the board.</div>
+      <div class="task-item"><strong style="color:var(--gold2)">2. Explore (10 min):</strong> Students investigate ${topic} through a guided inquiry activity — observation, sorting, or problem-solving — in pairs or triads. Minimal teacher input; maximum student cognitive engagement.</div>
+      <div class="task-item"><strong style="color:var(--gold2)">3. Explain (10 min):</strong> Teacher facilitates discussion to name and consolidate the central concept. Students share their findings; teacher clarifies misconceptions using precise academic language.</div>
+      <div class="task-item"><strong style="color:var(--gold2)">4. Elaborate (10 min):</strong> Students apply the concept in a new context: "How would ${topic} manifest in [different context]?" Tiered tasks for differentiation — foundational, standard, extended.</div>
+      <div class="task-item"><strong style="color:var(--gold2)">5. Evaluate (5 min):</strong> Exit ticket: (1) Define the central concept in your own words. (2) Give one real-world example. (3) What question do you still have?</div>
+    </div>
+    <div class="lo-section">
+      <h4>📊 Assessment Design</h4>
+      <div class="task-item"><strong>Formative:</strong> Observation during exploration phase; class discussion quality; exit ticket analysis</div>
+      <div class="task-item"><strong>Summative (suggested):</strong> Design an investigation related to ${topic} that could be conducted in your local environment — demonstrating all three learning outcomes</div>
+      <div class="task-item"><strong>Criteria:</strong> Conceptual accuracy · Reasoning quality · Real-world application · Communication clarity</div>
+    </div>
+    <div class="lo-section">
+      <h4>🌈 Differentiation Strategy</h4>
+      <div class="task-item"><strong>Foundational:</strong> Structured notes with guided questions; visual/diagrammatic resources; paired support during tasks</div>
+      <div class="task-item"><strong>Standard:</strong> Open-ended exploration with some scaffolding; peer discussion; standard application task</div>
+      <div class="task-item"><strong>Extended:</strong> Independent inquiry; cross-curricular connections; creation task for genuine audience</div>
+    </div>
+    <div class="lo-section">
+      <h4>🪞 Teacher Reflection Prompts</h4>
+      <div class="task-item">Which students showed the deepest conceptual understanding? What evidence do you have?</div>
+      <div class="task-item">Which part of the lesson produced the most genuine student thinking? Why?</div>
+      <div class="task-item">What misconception appeared most frequently? How will you address it in the next lesson?</div>
+    </div>
+    <div style="padding:.8rem;background:rgba(200,168,75,.06);border-radius:8px;font-size:.8rem;color:var(--gray)">
+      🏛️ <strong style="color:var(--gold2)">NEP 2020 Alignment:</strong> This lesson design embodies competency-based instruction, experiential learning, formative assessment, and differentiation as mandated by NCF 2023.
+    </div>`;
+  out.classList.add('show');
+  out.scrollIntoView({behavior:'smooth'});
+  showToast('✓ Lesson plan generated');
+}
+
+// ══════════════════════════════════════════
+//  ETHICS
+// ══════════════════════════════════════════
+function renderEthics(){
+  const body=document.getElementById('ethicsBody');
+  body.innerHTML=ETHICS_SCENARIOS.map((s,i)=>`
+    <div class="ethics-scenario">
+      <h4>Scenario ${i+1}: ${s.q}</h4>
+      <div class="ethics-choices">
+        ${s.choices.map((c,j)=>`<button class="ec-btn" id="ec-${i}-${j}" onclick="selectEthics(${i},${j})">${c}</button>`).join('')}
+      </div>
+      <div class="ethics-result" id="er-${i}"></div>
+    </div>`).join('')+
+    `<div class="score-display" id="ethicsScores" style="display:none">
+      <div class="scores-grid">
+        <div class="score-item"><div class="si-val" id="esi-score">–</div><div class="si-lbl">Ethical Stability Index</div></div>
+        <div class="score-item"><div class="si-val" id="esi-res">–</div><div class="si-lbl">Resilience Score</div></div>
+        <div class="score-item" style="grid-column:span 2"><div class="si-val" id="esi-int">–</div><div class="si-lbl">Professional Integrity Rating</div></div>
+      </div>
+    </div>`;
+}
+
+let ethicsAnswers={};
+function selectEthics(scenario,choice){
+  document.querySelectorAll(`[id^="ec-${scenario}-"]`).forEach(b=>b.classList.remove('selected'));
+  document.getElementById(`ec-${scenario}-${choice}`).classList.add('selected');
+  ethicsAnswers[scenario]=choice;
+  const sc=ETHICS_SCENARIOS[scenario];
+  const er=document.getElementById(`er-${scenario}`);
+  const correct=choice===sc.best;
+  er.innerHTML=`${correct?'✅':'⚠️'} <strong>${correct?'Excellent ethical judgment!':'Consider this perspective:'}</strong> ${sc.feedback}`;
+  er.classList.add('show');
+  
+  // If all answered, show scores
+  if(Object.keys(ethicsAnswers).length===ETHICS_SCENARIOS.length){
+    const correct=Object.entries(ethicsAnswers).filter(([k,v])=>v===ETHICS_SCENARIOS[k].best).length;
+    const pct=Math.round((correct/ETHICS_SCENARIOS.length)*100);
+    const esi=Math.round(70+(pct*0.3));
+    const res=Math.round(65+(pct*0.3));
+    const integrity=Math.round((esi+res)/2);
+    document.getElementById('esi-score').textContent=esi+'%';
+    document.getElementById('esi-res').textContent=res+'%';
+    document.getElementById('esi-int').textContent=integrity+'%';
+    document.getElementById('ethicsScores').style.display='block';
+    document.getElementById('ethicsScores').scrollIntoView({behavior:'smooth'});
+  }
+}
+
+// ══════════════════════════════════════════
+//  REPORT
+// ══════════════════════════════════════════
+function renderReport(){
+  const sc=load('assessScores',null);
+  const pgi=calcPGI();
+  const entries=load('cpdEntries',[]);
+  const iqi=sc?sc.iqi:0;
+  
+  const strengths=[];
+  const growth=[];
+  if(sc){
+    if(sc.clarity>=70) strengths.push('Lesson clarity and structured delivery');else growth.push('Lesson structure and objective clarity');
+    if(sc.depth>=70) strengths.push('Conceptual depth and academic rigour');else growth.push('Deepening conceptual understanding and Bloom\'s higher levels');
+    if(sc.engage>=70) strengths.push('Student engagement and classroom energy');else growth.push('Student engagement strategies and participation culture');
+    if(sc.assessment>=70) strengths.push('Assessment design and feedback quality');else growth.push('Formative assessment practices and feedback specificity');
+  }
+  if(pgi>=50) strengths.push('Strong commitment to professional development');else growth.push('Increasing CPD activity frequency and variety');
+  if(entries.filter(e=>e.cat==='peer').length>=3) strengths.push('Active peer collaboration and collegial learning');else growth.push('Building peer observation and collaborative practice habits');
+  
+  const leaderPot=Math.min(100,Math.round(iqi*0.4+pgi*0.35+entries.length*3));
+  const ltExcellence=Math.min(100,Math.round(iqi*0.35+pgi*0.3+leaderPot*0.35));
+  
+  document.getElementById('reportBody').innerHTML=`
+    <div class="report-card">
+      <h3>👤 Professional Instructional Profile</h3>
+      <p style="font-size:.9rem;color:var(--light)">Based on self-assessment data, CPD logs, and activity patterns</p>
+      <div class="progress-row">
+        <div class="progress-label">Instructional Quality Index <span>${iqi}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${iqi}%;background:linear-gradient(90deg,var(--accent),var(--gold))"></div></div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-label">Professional Growth Index <span>${pgi.toFixed(1)}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pgi}%;background:linear-gradient(90deg,#27ae60,#2ecc71)"></div></div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-label">Leadership Potential Score <span>${leaderPot}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${leaderPot}%;background:linear-gradient(90deg,var(--gold),#e8c96b)"></div></div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-label">Long-Term Excellence Projection <span>${ltExcellence}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${ltExcellence}%;background:linear-gradient(90deg,#8e44ad,#9b59b6)"></div></div>
+      </div>
+    </div>
+    <div class="report-card">
+      <h3>✅ Strength Areas</h3>
+      ${strengths.length?strengths.map(s=>`<div class="strength-item">${s}</div>`).join(''):'<p style="color:var(--gray);font-size:.85rem">Complete the Self-Assessment to identify your strengths.</p>'}
+    </div>
+    <div class="report-card">
+      <h3>📈 Growth Areas</h3>
+      ${growth.length?growth.map(g=>`<div class="growth-item">${g}</div>`).join(''):'<p style="color:var(--gray);font-size:.85rem">Complete the Self-Assessment to identify growth areas.</p>'}
+    </div>
+    <div class="report-card">
+      <h3>🌟 CPD Summary</h3>
+      <p style="font-size:.85rem;color:var(--light)">Total activities logged: <strong style="color:var(--gold)">${entries.length}</strong></p>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem">
+        ${Object.entries(CAT_LABELS).map(([k,l])=>{
+          const count=entries.filter(e=>e.cat===k).length;
+          return count?`<span class="tag">${l}: ${count}</span>`:'';
+        }).join('')}
+      </div>
+    </div>
+    <div class="report-card">
+      <h3>💎 Excellence Pathway</h3>
+      <div class="task-item">Continue logging CPD activities to raise your Professional Growth Index above 70</div>
+      <div class="task-item">Use the Growth Planner to focus your next CPD cycle on your lowest-scoring assessment dimension</div>
+      <div class="task-item">Initiate at least one peer observation cycle in the next term</div>
+      <div class="task-item">Document one classroom-based inquiry and share findings with colleagues</div>
+      <div class="task-item">Engage with NEP 2020 and NCF 2023 documents directly — not through summaries</div>
+    </div>
+    <button class="action-btn" onclick="window.print()">🖨️ Print / Save This Report</button>`;
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('topnav').style.display='none';
+  document.getElementById('cpdDate').value=new Date().toISOString().slice(0,10);
+  updateHomeStats();
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+  }
+});
+</script>
+</body>
+</html>

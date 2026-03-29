@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Teacher Evaluation & Mentoring Intelligence Studio - NEP 2020 Aligned">
+<meta name="theme-color" content="#0c1a2e">
+<title>Teacher Evaluation & Mentoring Intelligence Studio</title>
+<link rel="manifest" href="manifest.json">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #070f1c;
+  --bg2: #0c1a2e;
+  --bg3: #102038;
+  --bg4: #132540;
+  --gold: #d4a843;
+  --gold2: #b8922e;
+  --teal: #2ab5a4;
+  --teal2: #1d9585;
+  --green: #34c98a;
+  --amber: #f59e0b;
+  --red: #e85656;
+  --purple: #8b7cf8;
+  --txt: #dce8f5;
+  --txt2: #7a98bb;
+  --txt3: #3d5875;
+  --border: #1a3050;
+  --border2: #213d63;
+  --r: 10px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(160deg,#060d18 0%,#0c1a2e 55%,#06101e 100%);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;padding:2rem;
+}
+.s-dots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(42,181,164,0.12) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.s-glow{
+  position:absolute;width:500px;height:500px;pointer-events:none;
+  background:radial-gradient(circle,rgba(42,181,164,0.07) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.s-inner{position:relative;z-index:1;max-width:580px;width:100%}
+.s-chip{
+  display:inline-block;
+  background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.35);
+  border-radius:50px;padding:5px 18px;
+  font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:1.75rem;
+}
+.s-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.7rem,5vw,3rem);font-weight:700;line-height:1.2;
+  color:var(--txt);margin-bottom:0.4rem;
+}
+.s-title em{color:var(--teal);font-style:normal}
+.s-sub{font-size:0.82rem;color:var(--txt2);letter-spacing:1px;margin-bottom:2rem;font-family:'DM Mono',monospace}
+.s-author{
+  display:flex;align-items:center;gap:1rem;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:var(--r);padding:0.9rem 1.4rem;margin-bottom:2rem;
+  text-align:left;
+}
+.s-author img{width:58px;height:58px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--gold)}
+.s-author .an{font-weight:600;font-size:0.95rem;color:var(--gold)}
+.s-author .at{font-size:0.75rem;color:var(--txt2);margin-top:2px}
+.s-badges{display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.s-badge{
+  font-size:0.68rem;padding:3px 10px;border-radius:50px;
+  font-family:'DM Mono',monospace;font-weight:500;letter-spacing:0.3px;
+}
+.sb-teal{background:rgba(42,181,164,0.13);border:1px solid rgba(42,181,164,0.35);color:var(--teal)}
+.sb-gold{background:rgba(212,168,67,0.13);border:1px solid rgba(212,168,67,0.35);color:var(--gold)}
+.sb-grn{background:rgba(52,201,138,0.13);border:1px solid rgba(52,201,138,0.35);color:var(--green)}
+.s-btns{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;width:100%}
+.s-btn{
+  padding:0.8rem 0.75rem;border-radius:var(--r);border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:0.45rem;
+  transition:all 0.2s;letter-spacing:0.2px;
+}
+.s-btn.p1{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff}
+.s-btn.p2{background:rgba(255,255,255,0.055);border:1px solid var(--border);color:var(--txt)}
+.s-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.s-footer{margin-top:1.5rem;font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace}
+
+/* ── MAIN APP ── */
+#app{display:none}
+
+/* ── NAV ── */
+nav{
+  background:rgba(12,26,46,0.96);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);height:56px;
+  display:flex;align-items:center;padding:0 1.25rem;gap:1rem;
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--teal);white-space:nowrap}
+.nav-tabs{display:flex;gap:0.2rem;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{
+  padding:0.35rem 0.75rem;border-radius:7px;border:none;
+  background:transparent;color:var(--txt2);font-size:0.76rem;
+  font-family:'DM Sans',sans-serif;font-weight:500;
+  white-space:nowrap;cursor:pointer;transition:all 0.2s;
+}
+.nav-tab:hover{color:var(--txt);background:rgba(255,255,255,0.05)}
+.nav-tab.active{background:rgba(42,181,164,0.14);color:var(--teal)}
+.nav-home{padding:0.35rem 0.8rem;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:0.73rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+
+/* ── PAGES ── */
+.page{display:none;padding:1.5rem;max-width:1180px;margin:0 auto}
+.page.active{display:block}
+
+/* ── SECTION HEADER ── */
+.sh{margin-bottom:1.75rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.sh h2{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;margin-bottom:0.3rem}
+.sh p{color:var(--txt2);font-size:0.86rem}
+
+/* ── CARD ── */
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;margin-bottom:1rem}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--gold);margin-bottom:0.7rem}
+.card p{color:var(--txt2);font-size:0.875rem;line-height:1.75}
+.card p+p{margin-top:0.5rem}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr}.s-btns{grid-template-columns:1fr}}
+
+/* ── STAT CARDS ── */
+.sc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center}
+.sc .si{font-size:1.9rem;margin-bottom:0.4rem}
+.sc .sv{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:var(--teal)}
+.sc .sl{font-size:0.75rem;color:var(--txt2);margin-top:0.2rem}
+.sc.g .sv{color:var(--green)}.sc.gold .sv{color:var(--gold)}.sc.r .sv{color:var(--red)}.sc.p .sv{color:var(--purple)}
+
+/* ── FORMS ── */
+.fg{margin-bottom:0.9rem}
+.fg label{display:block;font-size:0.75rem;font-weight:600;color:var(--txt2);margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.5px}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:0.55rem 0.8rem;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:7px;color:var(--txt);
+  font-family:'DM Sans',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.2s;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal)}
+.fg select option{background:var(--bg3)}
+
+/* ── BUTTONS ── */
+.btn{padding:0.55rem 1.1rem;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;display:inline-flex;align-items:center;gap:0.35rem;transition:all 0.2s}
+.btn-t{background:var(--teal);color:#fff}
+.btn-g{background:rgba(52,201,138,0.13);border:1px solid rgba(52,201,138,0.35);color:var(--green)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff}
+.btn-s{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--txt)}
+.btn-d{background:rgba(232,86,86,0.12);border:1px solid rgba(232,86,86,0.35);color:var(--red)}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg4);padding:0.65rem 0.9rem;font-size:0.72rem;font-weight:600;color:var(--txt2);text-align:left;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:0.65rem 0.9rem;font-size:0.84rem;border-top:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* ── RATING SELECTS ── */
+.domain-row{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
+  padding:0.9rem 1.1rem;margin-bottom:0.6rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  flex-wrap:wrap;
+}
+.domain-name{font-size:0.85rem;font-weight:500;flex:1;min-width:180px}
+.domain-num{font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace;margin-right:0.5rem}
+.domain-select{
+  padding:0.35rem 0.7rem;background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;color:var(--txt);font-size:0.78rem;
+  font-family:'DM Sans',sans-serif;cursor:pointer;min-width:130px;
+}
+.domain-select:focus{outline:none;border-color:var(--teal)}
+.domain-select option{background:var(--bg3)}
+
+/* ── RADAR CHART ── */
+.chart-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1rem}
+.chart-box h4{font-size:0.78rem;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.9rem}
+canvas{max-width:100%;display:block}
+
+/* ── LEVEL PILL ── */
+.pill{display:inline-block;padding:2px 9px;border-radius:50px;font-size:0.7rem;font-weight:600;font-family:'DM Mono',monospace}
+.pill.e{background:rgba(232,86,86,0.18);color:var(--red)}
+.pill.d{background:rgba(245,158,11,0.18);color:var(--amber)}
+.pill.pr{background:rgba(42,181,164,0.18);color:var(--teal)}
+.pill.a{background:rgba(52,201,138,0.18);color:var(--green)}
+
+/* ── MENTOR PLAN ── */
+.mcard{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:0.9rem}
+.mcard .mhead{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.7rem}
+.micon{font-size:1.4rem}
+.mtitle{font-weight:600;font-size:0.92rem}
+.mtag{font-size:0.66rem;padding:2px 8px;border-radius:50px;background:rgba(42,181,164,0.13);border:1px solid rgba(42,181,164,0.3);color:var(--teal);font-family:'DM Mono',monospace}
+.msteps{list-style:none;padding:0}
+.msteps li{font-size:0.83rem;color:var(--txt2);padding:0.35rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:0.45rem}
+.msteps li:last-child{border:none}
+.msteps li::before{content:'✓';color:var(--green);flex-shrink:0}
+
+/* ── REFLECTION ── */
+.ref-entry{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:0.6rem}
+.ref-date{font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace;margin-bottom:0.4rem}
+.ref-text{font-size:0.84rem;color:var(--txt2);line-height:1.7}
+
+/* ── CPD ── */
+.cpd-row{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:0.9rem 1.1rem;margin-bottom:0.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+.cpd-name{font-size:0.87rem;font-weight:500}
+.cpd-meta{font-size:0.74rem;color:var(--txt2)}
+
+/* ── ETHICS ── */
+.eth-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.9rem 0;border-bottom:1px solid var(--border)}
+.eth-item:last-child{border:none}
+.eth-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--border2);background:transparent;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:all 0.2s;margin-top:1px}
+.eth-check.checked{background:var(--green);border-color:var(--green);color:#fff}
+.eth-label{font-size:0.875rem;color:var(--txt2);line-height:1.6}
+
+/* ── POLICY ── */
+.ptabs{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.ptab{padding:0.3rem 0.65rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--txt3);cursor:pointer;font-size:0.7rem;font-family:'DM Mono',monospace;transition:all 0.2s}
+.ptab.active{background:rgba(212,168,67,0.13);border-color:var(--gold);color:var(--gold)}
+.pcont{display:none}
+.pcont.active{display:block}
+.pcont h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:1rem}
+.pcont h4{font-size:0.88rem;font-weight:600;color:var(--teal);margin:1.1rem 0 0.45rem}
+.pcont p{color:var(--txt2);font-size:0.875rem;line-height:1.8;margin-bottom:0.65rem}
+.pcont ul{list-style:none;padding:0}
+.pcont ul li{color:var(--txt2);font-size:0.875rem;padding:0.28rem 0;padding-left:1.1rem;position:relative}
+.pcont ul li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:0.68rem;top:0.38rem}
+.rbox{background:rgba(212,168,67,0.07);border:1px solid rgba(212,168,67,0.22);border-radius:var(--r);padding:0.9rem 1.1rem;margin-top:1.1rem}
+.rbox .rt{font-size:0.68rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;font-family:'DM Mono',monospace}
+.rbox p{color:var(--txt2);font-size:0.83rem;margin:0}
+.abox{background:rgba(42,181,164,0.07);border:1px solid rgba(42,181,164,0.22);border-radius:var(--r);padding:0.9rem 1.1rem;margin-top:0.65rem}
+.abox .at2{font-size:0.68rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;font-family:'DM Mono',monospace}
+.abox p{color:var(--txt2);font-size:0.83rem;margin:0}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--bg4);border:1px solid var(--border);border-radius:var(--r);padding:0.7rem 1.1rem;font-size:0.84rem;box-shadow:var(--shadow);opacity:0;transition:opacity 0.3s;pointer-events:none}
+#toast.show{opacity:1}
+
+/* ── EXPORT ── */
+.eopt{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:border-color 0.2s;margin-bottom:0.7rem}
+.eopt:hover{border-color:var(--teal)}
+.eicon{font-size:1.8rem}
+.etitle{font-weight:600;font-size:0.88rem;margin-bottom:0.15rem}
+.edesc{font-size:0.75rem;color:var(--txt2)}
+
+/* ── PROGRESS BAR ── */
+.pbar-wrap{margin-bottom:0.65rem}
+.pbar-label{display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:0.25rem;color:var(--txt2)}
+.pbar-track{height:9px;background:rgba(255,255,255,0.06);border-radius:9px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:9px;transition:width 0.7s ease}
+.pbar-fill.e{background:var(--red)}
+.pbar-fill.d{background:var(--amber)}
+.pbar-fill.pr{background:var(--teal)}
+.pbar-fill.a{background:var(--green)}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media print{nav,#splash,.btn{display:none!important}.page{display:block!important}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+
+<!-- ════════════ SPLASH ════════════ -->
+<div id="splash">
+  <div class="s-dots"></div>
+  <div class="s-glow"></div>
+  <div class="s-inner">
+    <div class="s-chip">🎓 Offline Edition — Teacher Intelligence Studio</div>
+    <h1 class="s-title">Teacher Evaluation &amp;<br><em>Mentoring Intelligence</em><br>Studio</h1>
+    <p class="s-sub">Growth-Oriented Professional Development for Kashmir Schools</p>
+    <div class="s-author">
+      <img src="author.jpg" alt="Mateen Yousuf" onerror="this.style.display='none'">
+      <div>
+        <div class="an">Mateen Yousuf</div>
+        <div class="at">Teacher — School Education Department, Kashmir</div>
+        <div class="at" style="color:var(--txt3);margin-top:2px">NEP 2020 Teacher Development Specialist</div>
+      </div>
+    </div>
+    <div class="s-badges">
+      <span class="s-badge sb-teal">✦ NEP 2020 Aligned</span>
+      <span class="s-badge sb-gold">✦ NCF 2023 Framework</span>
+      <span class="s-badge sb-grn">✦ Competency-Based Pedagogy</span>
+    </div>
+    <div class="s-btns">
+      <button class="s-btn p1" onclick="openApp('observation')">🔍 Classroom Observation Tool</button>
+      <button class="s-btn p2" onclick="openApp('growth')">📈 Teacher Growth Tracker</button>
+      <button class="s-btn p2" onclick="openApp('mentoring')">🤝 Mentoring Plan Builder</button>
+      <button class="s-btn p2" onclick="openApp('policy')">📚 Policy &amp; Framework</button>
+    </div>
+    <div class="s-footer">🔒 Fully Offline · No Login · No Server · Data stored locally on device</div>
+  </div>
+</div>
+
+<!-- ════════════ MAIN APP ════════════ -->
+<div id="app">
+  <nav>
+    <div class="nav-logo">🎓 TEMIS</div>
+    <div class="nav-tabs">
+      <button class="nav-tab" onclick="showPage('observation')">Observation</button>
+      <button class="nav-tab" onclick="showPage('growth')">Growth Tracker</button>
+      <button class="nav-tab" onclick="showPage('mentoring')">Mentoring</button>
+      <button class="nav-tab" onclick="showPage('reflection')">Reflection</button>
+      <button class="nav-tab" onclick="showPage('cpd')">CPD Alignment</button>
+      <button class="nav-tab" onclick="showPage('dashboard')">School Dashboard</button>
+      <button class="nav-tab" onclick="showPage('ethics')">Ethics Checklist</button>
+      <button class="nav-tab" onclick="showPage('policy')">Policy Pages</button>
+      <button class="nav-tab" onclick="showPage('export')">Export</button>
+    </div>
+    <button class="nav-home" onclick="showSplash()">🏠</button>
+  </nav>
+
+  <!-- ══ OBSERVATION TOOL ══ -->
+  <div class="page active" id="pg-observation">
+    <div class="sh"><h2>🔍 Classroom Observation Tool</h2><p>Rate 10 teaching domains using competency-based rubrics — generates strength summary, growth areas, and mentoring focus</p></div>
+    <div class="g2">
+      <div>
+        <div class="card">
+          <h3>Observation Details</h3>
+          <div class="fg"><label>Teacher Name</label><input type="text" id="ob-teacher" placeholder="Teacher's name"></div>
+          <div class="fg"><label>Class & Subject</label><input type="text" id="ob-class" placeholder="e.g. Class 8 — Mathematics"></div>
+          <div class="fg"><label>Date of Observation</label><input type="date" id="ob-date"></div>
+          <div class="fg"><label>Observer Name</label><input type="text" id="ob-observer" placeholder="Observer / Mentor name"></div>
+          <div class="fg"><label>Term</label>
+            <select id="ob-term"><option>Term 1</option><option>Term 2</option><option>Midterm</option><option>Annual</option></select>
+          </div>
+          <div class="fg"><label>Duration (minutes)</label><input type="number" id="ob-duration" placeholder="45" min="20" max="90"></div>
+        </div>
+        <div class="card">
+          <h3>Rate Teaching Domains</h3>
+          <p style="font-size:0.78rem;margin-bottom:1rem">🔴 Emerging &nbsp;|&nbsp; 🟡 Developing &nbsp;|&nbsp; 🟢 Proficient &nbsp;|&nbsp; 🔵 Advanced</p>
+          <div id="domains-form"></div>
+          <div class="fg" style="margin-top:1rem"><label>Observer Notes / Evidence</label><textarea id="ob-notes" rows="3" placeholder="Key observations, specific evidence..."></textarea></div>
+          <button class="btn btn-t" style="width:100%;margin-top:0.5rem" onclick="saveObservation()">💾 Save Observation &amp; Generate Report</button>
+        </div>
+      </div>
+      <div>
+        <div class="card" id="obs-report">
+          <h3>📋 Observation Report</h3>
+          <p style="color:var(--txt3);font-size:0.84rem">Complete and save the form to generate the report.</p>
+        </div>
+        <div class="card">
+          <h3>Recent Observations</h3>
+          <div id="obs-count" style="font-size:0.78rem;color:var(--txt2);margin-bottom:0.75rem">0 records</div>
+          <div class="tw">
+            <table><thead><tr><th>Teacher</th><th>Class</th><th>Date</th><th>Score</th><th></th></tr></thead>
+            <tbody id="obs-tbody"></tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GROWTH TRACKER ══ -->
+  <div class="page" id="pg-growth">
+    <div class="sh"><h2>📈 Teacher Growth Tracker</h2><p>Track observation scores, CPD participation, reflection entries, and improvement trends over time</p></div>
+    <div class="fg" style="max-width:300px"><label>Select Teacher to Track</label>
+      <select id="gt-teacher-select" onchange="loadTeacherGrowth()">
+        <option value="">— Select Teacher —</option>
+      </select>
+    </div>
+    <div class="g4" id="growth-stats" style="margin-bottom:1rem">
+      <div class="sc"><div class="si">📊</div><div class="sv" id="gs-avg">—</div><div class="sl">Avg Observation Score</div></div>
+      <div class="sc gold"><div class="si">📈</div><div class="sv" id="gs-growth">—</div><div class="sl">Growth Index</div></div>
+      <div class="sc g"><div class="si">🏆</div><div class="sv" id="gs-top">—</div><div class="sl">Top Domain</div></div>
+      <div class="sc r"><div class="si">🎯</div><div class="sv" id="gs-weak">—</div><div class="sl">Growth Area</div></div>
+    </div>
+    <div class="g2">
+      <div class="chart-box"><h4>🕸 Competency Radar</h4><canvas id="radarChart" width="340" height="300"></canvas></div>
+      <div class="chart-box"><h4>📉 Growth Trend (Observation Scores)</h4><canvas id="trendChart" height="300"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Domain-wise Competency Profile</h3>
+      <div id="domain-bars"></div>
+    </div>
+  </div>
+
+  <!-- ══ MENTORING PLAN BUILDER ══ -->
+  <div class="page" id="pg-mentoring">
+    <div class="sh"><h2>🤝 Mentoring Plan Builder</h2><p>Builds targeted, growth-oriented mentoring action plans based on observation data</p></div>
+    <div class="g2" style="align-items:start">
+      <div class="card">
+        <h3>Select Growth Areas</h3>
+        <div class="fg"><label>Teacher Name</label><input type="text" id="mp-teacher" placeholder="Teacher's name"></div>
+        <div class="fg"><label>Mentor / Observer</label><input type="text" id="mp-mentor" placeholder="Mentor's name"></div>
+        <div class="fg"><label>Primary Growth Area</label>
+          <select id="mp-area1">
+            <option value="">Select domain...</option>
+            <option>Lesson Planning Clarity</option><option>Learning Outcome Alignment</option>
+            <option>Pedagogical Strategy</option><option>Student Engagement</option>
+            <option>Questioning Quality</option><option>Higher Order Thinking</option>
+            <option>Formative Assessment Use</option><option>Classroom Climate</option>
+            <option>Inclusivity Practices</option><option>Time Management</option>
+          </select>
+        </div>
+        <div class="fg"><label>Secondary Growth Area</label>
+          <select id="mp-area2">
+            <option value="">Select domain...</option>
+            <option>Lesson Planning Clarity</option><option>Learning Outcome Alignment</option>
+            <option>Pedagogical Strategy</option><option>Student Engagement</option>
+            <option>Questioning Quality</option><option>Higher Order Thinking</option>
+            <option>Formative Assessment Use</option><option>Classroom Climate</option>
+            <option>Inclusivity Practices</option><option>Time Management</option>
+          </select>
+        </div>
+        <div class="fg"><label>Review Timeline</label>
+          <select id="mp-timeline"><option>4 Weeks</option><option>6 Weeks</option><option>8 Weeks</option><option>One Term</option></select>
+        </div>
+        <div class="fg"><label>Additional Context</label><textarea id="mp-context" rows="2" placeholder="Any specific classroom challenges..."></textarea></div>
+        <button class="btn btn-gold" style="width:100%" onclick="generateMentoringPlan()">⚡ Generate Mentoring Plan</button>
+      </div>
+      <div id="mp-output">
+        <div class="card"><h3>Mentoring Plan</h3><p style="color:var(--txt3);font-size:0.84rem">Complete the form and click Generate to build your mentoring action plan.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ REFLECTION MODULE ══ -->
+  <div class="page" id="pg-reflection">
+    <div class="sh"><h2>🪞 Self-Reflection Module</h2><p>Log post-lesson reflections, challenges, engagement insights, and evidence of learning</p></div>
+    <div class="g2">
+      <div class="card">
+        <h3>New Reflection Entry</h3>
+        <div class="fg"><label>Teacher Name</label><input type="text" id="rf-teacher" placeholder="Your name"></div>
+        <div class="fg"><label>Class &amp; Subject</label><input type="text" id="rf-class" placeholder="e.g. Class 6 — Science"></div>
+        <div class="fg"><label>Date</label><input type="date" id="rf-date"></div>
+        <div class="fg"><label>What went well in this lesson?</label><textarea id="rf-well" rows="2" placeholder="Strengths, positive moments..."></textarea></div>
+        <div class="fg"><label>What challenges did you face?</label><textarea id="rf-challenge" rows="2" placeholder="Difficulties, unexpected issues..."></textarea></div>
+        <div class="fg"><label>How engaged were students? (observations)</label><textarea id="rf-engage" rows="2" placeholder="Participation, questions asked, body language..."></textarea></div>
+        <div class="fg"><label>Evidence of student learning?</label><textarea id="rf-evidence" rows="2" placeholder="Responses, work produced, misconceptions noted..."></textarea></div>
+        <div class="fg"><label>What would you do differently?</label><textarea id="rf-different" rows="2" placeholder="Adjustments for next time..."></textarea></div>
+        <button class="btn btn-t" style="width:100%;margin-top:0.5rem" onclick="saveReflection()">💾 Save Reflection</button>
+      </div>
+      <div>
+        <div class="card" id="rf-suggestions">
+          <h3>💡 Reflection Prompts</h3>
+          <div style="color:var(--txt2);font-size:0.84rem;line-height:1.8">
+            <p>After saving, this panel will show suggested improvement prompts based on your reflection.</p>
+            <br>
+            <p>💭 <strong style="color:var(--teal)">General prompts to consider:</strong></p>
+            <ul style="list-style:none;padding:0;margin-top:0.5rem">
+              <li style="padding:0.3rem 0;color:var(--txt2);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:0.4rem">▸</span>How did the learning objective connect to students' prior knowledge?</li>
+              <li style="padding:0.3rem 0;color:var(--txt2);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:0.4rem">▸</span>Which students participated most — and least? What might explain this?</li>
+              <li style="padding:0.3rem 0;color:var(--txt2);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:0.4rem">▸</span>What questions did students ask that surprised you?</li>
+              <li style="padding:0.3rem 0;color:var(--txt2);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:0.4rem">▸</span>If you observed another teacher doing this lesson, what would you notice?</li>
+              <li style="padding:0.3rem 0;color:var(--txt2);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--teal);font-size:0.7rem;top:0.4rem">▸</span>What one thing would make your next lesson significantly better?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Recent Reflections</h3>
+          <div id="rf-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CPD ALIGNMENT ══ -->
+  <div class="page" id="pg-cpd">
+    <div class="sh"><h2>📚 CPD Alignment Tool</h2><p>Track professional development, measure classroom implementation, and check alignment with identified growth areas</p></div>
+    <div class="g2">
+      <div class="card">
+        <h3>Log CPD Activity</h3>
+        <div class="fg"><label>Teacher Name</label><input type="text" id="cpd-teacher" placeholder="Teacher's name"></div>
+        <div class="fg"><label>Workshop / Training Title</label><input type="text" id="cpd-title" placeholder="e.g. Activity-Based Learning Workshop"></div>
+        <div class="fg"><label>CPD Category</label>
+          <select id="cpd-category">
+            <option>Pedagogy &amp; Instruction</option><option>Assessment &amp; Feedback</option>
+            <option>Subject Knowledge</option><option>Inclusive Education</option>
+            <option>Technology Integration</option><option>Classroom Management</option>
+            <option>NEP/NCF Implementation</option><option>Leadership &amp; Mentoring</option>
+          </select>
+        </div>
+        <div class="fg"><label>Date of Training</label><input type="date" id="cpd-date"></div>
+        <div class="fg"><label>Duration (hours)</label><input type="number" id="cpd-hours" placeholder="e.g. 6" min="1"></div>
+        <div class="fg"><label>Key Skill / Knowledge Gained</label><textarea id="cpd-skill" rows="2" placeholder="What did you learn?"></textarea></div>
+        <div class="fg"><label>How have you implemented this in your classroom?</label><textarea id="cpd-impl" rows="2" placeholder="Specific application in teaching..."></textarea></div>
+        <div class="fg"><label>Related Observation Growth Area (if any)</label>
+          <select id="cpd-gap">
+            <option value="">Not linked to specific gap</option>
+            <option>Lesson Planning Clarity</option><option>Pedagogical Strategy</option>
+            <option>Student Engagement</option><option>Questioning Quality</option>
+            <option>Higher Order Thinking</option><option>Formative Assessment Use</option>
+            <option>Inclusivity Practices</option>
+          </select>
+        </div>
+        <button class="btn btn-t" style="width:100%;margin-top:0.5rem" onclick="saveCPD()">💾 Save CPD Record</button>
+      </div>
+      <div>
+        <div class="g2" style="margin-bottom:1rem">
+          <div class="sc"><div class="si">📋</div><div class="sv" id="cpd-count">0</div><div class="sl">CPD Activities</div></div>
+          <div class="sc gold"><div class="si">⏱</div><div class="sv" id="cpd-hours-total">0h</div><div class="sl">Total Hours</div></div>
+        </div>
+        <div class="card">
+          <h3>CPD Impact Summary</h3>
+          <div id="cpd-impact"></div>
+        </div>
+        <div class="card">
+          <h3>CPD Log</h3>
+          <div id="cpd-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCHOOL DASHBOARD ══ -->
+  <div class="page" id="pg-dashboard">
+    <div class="sh"><h2>🏫 School Teaching Quality Dashboard</h2><p>Anonymous aggregate data — no individual teacher ranking. Focus: collective growth and shared priorities.</p></div>
+    <div class="g4" style="margin-bottom:1rem">
+      <div class="sc"><div class="si">👩‍🏫</div><div class="sv" id="sd-teachers">0</div><div class="sl">Teachers Tracked</div></div>
+      <div class="sc gold"><div class="si">📊</div><div class="sv" id="sd-obs">0</div><div class="sl">Observations</div></div>
+      <div class="sc g"><div class="si">🎯</div><div class="sv" id="sd-avg">—</div><div class="sl">School Teaching Index</div></div>
+      <div class="sc p"><div class="si">📚</div><div class="sv" id="sd-cpd">0</div><div class="sl">CPD Hours Logged</div></div>
+    </div>
+    <div class="g2">
+      <div class="chart-box"><h4>📊 School Competency Distribution</h4><canvas id="schoolChart" height="220"></canvas></div>
+      <div class="chart-box"><h4>🎯 Common Growth Areas (School-wide)</h4><canvas id="gapChart" height="220"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Strategic Development Priorities</h3>
+      <div id="sd-priorities"></div>
+    </div>
+  </div>
+
+  <!-- ══ ETHICS CHECKLIST ══ -->
+  <div class="page" id="pg-ethics">
+    <div class="sh"><h2>⚖️ Evaluation Ethics Checklist</h2><p>Ensuring observation is non-punitive, transparent, supportive, and dignity-preserving</p></div>
+    <div class="g2">
+      <div class="card">
+        <h3>Pre-Observation Ethics</h3>
+        <div id="eth-pre"></div>
+      </div>
+      <div class="card">
+        <h3>During Observation Ethics</h3>
+        <div id="eth-during"></div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:0">
+      <div class="card">
+        <h3>Post-Observation &amp; Feedback Ethics</h3>
+        <div id="eth-post"></div>
+      </div>
+      <div class="card">
+        <h3>Professional Dignity Standards</h3>
+        <div id="eth-dignity"></div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem">
+      <button class="btn btn-gold" onclick="window.print()">🖨️ Print Ethics Guide</button>
+      <button class="btn btn-g" onclick="checkEthicsCompletion()">✅ Check Completion</button>
+    </div>
+  </div>
+
+  <!-- ══ POLICY PAGES ══ -->
+  <div class="page" id="pg-policy">
+    <div class="sh"><h2>📚 Policy Foundation &amp; Framework</h2><p>13 structured pages — NEP 2020 teacher standards, NCF 2023 pedagogy, mentoring models, and professional learning culture</p></div>
+    <div class="ptabs" id="ptabs-nav"></div>
+    <div id="ptabs-content"></div>
+  </div>
+
+  <!-- ══ EXPORT ══ -->
+  <div class="page" id="pg-export">
+    <div class="sh"><h2>📤 Export &amp; Backup</h2><p>Download reports, backup your data, import from JSON, or reset local storage</p></div>
+    <div class="eopt" onclick="exportJSON()"><div class="eicon">💾</div><div><div class="etitle">Download JSON Backup</div><div class="edesc">Save all observation, CPD and reflection records as .json file</div></div></div>
+    <div class="eopt" onclick="document.getElementById('import-file').click()"><div class="eicon">📂</div><div><div class="etitle">Import JSON File</div><div class="edesc">Restore data from a previous backup</div></div></div>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleImport(event)">
+    <div class="eopt" onclick="window.print()"><div class="eicon">🖨️</div><div><div class="etitle">Print / Save as PDF</div><div class="edesc">Print the current page or save as PDF using browser</div></div></div>
+    <div class="eopt" onclick="resetData()"><div class="eicon">🗑️</div><div><div class="etitle">Reset All Data</div><div class="edesc">Permanently clear all saved data from this device</div></div></div>
+    <div class="card" style="margin-top:1.5rem">
+      <h3>📱 APK Conversion Guide</h3>
+      <h4>Option A — PWA Install (Simplest)</h4>
+      <p>Open this app in Chrome on Android → tap ⋮ menu → "Add to Home Screen". The app installs like a native app with full offline capability.</p>
+      <h4>Option B — Android Studio WebView Wrapper</h4>
+      <p>1. Open Android Studio → New Project → Empty Activity<br>2. Replace layout with WebView loading file:///android_asset/index.html<br>3. Copy index.html, manifest.json, service-worker.js, author.jpg to app/src/main/assets/<br>4. Enable JavaScript in WebViewClient: webView.settings.javaScriptEnabled = true<br>5. Enable DOM storage: webView.settings.domStorageEnabled = true (required for LocalStorage)<br>6. Build → Generate Signed APK → Create keystore → Build Release APK</p>
+      <h4>Option C — PWABuilder.com</h4>
+      <p>Host the app on GitHub Pages or Netlify, then visit PWABuilder.com with the URL to generate a signed APK in minutes.</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════
+// STORAGE KEYS
+// ═══════════════════════════
+const OBS_KEY = 'temis_observations';
+const REF_KEY = 'temis_reflections';
+const CPD_KEY = 'temis_cpd';
+const PLANS_KEY = 'temis_mentoring_plans';
+
+const getObs = () => { try { return JSON.parse(localStorage.getItem(OBS_KEY)||'[]'); } catch(e){return[]} }
+const getRefs = () => { try { return JSON.parse(localStorage.getItem(REF_KEY)||'[]'); } catch(e){return[]} }
+const getCPDs = () => { try { return JSON.parse(localStorage.getItem(CPD_KEY)||'[]'); } catch(e){return[]} }
+const saveObs = d => localStorage.setItem(OBS_KEY, JSON.stringify(d));
+const saveRefs = d => localStorage.setItem(REF_KEY, JSON.stringify(d));
+const saveCPDs = d => localStorage.setItem(CPD_KEY, JSON.stringify(d));
+
+// ═══════════════════════════
+// TEACHING DOMAINS
+// ═══════════════════════════
+const DOMAINS = [
+  'Lesson Planning Clarity',
+  'Learning Outcome Alignment',
+  'Pedagogical Strategy',
+  'Student Engagement',
+  'Questioning Quality',
+  'Higher Order Thinking',
+  'Formative Assessment Use',
+  'Classroom Climate',
+  'Inclusivity Practices',
+  'Time Management'
+];
+
+const LEVELS = ['Emerging','Developing','Proficient','Advanced'];
+const LEVEL_SCORES = {Emerging:1, Developing:2, Proficient:3, Advanced:4};
+const pillClass = l => ({Emerging:'e',Developing:'d',Proficient:'pr',Advanced:'a'}[l]||'e');
+const levelColor = l => ({Emerging:'var(--red)',Developing:'var(--amber)',Proficient:'var(--teal)',Advanced:'var(--green)'}[l]);
+
+// ═══════════════════════════
+// NAVIGATION
+// ═══════════════════════════
+function openApp(page) {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  showPage(page);
+}
+function showSplash() {
+  document.getElementById('splash').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const pg = document.getElementById('pg-'+id);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    if (t.textContent.toLowerCase().includes(id.toLowerCase().replace('-',''))) t.classList.add('active');
+  });
+  if (id==='growth') { populateTeacherSelect(); loadTeacherGrowth(); }
+  if (id==='dashboard') refreshDashboard();
+  if (id==='reflection') loadReflections();
+  if (id==='cpd') loadCPD();
+}
+
+// ═══════════════════════════
+// BUILD OBSERVATION FORM
+// ═══════════════════════════
+function buildObsForm() {
+  const el = document.getElementById('domains-form');
+  if (!el) return;
+  el.innerHTML = DOMAINS.map((d,i) => `
+    <div class="domain-row">
+      <span><span class="domain-num">${i+1}.</span><span class="domain-name">${d}</span></span>
+      <select class="domain-select" id="dom-${i}">
+        <option value="">Select level</option>
+        ${LEVELS.map(l=>`<option value="${l}">${l}</option>`).join('')}
+      </select>
+    </div>`).join('');
+  // Set today's date
+  const dateEl = document.getElementById('ob-date');
+  if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().split('T')[0];
+}
+
+// ═══════════════════════════
+// ANALYTICS FORMULAS
+// ═══════════════════════════
+function calcCompAvg(ratings) {
+  const vals = Object.values(ratings).map(r => LEVEL_SCORES[r]||0).filter(v=>v>0);
+  return vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2) : 0;
+}
+function calcGrowthIndex(scores) {
+  if (scores.length < 2) return 0;
+  const first = scores[0], last = scores[scores.length-1];
+  return Math.round(((last - first) / first) * 100);
+}
+function calcTeachingQualityIndex(allObs) {
+  if (!allObs.length) return 0;
+  const avgScores = allObs.map(o => parseFloat(calcCompAvg(o.ratings)));
+  return Math.round((avgScores.reduce((a,b)=>a+b,0)/avgScores.length) / 4 * 100);
+}
+function calcProfImprovPct(obsArr) {
+  if (obsArr.length < 2) return 0;
+  const s1 = parseFloat(calcCompAvg(obsArr[0].ratings));
+  const s2 = parseFloat(calcCompAvg(obsArr[obsArr.length-1].ratings));
+  return s1 > 0 ? Math.round(((s2-s1)/s1)*100) : 0;
+}
+
+// ═══════════════════════════
+// SAVE OBSERVATION
+// ═══════════════════════════
+function saveObservation() {
+  const teacher = document.getElementById('ob-teacher').value.trim();
+  if (!teacher) { showToast('⚠️ Enter teacher name'); return; }
+  const ratings = {};
+  let missing = false;
+  DOMAINS.forEach((d,i) => {
+    const v = document.getElementById('dom-'+i).value;
+    if (!v) missing = true;
+    ratings[d] = v || 'Emerging';
+  });
+  const obs = {
+    id: Date.now(),
+    teacher, class: document.getElementById('ob-class').value,
+    date: document.getElementById('ob-date').value || new Date().toISOString().split('T')[0],
+    observer: document.getElementById('ob-observer').value,
+    term: document.getElementById('ob-term').value,
+    duration: document.getElementById('ob-duration').value || 45,
+    ratings, notes: document.getElementById('ob-notes').value,
+    avgScore: calcCompAvg(ratings)
+  };
+  const data = getObs();
+  data.push(obs);
+  saveObs(data);
+  generateObsReport(obs);
+  loadObsTable();
+  showToast('✅ Observation saved!');
+}
+
+function generateObsReport(obs) {
+  const rp = document.getElementById('obs-report');
+  const entries = Object.entries(obs.ratings);
+  const strong = entries.filter(([,v]) => v === 'Advanced' || v === 'Proficient');
+  const grow = entries.filter(([,v]) => v === 'Emerging' || v === 'Developing');
+  const scoreLabel = obs.avgScore >= 3.5 ? 'Advanced' : obs.avgScore >= 2.5 ? 'Proficient' : obs.avgScore >= 1.5 ? 'Developing' : 'Emerging';
+
+  rp.innerHTML = `
+    <h3>📋 Observation Report — ${obs.teacher}</h3>
+    <div style="background:var(--bg4);border-radius:8px;padding:0.75rem 1rem;margin-bottom:1rem;display:flex;gap:1.5rem;flex-wrap:wrap">
+      <div><div style="font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace">OVERALL SCORE</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:${levelColor(scoreLabel)}">${obs.avgScore} / 4.0</div>
+        <span class="pill ${pillClass(scoreLabel)}">${scoreLabel}</span>
+      </div>
+      <div><div style="font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace">TEACHER</div><div style="font-weight:600">${obs.teacher}</div></div>
+      <div><div style="font-size:0.68rem;color:var(--txt3);font-family:'DM Mono',monospace">DATE</div><div>${obs.date}</div></div>
+    </div>
+    <div style="margin-bottom:0.85rem">
+      <div style="font-size:0.75rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">✨ Strengths</div>
+      ${strong.length ? strong.map(([k,v]) => `<div style="padding:0.3rem 0;font-size:0.83rem;color:var(--txt2)">✓ ${k} — <span class="pill ${pillClass(v)}">${v}</span></div>`).join('') : '<div style="font-size:0.83rem;color:var(--txt3)">No advanced/proficient areas recorded.</div>'}
+    </div>
+    <div style="margin-bottom:0.85rem">
+      <div style="font-size:0.75rem;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">🎯 Growth Areas</div>
+      ${grow.length ? grow.map(([k,v]) => `<div style="padding:0.3rem 0;font-size:0.83rem;color:var(--txt2)">→ ${k} — <span class="pill ${pillClass(v)}">${v}</span></div>`).join('') : '<div style="font-size:0.83rem;color:var(--green)">Excellent! No emerging/developing areas.</div>'}
+    </div>
+    <div style="background:rgba(42,181,164,0.07);border:1px solid rgba(42,181,164,0.2);border-radius:8px;padding:0.85rem">
+      <div style="font-size:0.72rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;font-family:'DM Mono',monospace">💡 Suggested Mentoring Focus</div>
+      <div style="font-size:0.83rem;color:var(--txt2)">
+        ${grow.length > 0 ? `Primary focus: <strong style="color:var(--txt)">${grow[0][0]}</strong> — consider peer observation of effective practitioner in this area.` : 'Sustain excellence. Focus on sharing best practices with colleagues.'}
+        ${grow.length > 1 ? `<br>Secondary focus: <strong style="color:var(--txt)">${grow[1][0]}</strong> — targeted CPD recommended.` : ''}
+      </div>
+    </div>`;
+}
+
+function loadObsTable() {
+  const data = getObs();
+  const tbody = document.getElementById('obs-tbody');
+  if (!tbody) return;
+  document.getElementById('obs-count').textContent = data.length + ' records';
+  tbody.innerHTML = data.slice(-8).reverse().map(o => {
+    const sc = parseFloat(o.avgScore);
+    const col = sc >= 3 ? 'var(--green)' : sc >= 2 ? 'var(--teal)' : sc >= 1.5 ? 'var(--amber)' : 'var(--red)';
+    return `<tr><td>${o.teacher}</td><td>${o.class||'—'}</td><td>${o.date}</td>
+      <td style="color:${col};font-weight:600">${sc}/4</td>
+      <td><button class="btn btn-d" style="padding:0.2rem 0.45rem;font-size:0.68rem" onclick="deleteObs(${o.id})">✕</button></td></tr>`;
+  }).join('');
+}
+
+function deleteObs(id) {
+  saveObs(getObs().filter(r => r.id !== id));
+  loadObsTable();
+  showToast('🗑️ Deleted');
+}
+
+// ═══════════════════════════
+// GROWTH TRACKER
+// ═══════════════════════════
+function populateTeacherSelect() {
+  const obs = getObs();
+  const teachers = [...new Set(obs.map(o => o.teacher))];
+  const sel = document.getElementById('gt-teacher-select');
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— Select Teacher —</option>' +
+    teachers.map(t => `<option ${t===current?'selected':''}>${t}</option>`).join('');
+}
+
+function loadTeacherGrowth() {
+  const teacher = document.getElementById('gt-teacher-select').value;
+  if (!teacher) return;
+  const obs = getObs().filter(o => o.teacher === teacher);
+  if (!obs.length) return;
+
+  const scores = obs.map(o => parseFloat(o.avgScore));
+  const avg = (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2);
+  const growth = calcGrowthIndex(scores);
+
+  // Domain averages
+  const domAvg = {};
+  DOMAINS.forEach(d => {
+    const vals = obs.map(o => LEVEL_SCORES[o.ratings[d]]||0).filter(v=>v>0);
+    domAvg[d] = vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+  });
+  const sorted = Object.entries(domAvg).sort((a,b)=>b[1]-a[1]);
+  const topDomain = sorted[0]?.[0]?.split(' ')[0] || '—';
+  const weakDomain = sorted[sorted.length-1]?.[0]?.split(' ')[0] || '—';
+
+  document.getElementById('gs-avg').textContent = avg;
+  document.getElementById('gs-growth').textContent = (growth >= 0 ? '+' : '') + growth + '%';
+  document.getElementById('gs-top').textContent = topDomain;
+  document.getElementById('gs-weak').textContent = weakDomain;
+
+  drawRadar(domAvg);
+  drawTrend(obs, scores);
+  drawDomainBars(domAvg);
+}
+
+function drawRadar(domAvg) {
+  const canvas = document.getElementById('radarChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.parentElement.clientWidth - 32;
+  const h = canvas.height = 280;
+  ctx.clearRect(0, 0, w, h);
+  const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 40;
+  const n = DOMAINS.length;
+  const angleStep = (Math.PI * 2) / n;
+
+  // Grid circles
+  [1,2,3,4].forEach(level => {
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const angle = i * angleStep - Math.PI/2;
+      const x = cx + Math.cos(angle) * (r * level / 4);
+      const y = cy + Math.sin(angle) * (r * level / 4);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath(); ctx.stroke();
+  });
+
+  // Axes
+  DOMAINS.forEach((d,i) => {
+    const angle = i * angleStep - Math.PI/2;
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.lineTo(cx + Math.cos(angle)*r, cy + Math.sin(angle)*r); ctx.stroke();
+    // Labels
+    const lx = cx + Math.cos(angle)*(r+18);
+    const ly = cy + Math.sin(angle)*(r+18);
+    ctx.fillStyle = '#7a98bb'; ctx.font = '8.5px DM Sans, sans-serif'; ctx.textAlign = 'center';
+    const short = d.split(' ').map(w=>w[0]).join('');
+    ctx.fillText(short, lx, ly+3);
+  });
+
+  // Data polygon
+  ctx.fillStyle = 'rgba(42,181,164,0.18)'; ctx.strokeStyle = 'var(--teal)'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  DOMAINS.forEach((d,i) => {
+    const angle = i * angleStep - Math.PI/2;
+    const val = domAvg[d] || 0;
+    const x = cx + Math.cos(angle) * (r * val / 4);
+    const y = cy + Math.sin(angle) * (r * val / 4);
+    i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // Dots
+  DOMAINS.forEach((d,i) => {
+    const angle = i * angleStep - Math.PI/2;
+    const val = domAvg[d] || 0;
+    const x = cx + Math.cos(angle) * (r * val / 4);
+    const y = cy + Math.sin(angle) * (r * val / 4);
+    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle = 'var(--teal)'; ctx.fill();
+  });
+}
+
+function drawTrend(obs, scores) {
+  const canvas = document.getElementById('trendChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.parentElement.clientWidth - 32;
+  const h = canvas.height = 280;
+  ctx.clearRect(0, 0, w, h);
+  if (scores.length < 1) return;
+
+  const pad = {t:20, r:20, b:40, l:45};
+  const cw = w - pad.l - pad.r, ch = h - pad.t - pad.b;
+
+  // Axes
+  ctx.strokeStyle = '#1a3050'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.l, pad.t); ctx.lineTo(pad.l, h-pad.b); ctx.lineTo(w-pad.r, h-pad.b); ctx.stroke();
+
+  // Y grid
+  [1,2,3,4].forEach(v => {
+    const y = pad.t + ch - (v/4)*ch;
+    ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(w-pad.r,y); ctx.stroke();
+    ctx.fillStyle='#3d5875'; ctx.font='9px DM Mono'; ctx.textAlign='right'; ctx.fillText(v.toFixed(1), pad.l-6, y+3);
+  });
+
+  // Line
+  const pts = scores.map((s,i) => ({
+    x: pad.l + (scores.length > 1 ? (i/(scores.length-1))*cw : cw/2),
+    y: pad.t + ch - (s/4)*ch
+  }));
+
+  ctx.strokeStyle='#2ab5a4'; ctx.lineWidth=2.5;
+  ctx.beginPath(); pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y)); ctx.stroke();
+
+  // Fill
+  ctx.fillStyle='rgba(42,181,164,0.1)';
+  ctx.beginPath(); pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+  ctx.lineTo(pts[pts.length-1].x, h-pad.b); ctx.lineTo(pts[0].x, h-pad.b); ctx.closePath(); ctx.fill();
+
+  // Dots
+  pts.forEach((p,i) => {
+    ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2);
+    ctx.fillStyle='#2ab5a4'; ctx.fill();
+    ctx.fillStyle='var(--txt)'; ctx.font='9px DM Mono'; ctx.textAlign='center';
+    ctx.fillText(scores[i].toFixed(1), p.x, p.y-10);
+    // X label
+    ctx.fillStyle='#3d5875'; ctx.font='9px DM Sans';
+    ctx.fillText('Obs '+(i+1), p.x, h-pad.b+14);
+  });
+}
+
+function drawDomainBars(domAvg) {
+  const el = document.getElementById('domain-bars');
+  if (!el) return;
+  el.innerHTML = DOMAINS.map(d => {
+    const v = domAvg[d] || 0;
+    const pct = (v/4)*100;
+    const cls = v >= 3 ? 'a' : v >= 2 ? 'pr' : v >= 1 ? 'd' : 'e';
+    const levelLabel = v >= 3.5 ? 'Advanced' : v >= 2.5 ? 'Proficient' : v >= 1.5 ? 'Developing' : 'Emerging';
+    return `<div class="pbar-wrap">
+      <div class="pbar-label"><span>${d}</span><span class="pill ${pillClass(levelLabel)}">${v.toFixed(1)} — ${levelLabel}</span></div>
+      <div class="pbar-track"><div class="pbar-fill ${cls}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════
+// MENTORING PLAN
+// ═══════════════════════════
+const mentoringStrategies = {
+  'Lesson Planning Clarity': ['Use backwards design — start with the end goal','Review subject-specific lesson plan templates','Observe a colleague with strong planning practice','Complete a structured lesson planning CPD module'],
+  'Learning Outcome Alignment': ['Map each activity to specific NCF 2023 competencies','Practise writing SMART learning objectives','Co-plan one lesson with mentor for feedback','Review alignment in previous 3 lessons retrospectively'],
+  'Pedagogical Strategy': ['Explore three new active learning strategies this term','Observe and debrief a model lesson using varied methods','Attend a pedagogy workshop focused on constructivist approaches','Read one chapter from NCF 2023 pedagogical framework'],
+  'Student Engagement': ['Implement daily engagement check: exit ticket or think-pair-share','Redesign one lesson to start with a student question or puzzle','Observe own class using peer observer to track engagement patterns','Survey students about what makes lessons interesting to them'],
+  'Questioning Quality': ['Learn and practise Bloom\'s Taxonomy question stems','Record one lesson to self-analyse questioning patterns','Plan 3 higher-order questions for each lesson in advance','Attend a questioning technique workshop'],
+  'Higher Order Thinking': ['Introduce one analysis/evaluation task per unit','Use case studies, problem scenarios, and debates','Co-design HOT tasks with mentor','Read about Bloom\'s higher levels: Analysis, Evaluation, Creation'],
+  'Formative Assessment Use': ['Implement 3-2-1 exit tickets weekly','Use mini whiteboards or hand signals for quick checks','Learn about PARAKH formative assessment tools','Create a simple tracking system for student responses'],
+  'Classroom Climate': ['Establish and consistently apply classroom norms','Use restorative rather than punitive responses','Build in 2 minutes of relationship-building at lesson start','Seek student feedback on classroom comfort and safety'],
+  'Inclusivity Practices': ['Audit classroom for accessibility and representation','Learn Universal Design for Learning (UDL) basics','Differentiate one lesson per week for diverse learners','Connect with students with specific needs to understand barriers'],
+  'Time Management': ['Use visible timers for activities','Plan transition activities between lesson segments','Review pacing after each lesson for 2 weeks','Practise lesson timing with a practice teach']
+};
+
+function generateMentoringPlan() {
+  const teacher = document.getElementById('mp-teacher').value.trim();
+  if (!teacher) { showToast('⚠️ Enter teacher name'); return; }
+  const a1 = document.getElementById('mp-area1').value;
+  const a2 = document.getElementById('mp-area2').value;
+  const mentor = document.getElementById('mp-mentor').value || 'Mentor';
+  const timeline = document.getElementById('mp-timeline').value;
+  const context = document.getElementById('mp-context').value;
+
+  const plans = [a1, a2].filter(Boolean).map(area => ({
+    area, strategies: mentoringStrategies[area] || ['Peer observation','CPD workshop','Reflective practice','Mentor discussion']
+  }));
+
+  const out = document.getElementById('mp-output');
+  out.innerHTML = `
+    <div style="background:rgba(212,168,67,0.07);border:1px solid rgba(212,168,67,0.22);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.25rem">
+      <div style="font-size:0.68rem;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:0.3rem">MENTORING ACTION PLAN</div>
+      <div style="font-size:0.84rem;color:var(--txt2)">Teacher: <strong style="color:var(--txt)">${teacher}</strong> &nbsp;|&nbsp; Mentor: <strong style="color:var(--txt)">${mentor}</strong> &nbsp;|&nbsp; Timeline: <strong style="color:var(--teal)">${timeline}</strong></div>
+      ${context ? `<div style="font-size:0.8rem;color:var(--txt2);margin-top:0.4rem">Context: ${context}</div>` : ''}
+    </div>
+    ${plans.map((p,i) => `
+      <div class="mcard">
+        <div class="mhead">
+          <span class="micon">${i===0?'🎯':'🔍'}</span>
+          <span class="mtitle">Growth Area ${i+1}: ${p.area}</span>
+          <span class="mtag">Priority ${i===0?'1':'2'}</span>
+        </div>
+        <ul class="msteps">${p.strategies.map(s=>`<li>${s}</li>`).join('')}</ul>
+      </div>`).join('')}
+    <div class="mcard">
+      <div class="mhead"><span class="micon">📋</span><span class="mtitle">Review &amp; Agreement</span></div>
+      <ul class="msteps">
+        <li>Scheduled review date: ${timeline} from today</li>
+        <li>Teacher completes weekly reflection log entries</li>
+        <li>Mentor conducts follow-up observation mid-period</li>
+        <li>Progress discussed in structured mentoring conversation</li>
+        <li>Plan revised based on evidence at review point</li>
+      </ul>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:0.65rem;flex-wrap:wrap">
+      <button class="btn btn-gold" onclick="window.print()">🖨️ Print Plan</button>
+    </div>`;
+  showToast('✅ Mentoring Plan Generated!');
+}
+
+// ═══════════════════════════
+// REFLECTION
+// ═══════════════════════════
+function saveReflection() {
+  const teacher = document.getElementById('rf-teacher').value.trim();
+  if (!teacher) { showToast('⚠️ Enter teacher name'); return; }
+  const ref = {
+    id: Date.now(),
+    teacher, class: document.getElementById('rf-class').value,
+    date: document.getElementById('rf-date').value || new Date().toISOString().split('T')[0],
+    well: document.getElementById('rf-well').value,
+    challenge: document.getElementById('rf-challenge').value,
+    engage: document.getElementById('rf-engage').value,
+    evidence: document.getElementById('rf-evidence').value,
+    different: document.getElementById('rf-different').value
+  };
+  const data = getRefs();
+  data.push(ref);
+  saveRefs(data);
+  loadReflections();
+  generateRefSuggestions(ref);
+  showToast('✅ Reflection saved!');
+}
+
+function generateRefSuggestions(ref) {
+  const sugg = document.getElementById('rf-suggestions');
+  const prompts = [];
+  if (ref.challenge) prompts.push('Your challenge suggests exploring: differentiated instruction or flexible grouping strategies.');
+  if (ref.engage && ref.engage.toLowerCase().includes('few')) prompts.push('Low engagement detected. Consider: hook activities, student choice tasks, or collaborative structures.');
+  if (ref.different) prompts.push(`Your "different next time" insight: "${ref.different.substring(0,60)}..." — add this to your mentoring plan.`);
+  prompts.push('Log your next lesson reflection within 24 hours for best reflective practice.');
+
+  sugg.innerHTML = `<h3>💡 Suggested Improvement Prompts</h3>
+    <div style="color:var(--txt2);font-size:0.84rem;line-height:1.8">
+      ${prompts.map(p=>`<p style="padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04)">→ ${p}</p>`).join('')}
+    </div>`;
+}
+
+function loadReflections() {
+  const el = document.getElementById('rf-list');
+  if (!el) return;
+  const data = getRefs().slice(-5).reverse();
+  el.innerHTML = data.length ? data.map(r => `
+    <div class="ref-entry">
+      <div class="ref-date">${r.date} — ${r.teacher} — ${r.class||'(class not set)'}</div>
+      ${r.well ? `<div class="ref-text">✨ ${r.well.substring(0,120)}</div>` : ''}
+      ${r.challenge ? `<div class="ref-text" style="margin-top:0.3rem">⚡ ${r.challenge.substring(0,120)}</div>` : ''}
+    </div>`).join('') : '<p style="color:var(--txt3);font-size:0.84rem">No reflections yet.</p>';
+}
+
+// ═══════════════════════════
+// CPD
+// ═══════════════════════════
+function saveCPD() {
+  const teacher = document.getElementById('cpd-teacher').value.trim();
+  const title = document.getElementById('cpd-title').value.trim();
+  if (!teacher || !title) { showToast('⚠️ Enter teacher name and training title'); return; }
+  const record = {
+    id: Date.now(), teacher, title,
+    category: document.getElementById('cpd-category').value,
+    date: document.getElementById('cpd-date').value || new Date().toISOString().split('T')[0],
+    hours: parseInt(document.getElementById('cpd-hours').value)||0,
+    skill: document.getElementById('cpd-skill').value,
+    impl: document.getElementById('cpd-impl').value,
+    gap: document.getElementById('cpd-gap').value
+  };
+  const data = getCPDs();
+  data.push(record);
+  saveCPDs(data);
+  loadCPD();
+  showToast('✅ CPD record saved!');
+}
+
+function loadCPD() {
+  const data = getCPDs();
+  const countEl = document.getElementById('cpd-count');
+  const hoursEl = document.getElementById('cpd-hours-total');
+  if (countEl) countEl.textContent = data.length;
+  if (hoursEl) hoursEl.textContent = data.reduce((s,r)=>s+r.hours,0)+'h';
+
+  const impact = document.getElementById('cpd-impact');
+  if (impact) {
+    const linked = data.filter(r => r.gap);
+    const cats = {};
+    data.forEach(r => { cats[r.category] = (cats[r.category]||0) + 1; });
+    impact.innerHTML = `<div style="font-size:0.84rem;color:var(--txt2);line-height:1.9">
+      <p>📌 CPD linked to observation gaps: <strong style="color:var(--teal)">${linked.length}/${data.length}</strong></p>
+      <p>🏆 Top category: <strong style="color:var(--txt)">${Object.entries(cats).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—'}</strong></p>
+      <p>⚡ CPD Alignment Index: <strong style="color:${linked.length/Math.max(1,data.length)>0.5?'var(--green)':'var(--amber)'}">${Math.round((linked.length/Math.max(1,data.length))*100)}%</strong></p>
+    </div>`;
+  }
+
+  const list = document.getElementById('cpd-list');
+  if (list) {
+    list.innerHTML = data.slice(-6).reverse().map(r => `
+      <div class="cpd-row">
+        <div><div class="cpd-name">${r.title}</div><div class="cpd-meta">${r.teacher} · ${r.date} · ${r.hours}h · ${r.category}</div></div>
+        ${r.gap ? `<span class="pill pr" style="font-size:0.65rem">Linked: ${r.gap.split(' ')[0]}</span>` : ''}
+      </div>`).join('') || '<p style="color:var(--txt3);font-size:0.84rem">No CPD records yet.</p>';
+  }
+}
+
+// ═══════════════════════════
+// SCHOOL DASHBOARD
+// ═══════════════════════════
+function refreshDashboard() {
+  const obs = getObs();
+  const cpds = getCPDs();
+  const teachers = [...new Set(obs.map(o=>o.teacher))].length;
+  const tqi = calcTeachingQualityIndex(obs);
+
+  document.getElementById('sd-teachers').textContent = teachers;
+  document.getElementById('sd-obs').textContent = obs.length;
+  document.getElementById('sd-avg').textContent = tqi + '/100';
+  document.getElementById('sd-cpd').textContent = cpds.reduce((s,r)=>s+r.hours,0)+'h';
+
+  drawSchoolChart(obs);
+  drawGapChart(obs);
+
+  const prio = document.getElementById('sd-priorities');
+  if (prio && obs.length) {
+    const domGaps = {};
+    obs.forEach(o => DOMAINS.forEach(d => {
+      const v = LEVEL_SCORES[o.ratings[d]]||0;
+      if (!domGaps[d]) domGaps[d] = [];
+      domGaps[d].push(v);
+    }));
+    const sorted = Object.entries(domGaps).map(([d,vs]) => ({d, avg: vs.reduce((a,b)=>a+b,0)/vs.length})).sort((a,b)=>a.avg-b.avg);
+    prio.innerHTML = `<div style="font-size:0.84rem;line-height:2;color:var(--txt2)">
+      ${sorted.slice(0,3).map((s,i)=>`<p>${['🔴','🟡','🟠'][i]} <strong style="color:var(--txt)">${s.d}</strong> — School avg: ${s.avg.toFixed(2)}/4.0 — Recommend targeted CPD this term</p>`).join('')}
+      <p style="margin-top:0.5rem;color:var(--txt3);font-size:0.78rem">Note: No individual teacher data is shown in this view. Data is anonymous and aggregated.</p>
+    </div>`;
+  } else if (prio) { prio.innerHTML = '<p style="color:var(--txt3);font-size:0.84rem">Enter observation data to see school-wide priorities.</p>'; }
+}
+
+function drawSchoolChart(obs) {
+  const canvas = document.getElementById('schoolChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.parentElement.clientWidth - 32;
+  const h = canvas.height = 200;
+  ctx.clearRect(0,0,w,h);
+  if (!obs.length) { ctx.fillStyle='#3d5875'; ctx.font='12px DM Sans'; ctx.textAlign='center'; ctx.fillText('No data yet',w/2,h/2); return; }
+
+  const counts = {Emerging:0,Developing:0,Proficient:0,Advanced:0};
+  obs.forEach(o => Object.values(o.ratings).forEach(r => { if(counts[r]!==undefined) counts[r]++; }));
+  const total = Object.values(counts).reduce((a,b)=>a+b,0)||1;
+  const bars = Object.entries(counts);
+  const bw = (w-60)/bars.length - 10;
+  const colors = {Emerging:'var(--red)',Developing:'var(--amber)',Proficient:'var(--teal)',Advanced:'var(--green)'};
+
+  bars.forEach(([l,v],i) => {
+    const pct = v/total; const bh = pct*(h-55);
+    const x = 35 + i*((w-55)/bars.length) + 5;
+    const y = h-35-bh;
+    ctx.fillStyle = colors[l]+'22'; ctx.fillRect(x,y,bw,bh);
+    ctx.fillStyle = colors[l]; ctx.fillRect(x,y,bw,3);
+    ctx.font='10px DM Mono'; ctx.textAlign='center'; ctx.fillText(Math.round(pct*100)+'%',x+bw/2,y-5);
+    ctx.fillStyle='#7a98bb'; ctx.font='9px DM Sans'; ctx.fillText(l.substring(0,6),x+bw/2,h-18);
+  });
+}
+
+function drawGapChart(obs) {
+  const canvas = document.getElementById('gapChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width = canvas.parentElement.clientWidth - 32;
+  const h = canvas.height = 200;
+  ctx.clearRect(0,0,w,h);
+  if (!obs.length) { ctx.fillStyle='#3d5875'; ctx.font='12px DM Sans'; ctx.textAlign='center'; ctx.fillText('No data yet',w/2,h/2); return; }
+
+  const domGaps = {};
+  obs.forEach(o => DOMAINS.forEach(d => {
+    const v = LEVEL_SCORES[o.ratings[d]]||0;
+    if (!domGaps[d]) domGaps[d] = [];
+    domGaps[d].push(v);
+  }));
+  const sorted = Object.entries(domGaps).map(([d,vs]) => ({d, avg: vs.reduce((a,b)=>a+b,0)/vs.length})).sort((a,b)=>a.avg-b.avg).slice(0,5);
+  const bw = (w-60)/sorted.length - 8;
+  sorted.forEach(({d,avg},i) => {
+    const pct = avg/4; const bh = pct*(h-55);
+    const x = 35 + i*((w-55)/sorted.length) + 4;
+    const y = h-35-bh;
+    const col = avg < 2 ? 'var(--red)' : avg < 3 ? 'var(--amber)' : 'var(--teal)';
+    ctx.fillStyle = col+'22'; ctx.fillRect(x,y,bw,bh);
+    ctx.fillStyle = col; ctx.fillRect(x,y,bw,3);
+    ctx.font='9px DM Mono'; ctx.textAlign='center'; ctx.fillStyle=col; ctx.fillText(avg.toFixed(1),x+bw/2,y-5);
+    ctx.fillStyle='#7a98bb'; ctx.font='8px DM Sans'; ctx.fillText(d.substring(0,7),x+bw/2,h-18);
+  });
+}
+
+// ═══════════════════════════
+// ETHICS CHECKLIST
+// ═══════════════════════════
+const ETHICS = {
+  pre: [
+    'Teacher was informed of the observation date and time in advance',
+    'The observation purpose (development, not inspection) was clearly communicated',
+    'Observation criteria and rubric were shared with the teacher beforehand',
+    'Teacher had opportunity to share lesson plan and objectives before the observation',
+    'Observer agreed to a non-disruptive, silent observation role'
+  ],
+  during: [
+    'Observer sat at the back or side — not at the teacher\'s desk',
+    'Observer did not interrupt the lesson at any point',
+    'Observer took structured notes using the agreed rubric only',
+    'Observer remained neutral and non-judgmental in facial expressions',
+    'Observer documented specific evidence, not general impressions'
+  ],
+  post: [
+    'Feedback was given within 48 hours of the observation',
+    'Feedback began with genuine strengths before addressing growth areas',
+    'Growth areas were framed as professional development opportunities, not failures',
+    'Teacher was given space to respond and share their own perspective',
+    'A collaborative mentoring plan was developed, not imposed'
+  ],
+  dignity: [
+    'No comparison was made to other teachers at any point',
+    'Observation data was kept confidential between observer and teacher',
+    'Teacher\'s professional expertise and effort were explicitly acknowledged',
+    'Growth plan includes support and resources, not only expectations',
+    'Teacher maintains agency and ownership of their professional development'
+  ]
+};
+
+function buildEthicsChecklist() {
+  Object.entries(ETHICS).forEach(([section, items]) => {
+    const el = document.getElementById('eth-'+section);
+    if (!el) return;
+    el.innerHTML = items.map((item,i) => `
+      <div class="eth-item">
+        <div class="eth-check" id="ec-${section}-${i}" onclick="toggleEthic(this)">&nbsp;</div>
+        <div class="eth-label">${item}</div>
+      </div>`).join('');
+  });
+}
+
+function toggleEthic(el) {
+  el.classList.toggle('checked');
+  if (el.classList.contains('checked')) el.textContent = '✓';
+  else el.textContent = '';
+}
+
+function checkEthicsCompletion() {
+  const all = document.querySelectorAll('.eth-check');
+  const checked = document.querySelectorAll('.eth-check.checked');
+  showToast(`✅ Ethics: ${checked.length}/${all.length} items confirmed`);
+}
+
+// ═══════════════════════════
+// POLICY PAGES
+// ═══════════════════════════
+const policyData = [
+  {n:1, title:'NEP 2020 and Teacher Professional Standards',
+   body:`<p>The National Education Policy 2020 places teacher quality at the centre of its reform vision. Section 5 of NEP 2020, dedicated exclusively to teachers, begins with a powerful declaration: "Teachers truly shape the future of our children and, thus, the future of our nation." This framing sets the tone for everything that follows — teachers are not merely implementers of curriculum, but professionals whose judgement, growth, and wellbeing determine the quality of Indian education.</p>
+   <h4>A New Professional Framework</h4>
+   <p>NEP 2020 establishes a National Professional Standards for Teachers (NPST) framework, developed by NCTE (National Council for Teacher Education), that defines what teachers across India should know and be able to do at each stage of their career. The NPST distinguishes between four career stages: Foundational Teacher (0–5 years), Senior Teacher (5–15 years), Lead Teacher (15+ years), and Instructional Leader (formal leadership role). Each stage carries distinct professional expectations around subject knowledge, pedagogy, assessment literacy, and professional growth orientation.</p>
+   <p>This career progression model represents a fundamental departure from India's traditional flat teacher career structure, where seniority meant little more than time served. Under the NPST framework, progression through career stages is linked to demonstrated professional growth, mentoring contribution, and leadership capacity. Evaluation in this model is not a one-time inspection but a continuous, developmental process.</p>
+   <h4>From Inspection to Professional Accountability</h4>
+   <p>NEP 2020 explicitly rejects the inspection-based evaluation model that has characterised teacher accountability in India. In the inspection model, teacher quality is assessed through periodic, often unannounced visits from supervisory officials, resulting in compliance-based teaching practice — teachers performing for the inspector rather than for students. NEP 2020 calls for a fundamentally different approach: professional accountability that is forward-looking, supportive, evidence-based, and teacher-owned.</p>
+   <p>Professional accountability, as envisioned by NEP 2020, means that teachers engage regularly in self-assessment, peer observation, and mentored reflection. It means that principals and academic leaders function as instructional coaches rather than administrative supervisors. It means that professional development is not a mandatory attendance event but a genuine response to identified growth areas. The Teacher Evaluation and Mentoring Intelligence Studio is designed to operationalise exactly this vision.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>How does your current school's teacher evaluation practice align with NEP 2020's vision of professional accountability? What is the one aspect most needing change?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Share the NPST career stages framework with your teaching staff. Invite each teacher to identify where they see themselves in the framework and what the next stage would require from them.</p></div>`},
+  {n:2, title:'NCF 2023 Pedagogical Framework',
+   body:`<p>The National Curriculum Framework 2023 provides the most comprehensive articulation of what excellent teaching looks like in contemporary Indian classrooms. Where NEP 2020 sets the vision, NCF 2023 provides the operational grammar — the specific pedagogical principles, classroom practices, and learning design elements that translate the policy vision into daily teaching reality.</p>
+   <h4>The NCF 2023 Pedagogical Principles</h4>
+   <p>NCF 2023 identifies several foundational pedagogical principles that should characterise teaching across all subjects and stages. Active learning places students at the centre of the learning process — they construct understanding through inquiry, discussion, experimentation, and problem-solving rather than passive reception. Competency-based teaching focuses on developing transferable skills and conceptual understanding rather than covering content for examinations. Contextualised curriculum connects learning to students' local context, culture, and lived experience, making knowledge meaningful and relevant.</p>
+   <p>Inclusive pedagogy ensures that teaching design accommodates diverse learners — different ability levels, learning styles, languages, and backgrounds. Formative assessment embeds assessment within teaching rather than treating it as a separate, terminal activity. Play-based and experiential approaches, particularly in the early years, recognise that children learn through doing, making, and playing as well as through direct instruction.</p>
+   <h4>Teaching Domains in NCF 2023</h4>
+   <p>NCF 2023 organises teaching quality into interconnected domains that map closely to the observation rubric used in this application. Lesson design quality — the clarity of planning, the alignment of activities with outcomes, the sequencing of learning experiences — determines the ceiling of what is possible in a classroom. Pedagogical strategy — the range and appropriateness of teaching methods employed — determines how effectively that potential is realised. Student engagement — the degree to which learners are active, curious, and invested — determines whether learning actually occurs. Assessment integration — the continuous monitoring and adjustment of teaching based on evidence of learning — determines whether all students benefit or only the fastest and most confident.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Which of NCF 2023's pedagogical principles is most strongly present in your school's teaching? Which is most absent? What explains this pattern?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Conduct a brief survey with teachers: "Which NCF 2023 pedagogical principle do you find most challenging to implement? Why?" Use responses to design targeted CPD for next term.</p></div>`},
+  {n:3, title:'From Evaluation to Mentoring',
+   body:`<p>The shift from evaluation to mentoring is perhaps the most culturally significant change that NEP 2020 demands of school leadership. Evaluation, in its traditional form, is an exercise of hierarchical power — a senior official or inspector observes a teacher and renders a verdict. Mentoring is a professional relationship — an experienced colleague supports a less experienced one in reflecting on practice and developing new capabilities.</p>
+   <h4>Why the Distinction Matters</h4>
+   <p>When teachers experience classroom observation as evaluation — as judgement — they respond to it as a performance, not a learning opportunity. They teach lessons that are impressive rather than representative. They hide challenges rather than surfacing them for discussion. They comply with surface expectations rather than engaging with deep professional questions. The result is a ritual with no learning value for anyone.</p>
+   <p>When teachers experience classroom observation as mentoring — as professional support — they respond to it with openness and engagement. They share genuine dilemmas and uncertainties. They experiment with new approaches knowing that imperfect attempts are valued as learning. They engage in post-observation conversations with intellectual energy rather than defensive anxiety. The result is professional growth that actually improves student learning.</p>
+   <h4>The Mentor's Role</h4>
+   <p>Effective mentors in schools are not simply experienced teachers who have been told to support others. They are professionals who have developed specific mentoring competencies: active listening, evidence-based feedback, coaching conversation skills, growth orientation, and the ability to balance challenge with support. NEP 2020 envisions mentor teachers as a formal role in the school structure — with allocated time, training, and recognition. The mentoring plan builder in this application supports mentors in structuring their support in targeted, evidence-based ways.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Think of a time you received genuinely helpful professional feedback. What made it helpful? What conditions made it possible for you to receive it openly?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Redesign your school's next teacher observation cycle explicitly as "professional learning visits" rather than "observations". Change the language in all communications, and train observers in coaching conversation techniques before the cycle begins.</p></div>`},
+  {n:4, title:'Competency-Based Teaching Standards',
+   body:`<p>Competency-based teaching standards represent a paradigm shift in how we define and measure teacher quality. Traditional teacher evaluation focused primarily on compliance with procedural requirements — is the teacher present, is the lesson plan written, are the textbook pages covered. Competency-based standards focus instead on the actual impact of teaching on student learning — is the teacher demonstrating the professional skills that produce genuine student understanding?</p>
+   <h4>The Ten Teaching Domains</h4>
+   <p>The observation rubric in this application identifies ten teaching competency domains drawn from NEP 2020, NCF 2023, and international research on effective teaching. Lesson Planning Clarity addresses the fundamental professional task of designing well-structured, purposeful lessons. Learning Outcome Alignment ensures that activities and assessments are genuinely connected to the intended competencies. Pedagogical Strategy evaluates the range and appropriateness of teaching methods. Student Engagement assesses the degree to which all students are active participants in learning.</p>
+   <p>Questioning Quality examines the intellectual level and distribution of teacher questions. Higher Order Thinking evaluates the degree to which teaching promotes analysis, evaluation, and creative thinking rather than mere recall. Formative Assessment Use assesses whether the teacher is continuously monitoring understanding and adjusting accordingly. Classroom Climate evaluates the safety, respect, and intellectual energy of the learning environment. Inclusivity Practices examines whether diverse learners are genuinely accommodated. Time Management assesses the efficiency and purposefulness of lesson pacing.</p>
+   <h4>The Four-Level Scale</h4>
+   <p>Each domain is assessed using a four-level scale: Emerging, Developing, Proficient, and Advanced. These levels are not marks or grades — they are developmental stages that every teacher, regardless of experience, moves through as they grow. An Emerging rating in a domain is not a failure — it is an accurate identification of a learning edge that can be addressed through targeted mentoring and CPD.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Which of the ten teaching domains do you feel most confident in? Which feels like your biggest current growth edge? What one change would have the biggest impact on your weakest domain?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Share the ten domain rubric with all teachers before any observations begin. Invite self-assessment against the rubric. Compare teacher self-assessment with subsequent observation ratings to identify insight gaps.</p></div>`},
+  {n:5, title:'Constructivist Classroom Indicators',
+   body:`<p>Constructivism — the educational theory holding that learners actively construct understanding through experience, reflection, and social interaction rather than passively receiving knowledge — forms the philosophical bedrock of NCF 2023's pedagogical vision. Understanding what a constructivist classroom looks like in practice is essential for both teachers and observers.</p>
+   <h4>Observable Indicators</h4>
+   <p>A constructivist classroom is identifiable through specific, observable behaviours and structures. Student talk time is high — learners are discussing, debating, explaining, and questioning, not only listening. Tasks require active thinking — students are analysing, applying, creating, and evaluating, not merely copying and recalling. Prior knowledge is activated — teachers regularly ask "what do you already know about this?" before introducing new content. Multiple representations are used — concepts are explored through diagrams, stories, physical objects, and data as well as explanations. Errors are treated as learning resources — misconceptions are surfaced and examined rather than corrected and moved on from.</p>
+   <p>Learning is social — collaborative tasks, peer explanation, and group problem-solving are regular features of lessons. The teacher functions as a facilitator of inquiry rather than a transmitter of information, asking more questions than providing answers. Student questions are genuinely welcomed and pursued. Assessment is embedded — the teacher regularly pauses to check understanding before moving on, and adjusts based on what is found.</p>
+   <h4>Common Misconceptions</h4>
+   <p>Constructivism does not mean the teacher never explains. Direct instruction is a legitimate and often highly effective teaching approach — but it is more effective when it comes after students have engaged with the problem themselves, building the cognitive framework that makes the explanation meaningful. Constructivism does not mean unstructured or discovery-only learning. The teacher's role in designing the structure of inquiry, selecting appropriate tasks, and guiding productive struggle is as demanding as any form of direct instruction — and requires deeper pedagogical knowledge.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>In your last five lessons, estimate: what percentage of the time were students actively thinking and discussing? What percentage were they listening or copying? What does this ratio tell you?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Conduct a brief "talk time audit" in three classrooms. Use a timer to track teacher talk versus student talk over 10-minute samples. Share findings anonymously with the faculty and discuss together: what does an ideal ratio look like for different lesson types?</p></div>`},
+  {n:6, title:'Observation as Development Tool',
+   body:`<p>Classroom observation, when designed and conducted well, is one of the most powerful professional development experiences available to teachers. It provides direct, specific, evidence-based feedback on the actual quality of classroom practice — feedback that no written examination, competency test, or workshop attendance record can provide. The challenge is designing observation systems that realise this potential rather than triggering the defensive, performance-oriented responses that poorly designed observation produces.</p>
+   <h4>Design Principles for Developmental Observation</h4>
+   <p>The first principle is transparency. Teachers should know in advance that an observation will happen, what will be observed, and what criteria will be used to evaluate it. Surprise inspections produce anxiety; pre-announced developmental observations produce reflection and engagement. Sharing the rubric in advance allows teachers to think about their own practice before being observed — which is itself a valuable professional learning activity.</p>
+   <p>The second principle is focus. A developmental observation should focus on a small number of agreed domains rather than attempting to evaluate everything simultaneously. When teacher and observer agree in advance that today's observation will focus particularly on questioning quality and student engagement, the observation generates deep, specific data on those domains rather than thin, impressionistic data on everything. Focused observation also makes the feedback conversation more productive — specific, concrete evidence on one or two domains leads to more actionable improvement than general impressions across ten.</p>
+   <h4>What Good Observers Do</h4>
+   <p>Effective classroom observers separate evidence from inference. Evidence is what the observer directly saw and heard: "The teacher asked seven questions in 20 minutes; five were recall-level and two were analysis-level." Inference is the observer's interpretation: "The teacher relies heavily on lower-order questions." Feedback should lead with evidence and explain inferences separately, allowing the teacher to agree or offer alternative interpretations. This evidence-first approach makes feedback discussions collaborative rather than adversarial.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>How do teachers in your school typically feel when told they will be observed? What does this emotional response tell you about the current observation culture? What would need to change?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Before your next observation cycle, offer each teacher a "pre-observation conversation" — a 10-minute discussion where they share what they are trying in the lesson and what feedback would be most useful to them. Notice how this changes the subsequent observation and feedback conversation.</p></div>`},
+  {n:7, title:'Feedback that Improves Practice',
+   body:`<p>Feedback is the mechanism through which observation translates into professional growth. Without high-quality feedback, even the most carefully conducted observation produces no improvement. But most educators have experienced feedback that, however well-intentioned, produced defensiveness, confusion, or discouragement rather than growth. Understanding what makes feedback effective — and what makes it counterproductive — is a foundational professional competency for school leaders and mentor teachers.</p>
+   <h4>The GROW Framework for Feedback Conversations</h4>
+   <p>Effective feedback conversations follow a developmental structure. The GROW framework — Goal, Reality, Options, Will — provides a practical architecture for post-observation discussions. The Goal phase establishes the context: what were you trying to achieve in this lesson? The Reality phase explores the evidence: here is what I observed, here is how students responded. The Options phase generates possibilities: given this evidence, what approaches might address the growth area? The Will phase establishes commitment: what will you try, and when will we review it?</p>
+   <p>This structure positions the teacher as a problem-solver rather than a subject of judgement. The observer contributes evidence and suggestions, but the teacher owns the analysis and the decision about what to do. This ownership is crucial — professional change that a teacher chooses and designs is far more likely to persist than change that is imposed from outside.</p>
+   <h4>Common Feedback Mistakes</h4>
+   <p>Several common feedback patterns consistently undermine professional growth. The "feedback sandwich" — positive, critical, positive — is so widely recognised that teachers wait for the critical middle, and the surrounding positives read as perfunctory rather than genuine. Vague feedback — "your classroom management needs work" — is unactionable; specific feedback — "I noticed that students at the back row were off-task during the independent work segment" — is actionable. Overloading — providing ten growth points in a single feedback conversation — is overwhelming; one or two actionable growth points are more likely to produce change than a comprehensive list of weaknesses.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Think of the best feedback you ever received on your professional practice. What made it stick? What made it actionable? Can you design your feedback conversations to have the same qualities?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Practice the GROW conversation structure with a trusted colleague before using it with teachers. Notice where you feel the pull to give advice rather than ask questions. Practice sitting with productive silence after asking "what options do you see?"</p></div>`},
+  {n:8, title:'Reflective Teaching Cycle',
+   body:`<p>Reflection is the engine of professional growth. The gap between experienced teachers and expert teachers is not primarily a function of years in the classroom — it is a function of how deeply and honestly those years have been reflected upon. Research consistently shows that teachers who engage in structured, regular reflection on their practice improve significantly faster than those who do not, regardless of their baseline performance level.</p>
+   <h4>The Reflective Teaching Cycle</h4>
+   <p>The reflective teaching cycle has four stages. The Teach stage is the active classroom experience — the lesson as it unfolds in real time. The Reflect stage is the structured thinking that happens after the lesson: what worked, what didn't, why, and what this suggests for next time. The Plan stage involves incorporating insights from reflection into the design of the next lesson. The Act stage is the modified teaching that follows — attempting the adjustments identified in the planning stage.</p>
+   <p>The power of the cycle comes from its regularity. A teacher who completes this cycle after every lesson — even briefly, even in a short written note — accumulates a rich body of professional learning over a term. The self-reflection module in this application supports this cycle by providing structured prompts for each stage of the reflection, creating a searchable log of professional insights that can inform mentoring conversations and CPD planning.</p>
+   <h4>From Private Reflection to Professional Learning</h4>
+   <p>Individual reflection, while valuable, is limited by blind spots. We cannot see what we cannot see. Professional growth accelerates when private reflection is combined with peer reflection — sharing reflective log entries with a trusted colleague or mentor, discussing observations together, or co-planning lessons and comparing the teaching experience. This is the foundation of professional learning communities, which NEP 2020 envisions as a primary structure for ongoing teacher development in schools.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>What is your current practice after a lesson? Do you reflect systematically, occasionally, or not at all? What practical barrier most prevents regular reflection, and what one change would address it?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Introduce a five-minute "lesson debrief" practice in your school: after each lesson, teachers spend five minutes writing answers to three questions: What went well? What would I change? What do I need to find out? Review these logs in monthly mentoring conversations.</p></div>`},
+  {n:9, title:'Linking CPD to Classroom Practice',
+   body:`<p>Professional development spending in Indian education has traditionally produced disappointing returns. Teachers attend workshops, sit through presentations, receive certificates, and return to classrooms where their practice changes very little. This is not because the workshops are always poor — though many are — but because the system for translating professional learning into practice change is almost entirely absent. NEP 2020 calls explicitly for CPD systems that are targeted, follow-through supported, and impact-evaluated.</p>
+   <h4>The Transfer Problem</h4>
+   <p>Research on CPD effectiveness identifies the "transfer problem" as the central challenge: how do teachers transfer what they learn in a workshop or training session into sustained changes in their daily classroom practice? The research is clear that transfer requires three conditions that most professional development experiences do not provide. First, teachers must have opportunities to practise the new skills in low-stakes conditions before applying them in their classrooms — workshops that include classroom simulation and peer practice produce far higher transfer than lecture-style presentations. Second, teachers must receive coaching and feedback as they attempt to implement new practices — implementation without support leads to abandonment when the first attempts are imperfect. Third, teachers must have time to collaborate with colleagues also attempting the same changes — social accountability and peer learning are more powerful transfer mechanisms than individual willpower.</p>
+   <h4>CPD Aligned with Observation Data</h4>
+   <p>The CPD Alignment Tool in this application is designed to address the transfer problem at the system level. By linking CPD activities to specific observation growth areas, it creates a coherent loop: observe, identify gaps, select targeted CPD, implement, observe again. This loop transforms CPD from a generic professional obligation into a targeted, evidence-driven response to actual teaching challenges. When teachers and school leaders can see the alignment between their CPD choices and their identified growth areas, and when they record how CPD has been implemented in their classrooms, professional development becomes meaningful rather than ceremonial.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Think about the last three professional development activities you attended. How much of what you learned did you implement in your classroom? What supported or prevented implementation?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>At your next faculty meeting, introduce the "CPD Impact Protocol": after every training attended, teachers share one specific implementation they have tried in their classroom. Create a simple tracking sheet. After one term, review: which CPD investments produced the most classroom change?</p></div>`},
+  {n:10, title:'Mentoring Models in Schools',
+   body:`<p>Mentoring in schools takes many forms, and not all of them are equally effective. Understanding the different models — and the evidence behind each — allows school leaders to design mentoring systems that are genuinely responsive to the diverse professional development needs of their staff.</p>
+   <h4>One-to-One Mentoring</h4>
+   <p>The classical mentoring model pairs an experienced teacher with a less experienced colleague in a sustained professional relationship. This relationship involves regular meetings, classroom observations in both directions, collaborative planning, and structured professional conversations. One-to-one mentoring is particularly effective for teachers in their first three years of practice, and for teachers making significant transitions — to a new subject, a new age group, or a new leadership role.</p>
+   <p>The key success factor in one-to-one mentoring is the quality of the mentor's skills. Mentors need training in coaching conversation techniques, observation practice, feedback delivery, and professional development planning. Without this training, well-intentioned mentors often revert to advice-giving and evaluation — the very patterns that developmental mentoring is designed to replace. The Mentoring Plan Builder in this application supports mentors in structuring their conversations and providing targeted, evidence-based support.</p>
+   <h4>Peer Observation and Coaching</h4>
+   <p>Peer observation — teachers observing each other's classrooms and discussing what they see — is one of the most underused and potentially most powerful professional development practices in schools. Unlike hierarchical observation, peer observation occurs between equals, which dramatically reduces the defensive responses that authority-based observation triggers. Peers bring different perspectives and specific classroom expertise that observing principals often lack.</p>
+   <h4>Professional Learning Communities</h4>
+   <p>Professional Learning Communities (PLCs) — structured groups of teachers who meet regularly to examine student learning data, share classroom practices, and collaboratively plan improvements — represent the most comprehensive mentoring model. PLCs embody the principle that professional development is most effective when it is collective, continuous, and embedded in the daily work of teaching. NEP 2020 strongly endorses PLCs as the primary vehicle for sustained school improvement.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Which mentoring model is most present in your school? Which is most absent? What practical step would make peer observation a regular feature of professional life in your school?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Establish one Professional Learning Community this term. Choose three to four teachers who share a subject or class level. Provide two protected meeting periods per month. Give the PLC a specific focus: "improving questioning quality in our subject." Review outcomes at the end of term.</p></div>`},
+  {n:11, title:'Instructional Leadership Role',
+   body:`<p>Instructional leadership — the practice of school principals and academic leaders actively engaging with the quality of teaching and learning in their schools — is the single factor most consistently associated with school improvement in the research literature. Instructional leaders do not merely manage their schools administratively; they function as learning partners, pedagogical champions, and professional developers who make teaching quality the central focus of their leadership attention.</p>
+   <h4>What Instructional Leaders Do</h4>
+   <p>Instructional leaders spend significant time in classrooms — not as inspectors rendering verdicts, but as learners and supporters seeking to understand what is happening and how they can help. They participate in professional development alongside their teachers, demonstrating that professional growth is not only for the less experienced. They lead data analysis conversations, helping teachers interpret observation data and student learning evidence to identify priorities. They protect teachers' time for professional collaboration by managing administrative demands carefully. They build a school culture where intellectual risk-taking and honest professional dialogue are normal rather than exceptional.</p>
+   <h4>Transitioning from Manager to Instructional Leader</h4>
+   <p>Most school principals in India were selected and trained as administrative managers rather than instructional leaders. Making the transition requires deliberate choices about time allocation, skill development, and cultural signalling. Time allocation: instructional leaders spend at least 25-30% of their time on teaching and learning activities — classroom visits, professional conversations, data review, curriculum discussions. Skill development: instructional leaders seek training in coaching, observation, and pedagogical knowledge. Cultural signalling: every choice a principal makes communicates what matters — when a principal discusses student learning outcomes at every staff meeting rather than administrative compliance, the faculty understands what the school's real priorities are.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Estimate: what percentage of your working week is spent directly on teaching and learning quality? What percentage on administration? Does this ratio match your stated priorities?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Block three classroom visits into your schedule every week for one month. After each visit, have a brief informal conversation with the teacher: "What was the most interesting thing that happened in this lesson?" Observe the effect on teaching culture over the month.</p></div>`},
+  {n:12, title:'Ethical and Supportive Evaluation',
+   body:`<p>The ethics of teacher evaluation are not optional considerations to be addressed after the design work is done — they are foundational design parameters that determine whether the entire evaluation system is credible, trustworthy, and effective. An evaluation system that teachers do not trust will produce gaming, defensiveness, and minimal genuine learning. An evaluation system that teachers experience as fair, supportive, and developmental will produce engagement, honesty, and real professional growth.</p>
+   <h4>Core Ethical Principles</h4>
+   <p>Non-punitiveness is the first and most fundamental principle. Evaluation data should never be used to punish teachers, trigger disciplinary actions, or make employment decisions except in cases of serious and sustained professional misconduct. When teachers believe that poor observation ratings will harm their careers, they will do everything possible to appear better than they are during observations — producing data that is useless for professional development purposes. Non-punitive evaluation, by contrast, creates conditions where teachers can honestly engage with their growth areas.</p>
+   <p>Transparency requires that all criteria, rubrics, and processes are known to teachers before they are used. Transparency includes sharing not just what will be assessed, but how assessment data will be used and who will have access to it. Teachers who understand exactly what is being evaluated and how can prepare meaningfully; teachers who do not understand this are in a coercive relationship with their evaluators.</p>
+   <h4>Professional Dignity</h4>
+   <p>Every teacher evaluation system must actively preserve the professional dignity of the teachers it serves. This means observing in a manner that does not disrupt the teacher's classroom authority. It means giving feedback privately, never in front of students or colleagues. It means framing all growth areas as professional development opportunities rather than failures. It means acknowledging the complexity and difficulty of teaching before suggesting that any individual teacher is failing to meet standards. It means recognising that teachers are professionals, not employees to be managed, and designing all evaluation processes with this professional respect.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>Would your teachers describe your school's evaluation practices as "ethical and supportive"? If you asked them anonymously, what might they say? What would be hardest to hear?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>Conduct an anonymous survey with teachers: "What would make classroom observation more useful for your professional growth?" Use the findings to redesign one element of your observation process before the next cycle begins.</p></div>`},
+  {n:13, title:'Building Professional Learning Culture',
+   body:`<p>Individual professional development activities — however well-designed — produce limited and temporary change. Sustained, system-wide improvement in teaching quality requires a professional learning culture: a school-wide set of shared beliefs, norms, and practices that make continuous professional growth the normal expectation and the everyday experience for every teacher in the building.</p>
+   <h4>What Professional Learning Culture Looks Like</h4>
+   <p>In schools with strong professional learning cultures, teachers talk regularly about teaching and learning — in corridors, in the staff room, in formal meetings and informal conversations. Sharing what is working and what is not working in their classrooms is normal, not exceptional. Teachers observe each other's lessons as a matter of course — not as a surveillance exercise but because seeing skilled colleagues teach is one of the most valuable professional learning experiences available.</p>
+   <p>Failure and imperfect attempts are treated as learning resources rather than shameful secrets. When a teacher tries something new and it does not work as intended, the appropriate professional response is "what can we learn from this?" rather than "who is to blame?" This psychological safety — the knowledge that it is safe to take professional risks — is the cultural precondition for genuine innovation and growth.</p>
+   <h4>How Leaders Build Professional Learning Culture</h4>
+   <p>Culture is built primarily through consistent behaviour over time. Leaders who want to build professional learning cultures must model what they are asking for: being publicly curious about their own leadership practice, sharing their own professional dilemmas with staff, seeking feedback on their performance rather than only giving it, celebrating professional risk-taking even when outcomes are imperfect. Culture is also built through structure: creating regular protected time for professional collaboration, establishing peer observation as a routine rather than an exceptional event, and ensuring that professional learning conversations are a standing item on every meeting agenda.</p>
+   <p>NEP 2020 envisions school leadership as cultural leadership — the principal's most important task is not managing systems but shaping the values and beliefs that determine how every teacher approaches their work every day. The Teacher Evaluation and Mentoring Intelligence Studio, in all its sections, is designed to support this cultural work: providing the tools, structures, and data that make professional learning conversations concrete, evidence-based, and genuinely useful for everyone involved.</p>
+   <div class="rbox"><div class="rt">🪞 Reflection Prompt</div><p>On a scale of 1–10, how would you rate your school's professional learning culture? What is the single biggest factor holding it at its current level? What would raise it by one point?</p></div>
+   <div class="abox"><div class="at2">⚡ Leadership Action</div><p>At your next staff meeting, share one thing you are personally working on in your own professional practice. Invite two or three colleagues to share similarly. Make this a regular feature of every meeting. Observe over one term what effect this modelling has on the professional openness of your staff.</p></div>`}
+];
+
+function buildPolicyPages() {
+  const nav = document.getElementById('ptabs-nav');
+  const cont = document.getElementById('ptabs-content');
+  if (!nav||!cont) return;
+  nav.innerHTML = policyData.map((p,i) => `<button class="ptab ${i===0?'active':''}" onclick="showPolicyPage(${i})" id="ptab-${i}">P${p.n}</button>`).join('');
+  cont.innerHTML = policyData.map((p,i) => `
+    <div class="pcont ${i===0?'active':''}" id="pc-${i}">
+      <div class="card"><h3>Page ${p.n}: ${p.title}</h3>${p.body}</div>
+    </div>`).join('');
+}
+
+function showPolicyPage(i) {
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pcont').forEach(c=>c.classList.remove('active'));
+  document.getElementById('ptab-'+i).classList.add('active');
+  document.getElementById('pc-'+i).classList.add('active');
+}
+
+// ═══════════════════════════
+// EXPORT
+// ═══════════════════════════
+function exportJSON() {
+  const d = {observations:getObs(),reflections:getRefs(),cpd:getCPDs(),exported:new Date().toISOString()};
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));
+  a.download = 'temis_backup_'+Date.now()+'.json'; a.click();
+  showToast('✅ Backup downloaded!');
+}
+function handleImport(e) {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    try {
+      const d = JSON.parse(ev.target.result);
+      if (d.observations) saveObs([...getObs(),...d.observations]);
+      if (d.reflections) saveRefs([...getRefs(),...d.reflections]);
+      if (d.cpd) saveCPDs([...getCPDs(),...d.cpd]);
+      showToast('✅ Data imported!');
+    } catch(err) { showToast('❌ Invalid file'); }
+  };
+  r.readAsText(f);
+}
+function resetData() {
+  if (confirm('Delete ALL data permanently?')) {
+    [OBS_KEY,REF_KEY,CPD_KEY,PLANS_KEY].forEach(k => localStorage.removeItem(k));
+    showToast('🗑️ All data cleared.');
+  }
+}
+
+// ═══════════════════════════
+// TOAST
+// ═══════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ═══════════════════════════
+// INIT
+// ═══════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  buildObsForm();
+  buildPolicyPages();
+  buildEthicsChecklist();
+  loadObsTable();
+  loadReflections();
+  loadCPD();
+  // Set today's date on forms
+  ['rf-date','cpd-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value) el.value = new Date().toISOString().split('T')[0];
+  });
+});
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+}
+</script>
+</body>
+</html>

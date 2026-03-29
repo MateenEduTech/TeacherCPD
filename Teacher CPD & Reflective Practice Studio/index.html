@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0a1628"/>
+<meta name="description" content="Teacher CPD & Reflective Practice Studio - Aligned with NEP 2020 & NCF 2023"/>
+<title>Teacher CPD & Reflective Practice Studio</title>
+<link rel="manifest" href="manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy: #0a1628;
+  --navy-mid: #112240;
+  --navy-light: #1a3a5c;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --cream: #f5f0e8;
+  --white: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-muted: #4a5568;
+  --border: rgba(201,168,76,0.25);
+  --card-bg: #ffffff;
+  --section-bg: #f8f6f0;
+  --success: #2d6a4f;
+  --error: #c1121f;
+  --accent: #e63946;
+  --shadow: 0 4px 24px rgba(10,22,40,0.12);
+  --shadow-lg: 0 12px 48px rgba(10,22,40,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--cream);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── NAVIGATION ─────────────────────────────────── */
+#top-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  padding: 0 20px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+#nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+#nav-menu-btn {
+  background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; gap: 5px; padding: 4px;
+}
+#nav-menu-btn span {
+  display: block; width: 24px; height: 2px;
+  background: var(--gold); border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────── */
+#sidebar {
+  position: fixed; top: 0; left: -320px; bottom: 0;
+  width: 300px; z-index: 2000;
+  background: var(--navy);
+  border-right: 2px solid var(--gold);
+  transition: left 0.35s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+  padding: 70px 0 30px;
+}
+#sidebar.open { left: 0; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 24px; cursor: pointer;
+  color: rgba(255,255,255,0.75);
+  font-family: 'Source Serif 4', serif;
+  font-size: 13.5px; font-weight: 400;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+.sidebar-item:hover, .sidebar-item.active {
+  color: var(--gold-light);
+  border-left-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+.sidebar-item .icon { font-size: 18px; min-width: 24px; text-align: center; }
+.sidebar-divider {
+  height: 1px; background: rgba(201,168,76,0.15);
+  margin: 8px 24px;
+}
+#overlay {
+  display: none; position: fixed; inset: 0; z-index: 1500;
+  background: rgba(0,0,0,0.5);
+}
+#overlay.show { display: block; }
+
+/* ─── PAGE SYSTEM ────────────────────────────────── */
+.page { display: none; min-height: 100vh; padding-top: 56px; }
+.page.active { display: block; }
+
+/* ─── HOME PAGE ──────────────────────────────────── */
+#page-home {
+  background: var(--navy);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 100vh;
+  padding: 80px 20px 60px;
+  position: relative; overflow: hidden;
+}
+.home-pattern {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 60px, var(--gold) 60px, var(--gold) 61px),
+                    repeating-linear-gradient(90deg, transparent, transparent 60px, var(--gold) 60px, var(--gold) 61px);
+}
+.home-badge {
+  background: rgba(201,168,76,0.12);
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  font-size: 11px; letter-spacing: 1.5px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 6px 16px; border-radius: 20px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.home-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 800; color: var(--white);
+  text-align: center; line-height: 1.15;
+  margin-bottom: 12px;
+  max-width: 700px;
+}
+.home-title span { color: var(--gold); }
+.home-subtitle {
+  color: rgba(255,255,255,0.6);
+  font-size: 15px; text-align: center;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.home-author {
+  color: var(--gold-light);
+  font-size: 13px; text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
+  margin-bottom: 32px;
+}
+
+.author-photo-wrapper {
+  width: 100px; height: 100px; border-radius: 50%;
+  border: 3px solid var(--gold);
+  overflow: hidden; margin: 0 auto 20px;
+  box-shadow: 0 0 30px rgba(201,168,76,0.3);
+}
+.author-photo-wrapper img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center top;
+}
+
+.home-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 36px;
+}
+
+.home-buttons {
+  display: flex; flex-direction: column; gap: 14px;
+  width: 100%; max-width: 420px; margin-bottom: 40px;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy); border: none; cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 700;
+  padding: 16px 28px; border-radius: 6px;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
+}
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,168,76,0.35);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--white); border: 1.5px solid rgba(255,255,255,0.4);
+  cursor: pointer; font-family: 'Source Serif 4', serif;
+  font-size: 14px; font-weight: 400;
+  padding: 14px 28px; border-radius: 6px;
+  transition: all 0.25s;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(201,168,76,0.08);
+}
+
+.home-features {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px; width: 100%; max-width: 600px;
+}
+.home-feat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 8px; padding: 14px 10px; text-align: center;
+}
+.home-feat-icon { font-size: 22px; margin-bottom: 6px; }
+.home-feat-label {
+  font-size: 11px; color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.3px;
+}
+
+/* ─── CONTENT PAGES ──────────────────────────────── */
+.content-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  padding: 40px 24px 32px;
+  border-bottom: 3px solid var(--gold);
+}
+.content-header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--white); font-size: clamp(22px, 4vw, 36px);
+  margin-bottom: 8px;
+}
+.content-header p {
+  color: rgba(255,255,255,0.6); font-size: 14px; font-style: italic;
+}
+.breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 1px; margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.content-body { padding: 28px 20px; max-width: 900px; margin: 0 auto; }
+
+/* ─── POLICY SECTION ─────────────────────────────── */
+.policy-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px; margin-top: 8px;
+}
+.policy-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  cursor: pointer; transition: all 0.25s;
+  border-left: 4px solid var(--gold);
+  box-shadow: var(--shadow);
+}
+.policy-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-left-color: var(--accent);
+}
+.policy-card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 1px; margin-bottom: 8px;
+}
+.policy-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; color: var(--navy);
+  margin-bottom: 8px; line-height: 1.3;
+}
+.policy-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+/* Policy detail view */
+.policy-detail { display: none; padding: 0; }
+.policy-detail.show { display: block; }
+.policy-detail-header {
+  background: var(--navy);
+  padding: 20px 20px 16px;
+  border-bottom: 2px solid var(--gold);
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: none; cursor: pointer;
+  color: var(--gold); font-size: 13px;
+  font-family: 'Source Serif 4', serif;
+  margin-bottom: 12px; padding: 0;
+}
+.back-btn:hover { color: var(--gold-light); }
+.policy-detail-header h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--white); font-size: 20px; line-height: 1.3;
+}
+.policy-content {
+  padding: 24px 20px;
+  max-width: 800px; margin: 0 auto;
+}
+.policy-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--navy-mid);
+  margin: 24px 0 10px; border-left: 3px solid var(--gold);
+  padding-left: 12px;
+}
+.policy-content p {
+  font-size: 14.5px; line-height: 1.85;
+  color: var(--text-primary); margin-bottom: 14px;
+}
+.policy-content ul, .policy-content ol {
+  padding-left: 20px; margin-bottom: 14px;
+}
+.policy-content li {
+  font-size: 14px; line-height: 1.75;
+  color: var(--text-primary); margin-bottom: 6px;
+}
+.reflect-box {
+  background: linear-gradient(135deg, #f0f4ff, #e8f0fe);
+  border: 1px solid #c0d0f0; border-radius: 8px;
+  padding: 18px 20px; margin: 20px 0;
+  border-left: 4px solid #3b5bdb;
+}
+.reflect-box h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; color: #2c3e8c; margin-bottom: 10px;
+}
+.reflect-box ul { padding-left: 18px; }
+.reflect-box li { font-size: 13.5px; color: #2c3e8c; margin-bottom: 5px; }
+.action-box {
+  background: #f0fff4; border: 1px solid #a8d5b5;
+  border-radius: 8px; padding: 18px 20px; margin: 20px 0;
+  border-left: 4px solid var(--success);
+}
+.action-box h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; color: var(--success); margin-bottom: 10px;
+}
+.action-box li { font-size: 13.5px; color: #1a4731; margin-bottom: 5px; }
+
+/* ─── FORMS ──────────────────────────────────────── */
+.form-section {
+  background: var(--card-bg); border-radius: 10px;
+  border: 1px solid var(--border); padding: 24px;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.form-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--navy);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.form-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px; margin-bottom: 14px;
+}
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+label {
+  font-size: 12px; font-weight: 600; color: var(--navy);
+  letter-spacing: 0.5px; text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+input, select, textarea {
+  border: 1.5px solid #d1d5db; border-radius: 6px;
+  padding: 10px 14px; font-size: 14px;
+  font-family: 'Source Serif 4', serif;
+  color: var(--text-primary); background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+}
+textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.btn-action {
+  background: var(--navy); color: var(--white);
+  border: none; cursor: pointer; padding: 12px 24px;
+  border-radius: 6px; font-size: 14px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600; transition: all 0.2s;
+  margin-right: 10px; margin-top: 8px;
+}
+.btn-action:hover { background: var(--navy-light); transform: translateY(-1px); }
+.btn-action.gold { background: var(--gold); color: var(--navy); }
+.btn-action.gold:hover { background: var(--gold-light); }
+.btn-action.red { background: var(--error); }
+.btn-action.green { background: var(--success); }
+
+/* ─── OUTPUT BOXES ───────────────────────────────── */
+.output-box {
+  background: var(--white); border: 2px solid var(--gold);
+  border-radius: 8px; padding: 20px; margin-top: 20px;
+  display: none;
+}
+.output-box.show { display: block; }
+.output-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; color: var(--navy); margin-bottom: 14px;
+}
+.lesson-section {
+  border-left: 3px solid var(--gold); padding-left: 14px;
+  margin-bottom: 16px;
+}
+.lesson-section h4 {
+  font-size: 13px; font-weight: 700; color: var(--navy);
+  letter-spacing: 0.5px; text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace; margin-bottom: 6px;
+}
+.lesson-section p, .lesson-section li {
+  font-size: 13.5px; line-height: 1.7; color: var(--text-primary);
+}
+
+/* ─── JOURNAL ENTRIES ────────────────────────────── */
+.entry-list { margin-top: 16px; }
+.journal-entry {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px; margin-bottom: 12px;
+  border-left: 4px solid var(--gold);
+  cursor: pointer; transition: all 0.2s;
+}
+.journal-entry:hover { box-shadow: var(--shadow); transform: translateX(2px); }
+.journal-entry .entry-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 1px; margin-bottom: 4px;
+}
+.journal-entry .entry-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; color: var(--navy); margin-bottom: 4px;
+}
+.journal-entry .entry-preview {
+  font-size: 12.5px; color: var(--text-muted);
+  line-height: 1.5;
+}
+.delete-btn {
+  float: right; background: none; border: none;
+  color: #dc2626; cursor: pointer; font-size: 18px;
+  padding: 0 4px; line-height: 1;
+}
+
+/* ─── STRATEGY BANK ──────────────────────────────── */
+.search-bar {
+  position: relative; margin-bottom: 20px;
+}
+.search-bar input {
+  padding-left: 40px; font-size: 14.5px;
+}
+.search-icon {
+  position: absolute; left: 13px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px; color: var(--text-muted);
+  pointer-events: none;
+}
+.strategy-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.strategy-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px;
+  box-shadow: var(--shadow); transition: all 0.25s;
+}
+.strategy-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.strategy-tag {
+  display: inline-block; background: var(--navy);
+  color: var(--gold-light); font-size: 10px;
+  padding: 3px 10px; border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px; margin-bottom: 10px;
+}
+.strategy-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; color: var(--navy); margin-bottom: 8px;
+}
+.strategy-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.strategy-steps {
+  margin-top: 10px; padding-left: 16px;
+}
+.strategy-steps li { font-size: 12.5px; color: var(--text-primary); margin-bottom: 4px; line-height: 1.5; }
+
+/* ─── OBSERVATION ─────────────────────────────────── */
+.obs-criteria {
+  display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;
+}
+.obs-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.obs-item h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--navy); margin-bottom: 8px; }
+.rating-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.rating-btn {
+  padding: 6px 14px; border-radius: 4px;
+  border: 1.5px solid #d1d5db; cursor: pointer;
+  font-size: 13px; font-family: 'Source Serif 4', serif;
+  background: var(--white); color: var(--text-muted);
+  transition: all 0.2s;
+}
+.rating-btn.selected-1 { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+.rating-btn.selected-2 { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+.rating-btn.selected-3 { background: #d1fae5; border-color: #10b981; color: #065f46; }
+.rating-btn.selected-4 { background: #dbeafe; border-color: #3b82f6; color: #1e3a8a; }
+.rating-btn.selected-5 { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+/* ─── CPD TRACKER ─────────────────────────────────── */
+.cpd-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px; margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--navy); border-radius: 10px;
+  padding: 16px 14px; text-align: center;
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; color: var(--gold); font-weight: 800;
+  line-height: 1;
+}
+.stat-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 5px; line-height: 1.3; }
+.cpd-log-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-left: 4px solid var(--navy);
+}
+.cpd-log-item.workshop { border-left-color: #3b82f6; }
+.cpd-log-item.course { border-left-color: #10b981; }
+.cpd-log-item.self-study { border-left-color: #f59e0b; }
+.cpd-log-item.reading { border-left-color: #8b5cf6; }
+.cpd-info h4 { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); }
+.cpd-info p { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.cpd-badge {
+  font-size: 10px; font-family: 'JetBrains Mono', monospace;
+  padding: 3px 9px; border-radius: 10px; background: var(--section-bg);
+  color: var(--navy); letter-spacing: 0.5px; white-space: nowrap;
+}
+
+/* ─── RADAR CHART ─────────────────────────────────── */
+.radar-container {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px;
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 20px;
+}
+.radar-container h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; color: var(--navy); margin-bottom: 20px;
+}
+canvas#radarChart { max-width: 320px; }
+
+/* ─── SCHOOL PLANNER ─────────────────────────────── */
+.gap-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px; margin-bottom: 10px;
+  border-left: 4px solid var(--accent);
+}
+.gap-item h4 { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--navy); }
+.gap-item .gap-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.progress-bar {
+  background: #e5e7eb; border-radius: 10px; height: 8px; overflow: hidden; margin-top: 8px;
+}
+.progress-fill { height: 100%; border-radius: 10px; background: var(--gold); transition: width 0.5s; }
+
+/* ─── TOAST ──────────────────────────────────────── */
+#toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: var(--white);
+  padding: 12px 24px; border-radius: 6px;
+  font-size: 14px; z-index: 9999;
+  box-shadow: var(--shadow-lg);
+  border-left: 4px solid var(--gold);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; }
+
+/* ─── TABS ───────────────────────────────────────── */
+.tab-bar {
+  display: flex; gap: 4px; padding: 0 20px;
+  background: var(--navy-mid); overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.55); font-size: 13px;
+  padding: 12px 16px; white-space: nowrap;
+  font-family: 'Source Serif 4', serif;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab-pane { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
+.tab-pane.active { display: block; }
+
+/* ─── EMPTY STATE ─────────────────────────────────── */
+.empty-state {
+  text-align: center; padding: 48px 20px; color: var(--text-muted);
+}
+.empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; font-style: italic; }
+
+/* ─── PRINT ──────────────────────────────────────── */
+@media print {
+  #top-nav, #sidebar, #overlay, #toast { display: none !important; }
+  .page { display: block !important; padding-top: 0; }
+  .btn-action, .back-btn { display: none; }
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .policy-grid { grid-template-columns: 1fr; }
+  .home-features { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page.active .content-body,
+.page.active .tab-pane.active { animation: fadeInUp 0.4s ease; }
+
+/* Section labels */
+.section-intro {
+  background: var(--section-bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px; margin-bottom: 20px;
+  font-size: 14px; color: var(--text-muted); line-height: 1.7;
+  border-left: 4px solid var(--gold);
+}
+
+/* Month filter */
+.filter-row {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+}
+.filter-label { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+.tag { 
+  display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px;
+  background: #f3f4f6; color: #6b7280; margin-left: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="top-nav">
+  <div id="nav-brand" onclick="showPage('home')">📚 Teacher CPD Studio</div>
+  <button id="nav-menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-item" onclick="showPage('home')"><span class="icon">🏠</span> Home</div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-item" onclick="showPage('policy')"><span class="icon">📖</span> Policy Foundation</div>
+  <div class="sidebar-item" onclick="showPage('lesson')"><span class="icon">📝</span> Lesson Plan Builder</div>
+  <div class="sidebar-item" onclick="showPage('journal')"><span class="icon">📔</span> Reflective Journal</div>
+  <div class="sidebar-item" onclick="showPage('pedagogy')"><span class="icon">🎯</span> Pedagogy Strategy Bank</div>
+  <div class="sidebar-item" onclick="showPage('observation')"><span class="icon">👁️</span> Classroom Observation</div>
+  <div class="sidebar-item" onclick="showPage('cpd')"><span class="icon">📊</span> CPD Tracker</div>
+  <div class="sidebar-item" onclick="showPage('school')"><span class="icon">🏫</span> School Improvement Planner</div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-item" onclick="showPage('about')"><span class="icon">ℹ️</span> About</div>
+</aside>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page active" id="page-home">
+  <div class="home-pattern"></div>
+  <div class="author-photo-wrapper">
+    <img src="author.jpg" alt="Mateen Yousuf" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:36px;\'>👤</div>'"/>
+  </div>
+  <div class="home-badge">NEP 2020 · NCF 2023 · Competency-Based Pedagogy</div>
+  <h1 class="home-title">Teacher <span>CPD</span> &amp; Reflective Practice Studio</h1>
+  <div class="home-subtitle">Offline Professional Development System</div>
+  <div class="home-author">Developed by Mateen Yousuf · Teacher, School Education Department Kashmir</div>
+  <div class="home-divider"></div>
+  <div class="home-buttons">
+    <button class="btn-primary" onclick="showPage('policy')">📖 Start Professional Development</button>
+    <button class="btn-outline" onclick="showPage('journal')">📔 Lesson Reflection Tool</button>
+    <button class="btn-outline" onclick="showPage('policy'); openPolicyPage(0)">🏛️ Learn About NEP Teacher Reforms</button>
+  </div>
+  <div class="home-features">
+    <div class="home-feat"><div class="home-feat-icon">📶</div><div class="home-feat-label">Fully Offline</div></div>
+    <div class="home-feat"><div class="home-feat-icon">📱</div><div class="home-feat-label">PWA Ready</div></div>
+    <div class="home-feat"><div class="home-feat-icon">💾</div><div class="home-feat-label">Local Storage</div></div>
+    <div class="home-feat"><div class="home-feat-icon">🖨️</div><div class="home-feat-label">Print Friendly</div></div>
+    <div class="home-feat"><div class="home-feat-icon">🎓</div><div class="home-feat-label">13 CPD Pages</div></div>
+    <div class="home-feat"><div class="home-feat-icon">🔒</div><div class="home-feat-label">No Login</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: POLICY FOUNDATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-policy">
+  <div class="content-header">
+    <div class="breadcrumb">Section 1</div>
+    <h1>Policy Foundation</h1>
+    <p>13 structured pages aligned with NEP 2020 & NCF 2023</p>
+  </div>
+
+  <!-- Policy Grid (index view) -->
+  <div id="policy-index" class="content-body">
+    <div class="section-intro">
+      Explore 13 comprehensive policy and pedagogy pages designed to deepen your understanding of NEP 2020 reforms and NCF 2023 frameworks. Each page includes classroom examples, reflection prompts, and action checklists.
+    </div>
+    <div class="policy-grid" id="policy-grid-container"></div>
+  </div>
+
+  <!-- Policy Detail View -->
+  <div id="policy-detail-view" class="policy-detail">
+    <div class="policy-detail-header">
+      <button class="back-btn" onclick="closePolicyDetail()">← Back to Policy Pages</button>
+      <h2 id="detail-title"></h2>
+    </div>
+    <div class="policy-content" id="detail-content"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: LESSON PLAN BUILDER -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-lesson">
+  <div class="content-header">
+    <div class="breadcrumb">Section 2</div>
+    <h1>Lesson Plan Builder</h1>
+    <p>Create competency-based lesson plans offline</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('lesson','create')">✏️ Create Plan</button>
+    <button class="tab-btn" onclick="switchTab('lesson','saved')">📂 Saved Plans</button>
+  </div>
+
+  <div id="lesson-tab-create" class="tab-pane active">
+    <div class="form-section">
+      <h3>Class & Subject Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Class / Grade</label>
+          <select id="lp-class">
+            <option value="">Select Class</option>
+            <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+            <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+            <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+            <option>Class 10</option><option>Class 11</option><option>Class 12</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" id="lp-subject" placeholder="e.g., Mathematics, Science"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Topic / Unit</label>
+          <input type="text" id="lp-topic" placeholder="e.g., Fractions, Photosynthesis"/>
+        </div>
+        <div class="form-group">
+          <label>Duration (minutes)</label>
+          <input type="number" id="lp-duration" placeholder="e.g., 45" min="20" max="120"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Learning Outcomes & Competencies</h3>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Learning Outcomes (one per line)</label>
+        <textarea id="lp-outcomes" rows="3" placeholder="Students will be able to...&#10;Students will understand..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Competencies Targeted</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px" id="competency-checkboxes"></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Teaching Strategies & Assessment</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Teaching Strategy</label>
+          <select id="lp-strategy">
+            <option value="">Select Strategy</option>
+            <option>Activity-Based Learning</option>
+            <option>Inquiry-Based Learning</option>
+            <option>Project-Based Learning</option>
+            <option>Cooperative Learning</option>
+            <option>Case-Based Teaching</option>
+            <option>Experiential Learning</option>
+            <option>Differentiated Instruction</option>
+            <option>Socratic Questioning</option>
+            <option>Flipped Classroom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assessment Method</label>
+          <select id="lp-assessment">
+            <option value="">Select Assessment</option>
+            <option>Exit Tickets</option>
+            <option>Peer Assessment</option>
+            <option>Observation</option>
+            <option>Quiz / MCQ</option>
+            <option>Oral Questions</option>
+            <option>Portfolio Work</option>
+            <option>Project Submission</option>
+            <option>Self-Assessment</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Teaching Materials / Resources</label>
+        <input type="text" id="lp-materials" placeholder="e.g., Textbook, Charts, Lab equipment, Digital tools"/>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:8px">
+      <button class="btn-action gold" onclick="generateLessonPlan()">🔄 Generate Lesson Plan</button>
+      <button class="btn-action" onclick="clearLessonForm()">✖ Clear</button>
+    </div>
+
+    <div id="lesson-output" class="output-box"></div>
+  </div>
+
+  <div id="lesson-tab-saved" class="tab-pane">
+    <div id="saved-lessons-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: REFLECTIVE JOURNAL -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-journal">
+  <div class="content-header">
+    <div class="breadcrumb">Section 3</div>
+    <h1>Reflective Practice Journal</h1>
+    <p>Document, reflect, and grow as an educator</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('journal','new')">✏️ New Entry</button>
+    <button class="tab-btn" onclick="switchTab('journal','entries')">📔 All Entries</button>
+    <button class="tab-btn" onclick="switchTab('journal','summary')">📊 Monthly Summary</button>
+  </div>
+
+  <div id="journal-tab-new" class="tab-pane active">
+    <div class="form-section">
+      <h3>Today's Lesson Reflection</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="jr-date"/>
+        </div>
+        <div class="form-group">
+          <label>Class & Subject</label>
+          <input type="text" id="jr-class" placeholder="e.g., Class 9 – Science"/>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Topic Taught</label>
+        <input type="text" id="jr-topic" placeholder="e.g., Newton's Laws of Motion"/>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>✅ What Worked Well?</label>
+        <textarea id="jr-worked" rows="3" placeholder="Describe what was effective in today's lesson..."></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>⚠️ What Did Not Work?</label>
+        <textarea id="jr-notworked" rows="3" placeholder="What challenges did you face? What could be improved?"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>👥 Student Engagement Level</label>
+        <select id="jr-engagement">
+          <option value="">Select Level</option>
+          <option value="5">⭐⭐⭐⭐⭐ Excellent – All students actively engaged</option>
+          <option value="4">⭐⭐⭐⭐ Good – Most students engaged</option>
+          <option value="3">⭐⭐⭐ Average – Mixed engagement</option>
+          <option value="2">⭐⭐ Low – Few students engaged</option>
+          <option value="1">⭐ Very Low – Minimal engagement</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>🎯 Evidence of Competency Development</label>
+        <textarea id="jr-competency" rows="2" placeholder="What evidence shows students developed targeted competencies?"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>🔧 Areas for Improvement</label>
+        <textarea id="jr-improve" rows="2" placeholder="What will you do differently next time?"></textarea>
+      </div>
+      <button class="btn-action gold" onclick="saveJournalEntry()">💾 Save Entry</button>
+    </div>
+  </div>
+
+  <div id="journal-tab-entries" class="tab-pane">
+    <div class="filter-row">
+      <span class="filter-label">Filter by month:</span>
+      <input type="month" id="journal-filter-month" style="width:auto;padding:6px 12px" onchange="renderJournalEntries()"/>
+      <button class="btn-action" style="margin:0" onclick="document.getElementById('journal-filter-month').value='';renderJournalEntries()">Show All</button>
+    </div>
+    <div id="journal-entries-list" class="entry-list"></div>
+  </div>
+
+  <div id="journal-tab-summary" class="tab-pane">
+    <div id="journal-summary-content"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: PEDAGOGY STRATEGY BANK -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-pedagogy">
+  <div class="content-header">
+    <div class="breadcrumb">Section 4</div>
+    <h1>Pedagogy Strategy Bank</h1>
+    <p>Searchable offline library of teaching methods</p>
+  </div>
+  <div class="content-body">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="strategy-search" placeholder="Search strategies, methods, techniques..." oninput="filterStrategies()"/>
+    </div>
+    <div class="strategy-grid" id="strategy-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: CLASSROOM OBSERVATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-observation">
+  <div class="content-header">
+    <div class="breadcrumb">Section 5</div>
+    <h1>Classroom Observation Tool</h1>
+    <p>Structured observation for professional feedback</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('obs','form')">📋 New Observation</button>
+    <button class="tab-btn" onclick="switchTab('obs','saved')">📁 Saved Reports</button>
+  </div>
+
+  <div id="obs-tab-form" class="tab-pane active">
+    <div class="form-section">
+      <h3>Observation Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Teacher Name</label>
+          <input type="text" id="ob-teacher" placeholder="Teacher being observed"/>
+        </div>
+        <div class="form-group">
+          <label>Date of Observation</label>
+          <input type="date" id="ob-date"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Class & Subject</label>
+          <input type="text" id="ob-class" placeholder="e.g., Class 8 – English"/>
+        </div>
+        <div class="form-group">
+          <label>Observer Name</label>
+          <input type="text" id="ob-observer" placeholder="Your name (optional)"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Observation Criteria (Rate 1–5)</h3>
+      <div class="obs-criteria" id="obs-criteria-list"></div>
+    </div>
+
+    <div class="form-section">
+      <h3>Additional Notes</h3>
+      <div class="form-group">
+        <label>Strengths Observed</label>
+        <textarea id="ob-strengths" rows="2" placeholder="What was done particularly well?"></textarea>
+      </div>
+      <div class="form-group" style="margin-top:12px">
+        <label>Areas for Growth</label>
+        <textarea id="ob-growth" rows="2" placeholder="Suggestions for improvement..."></textarea>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="btn-action gold" onclick="generateObsReport()">📊 Generate Report</button>
+      <button class="btn-action" onclick="clearObsForm()">✖ Clear</button>
+    </div>
+    <div id="obs-output" class="output-box"></div>
+  </div>
+
+  <div id="obs-tab-saved" class="tab-pane">
+    <div id="obs-saved-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: CPD TRACKER -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-cpd">
+  <div class="content-header">
+    <div class="breadcrumb">Section 6</div>
+    <h1>CPD Tracker</h1>
+    <p>Log your professional development journey</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('cpd','log')">➕ Log Activity</button>
+    <button class="tab-btn" onclick="switchTab('cpd','history')">📋 History</button>
+    <button class="tab-btn" onclick="switchTab('cpd','profile')">📊 Profile</button>
+  </div>
+
+  <div id="cpd-tab-log" class="tab-pane active">
+    <div class="form-section">
+      <h3>Log CPD Activity</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Activity Type</label>
+          <select id="cpd-type">
+            <option value="">Select Type</option>
+            <option value="workshop">Workshop / Seminar</option>
+            <option value="course">Online / Face-to-face Course</option>
+            <option value="self-study">Self-Study</option>
+            <option value="reading">Professional Reading</option>
+            <option value="peer">Peer Collaboration</option>
+            <option value="mentoring">Mentoring / Coaching</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="cpd-date"/>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Activity Title / Description</label>
+        <input type="text" id="cpd-title" placeholder="e.g., NCF 2023 Workshop by SCERT"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Hours Spent</label>
+          <input type="number" id="cpd-hours" placeholder="e.g., 3" min="0.5" max="100" step="0.5"/>
+        </div>
+        <div class="form-group">
+          <label>Skill Area</label>
+          <select id="cpd-skill">
+            <option value="">Select Skill</option>
+            <option>Pedagogy & Instruction</option>
+            <option>Assessment & Evaluation</option>
+            <option>Curriculum Design</option>
+            <option>Technology Integration</option>
+            <option>Classroom Management</option>
+            <option>Leadership & Mentoring</option>
+            <option>Inclusive Education</option>
+            <option>Subject Knowledge</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Key Learning / Reflection</label>
+        <textarea id="cpd-reflection" rows="2" placeholder="What did you learn? How will it impact your practice?"></textarea>
+      </div>
+      <button class="btn-action gold" onclick="saveCPDLog()">💾 Save Activity</button>
+    </div>
+  </div>
+
+  <div id="cpd-tab-history" class="tab-pane">
+    <div class="cpd-stats" id="cpd-stats-row"></div>
+    <div id="cpd-log-list"></div>
+  </div>
+
+  <div id="cpd-tab-profile" class="tab-pane">
+    <div class="radar-container">
+      <h3>📊 Skill Development Radar</h3>
+      <canvas id="radarChart" width="320" height="320"></canvas>
+    </div>
+    <div id="cpd-profile-summary"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: SCHOOL IMPROVEMENT PLANNER -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-school">
+  <div class="content-header">
+    <div class="breadcrumb">Section 7</div>
+    <h1>School Academic Improvement Planner</h1>
+    <p>Identify gaps, plan interventions, track progress</p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('school','add')">➕ Add Gap</button>
+    <button class="tab-btn" onclick="switchTab('school','plans')">📋 Action Plans</button>
+  </div>
+
+  <div id="school-tab-add" class="tab-pane active">
+    <div class="form-section">
+      <h3>Identify Academic Gap</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Academic Gap / Challenge</label>
+          <input type="text" id="sg-gap" placeholder="e.g., Low reading comprehension in Class 5"/>
+        </div>
+        <div class="form-group">
+          <label>Area / Subject</label>
+          <select id="sg-area">
+            <option value="">Select Area</option>
+            <option>Literacy / Language</option>
+            <option>Numeracy / Mathematics</option>
+            <option>Science</option>
+            <option>Social Studies</option>
+            <option>Teacher Capacity</option>
+            <option>Infrastructure</option>
+            <option>Student Attendance</option>
+            <option>Parental Engagement</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Root Cause Analysis</label>
+        <textarea id="sg-cause" rows="2" placeholder="What factors are contributing to this gap?"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Intervention Strategy</label>
+        <textarea id="sg-intervention" rows="2" placeholder="Describe your planned intervention..."></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Target Date</label>
+          <input type="date" id="sg-target"/>
+        </div>
+        <div class="form-group">
+          <label>Priority Level</label>
+          <select id="sg-priority">
+            <option value="high">🔴 High</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-action gold" onclick="saveSchoolGap()">💾 Add to Action Plan</button>
+    </div>
+  </div>
+
+  <div id="school-tab-plans" class="tab-pane">
+    <div id="school-gaps-list"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="page" id="page-about">
+  <div class="content-header">
+    <div class="breadcrumb">About</div>
+    <h1>About This Application</h1>
+    <p>Teacher CPD & Reflective Practice Studio</p>
+  </div>
+  <div class="content-body">
+    <div class="form-section" style="text-align:center;padding:32px">
+      <div class="author-photo-wrapper" style="width:120px;height:120px;margin:0 auto 20px">
+        <img src="author.jpg" alt="Mateen Yousuf" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:48px;\'>👤</div>'"/>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin-bottom:6px">Mateen Yousuf</h2>
+      <p style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:13px;margin-bottom:16px">Teacher · School Education Department Kashmir</p>
+      <div style="background:var(--section-bg);border-radius:8px;padding:20px;text-align:left;max-width:600px;margin:0 auto">
+        <p style="font-size:14.5px;line-height:1.85;color:var(--text-primary);margin-bottom:12px">
+          This application was developed to empower teachers across Kashmir and India with a comprehensive, offline-first professional development tool — fully aligned with NEP 2020 and NCF 2023 frameworks.
+        </p>
+        <p style="font-size:14.5px;line-height:1.85;color:var(--text-primary)">
+          The app requires no internet connection, no login, and no backend server — making it accessible to teachers in remote areas with limited connectivity.
+        </p>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+        <div class="home-badge" style="margin:0">NEP 2020 Aligned</div>
+        <div class="home-badge" style="margin:0">NCF 2023 Framework</div>
+        <div class="home-badge" style="margin:0">Offline PWA</div>
+        <div class="home-badge" style="margin:0">Kashmir Education</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+// ─── APP STATE ──────────────────────────────────────────────
+const APP = {
+  currentPage: 'home',
+  policyPages: [],
+  strategies: [],
+  obsCriteria: []
+};
+
+// ─── NAVIGATION ─────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + name);
+  if (pg) {
+    pg.classList.add('active');
+    APP.currentPage = name;
+  }
+  closeSidebar();
+  // Update sidebar active
+  document.querySelectorAll('.sidebar-item').forEach((item, i) => {
+    item.classList.remove('active');
+    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${name}'`)) {
+      item.classList.add('active');
+    }
+  });
+  // Lazy-load page data
+  if (name === 'journal') { renderJournalEntries(); generateMonthlySummary(); }
+  if (name === 'cpd') { renderCPDHistory(); renderRadarChart(); }
+  if (name === 'school') { renderSchoolGaps(); }
+  if (name === 'lesson') { renderSavedLessons(); }
+  if (name === 'observation') { renderSavedObs(); }
+  window.scrollTo(0,0);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ─── TABS ────────────────────────────────────────────────────
+function switchTab(page, tab) {
+  const prefix = page + '-tab-';
+  document.querySelectorAll(`[id^="${prefix}"]`).forEach(p => p.classList.remove('active'));
+  document.getElementById(prefix + tab).classList.add('active');
+  // Update tab buttons
+  const tabBar = document.querySelector(`#page-${page} .tab-bar`);
+  if (tabBar) {
+    tabBar.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${tab}'`));
+    });
+  }
+}
+
+// ─── TOAST ──────────────────────────────────────────────────
+function toast(msg, duration = 2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ─── LOCAL STORAGE HELPERS ───────────────────────────────────
+const LS = {
+  get: (key) => { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } },
+  set: (key, val) => { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) { toast('⚠️ Storage full'); } }
+};
+
+// ─── DATE HELPER ─────────────────────────────────────────────
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 1: POLICY DATA
+// ══════════════════════════════════════════════════════════════
+APP.policyPages = [
+  {
+    title: "NEP 2020 Vision for Teacher Development",
+    summary: "Understanding the transformative vision for teacher capacity in India's new education policy.",
+    content: `
+<h3>Introduction</h3>
+<p>The National Education Policy 2020 represents the most comprehensive reform of India's education system since 1986. At its heart lies a profound commitment to transforming the teaching profession — recognizing that the quality of education cannot exceed the quality of its teachers. NEP 2020 envisions teachers as the "most respected and essential members of our society" who deserve both high standards and robust support systems.</p>
+<h3>Key Pillars of NEP 2020 Teacher Vision</h3>
+<p>The policy outlines a multi-dimensional approach to teacher development. First, it emphasizes that teachers must be empowered with agency — trusted professionals who exercise pedagogical judgment rather than mere implementers of curriculum instructions. This represents a philosophical shift from a compliance-based model to a professional autonomy model.</p>
+<p>Second, NEP 2020 establishes that by 2030, all teachers must hold a minimum of a four-year integrated B.Ed. degree, ensuring a strong foundation in both subject knowledge and pedagogy. The policy calls for the revamping of teacher education institutions to become vibrant centers of excellence in learning, pedagogy, assessment, and professional development.</p>
+<p>Third, the policy mandates continuous professional development (CPD) with at least 50 hours of CPD per year for every teacher. This is not optional enrichment — it is a professional obligation tied to teacher performance frameworks.</p>
+<h3>NEP 2020 and the Kashmir Education Context</h3>
+<p>For teachers in Jammu & Kashmir, NEP 2020 holds particular significance. The policy emphasizes equitable access to quality education across all regions, including remote and underserved areas. Teachers in J&K are at the forefront of implementing these reforms in a context that requires both cultural sensitivity and pedagogical innovation.</p>
+<p>The School Education Department J&K has aligned its teacher development frameworks with NEP 2020, making it imperative for every teacher to understand and internalize the policy's vision. This includes emphasis on multilingual education, integration of local knowledge systems, and the development of students as holistic, competent individuals.</p>
+<h3>The Four Ds of Teacher Development (NEP 2020)</h3>
+<p>NEP 2020 envisions teacher development through four interconnected dimensions: <strong>Disposition</strong> (values and commitment), <strong>Discipline</strong> (subject mastery and content knowledge), <strong>Delivery</strong> (pedagogical competence and methodology), and <strong>Development</strong> (continuous professional growth and reflection).</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>How does your current teaching practice align with the NEP 2020 vision of teacher as a professional?</li>
+<li>In what ways are you already practicing the "Four Ds" of teacher development?</li>
+<li>What one change could you make this week to deepen your pedagogical competence?</li>
+<li>How do local cultural knowledge and NEP 2020 reforms complement each other in your classroom?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Read the key teacher-related sections of NEP 2020 (Sections 5 and 15)</li>
+<li>Identify your CPD goals for this academic year</li>
+<li>Discuss NEP 2020 implications with your school head or mentor</li>
+<li>Document one area where you plan to grow this semester</li>
+<li>Connect with a professional learning community (formal or informal)</li>
+</ul>
+</div>`
+  },
+  {
+    title: "NCF 2023 Pedagogical Framework",
+    summary: "Exploring the National Curriculum Framework 2023 and its implications for classroom teaching.",
+    content: `
+<h3>Overview of NCF 2023</h3>
+<p>The National Curriculum Framework for School Education 2023 (NCF-SE 2023) is India's most detailed and research-grounded curriculum framework in decades. Building on NEP 2020's vision, NCF 2023 provides specific guidance on what children should learn, how they should learn it, and how teachers should facilitate that learning.</p>
+<h3>The Competency-Based Approach</h3>
+<p>At its core, NCF 2023 shifts from a content-heavy, examination-driven curriculum to a competency-based model. Rather than asking "What does the student know?" the framework asks "What can the student do with what they know?" This seemingly subtle shift has profound implications for how we plan lessons, design activities, and assess learning.</p>
+<p>The framework identifies three essential domains: <strong>Cognitive</strong> (thinking, reasoning, problem-solving), <strong>Socio-emotional</strong> (collaboration, empathy, communication), and <strong>Physical & Aesthetic</strong> (health, creativity, expression). A well-designed lesson should ideally address competencies across all three domains.</p>
+<h3>The Four-Stage Learning Approach</h3>
+<p>NCF 2023 describes learning as a four-stage process: <strong>Concrete Experience</strong> (engaging with phenomena directly), <strong>Observation and Reflection</strong> (thinking about the experience), <strong>Abstract Conceptualization</strong> (connecting to broader principles), and <strong>Active Experimentation</strong> (applying the concept in new situations). This is directly influenced by Kolb's Experiential Learning Cycle and has deep roots in constructivist theory.</p>
+<h3>Implications for Assessment</h3>
+<p>NCF 2023 strongly advocates for assessment as learning — not just assessment of learning. This means assessment should be integrated into the learning process itself, providing continuous feedback to both teachers and students. The framework recommends a 360-degree approach using multiple assessment formats: projects, portfolios, peer evaluation, self-reflection, and performance tasks alongside conventional tests.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>Does your current lesson planning address all three domains (cognitive, socio-emotional, physical/aesthetic)?</li>
+<li>Where in the four-stage learning cycle do most of your lessons begin? Where might they benefit from starting?</li>
+<li>How often do you use assessment as a tool for student learning, not just evaluation?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Map one recent lesson against the NCF 2023 four-stage learning approach</li>
+<li>Identify which competencies your next unit addresses</li>
+<li>Design one formative assessment task that functions as learning, not testing</li>
+<li>Share NCF 2023 insights with a colleague in your next PLC meeting</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Competency-Based Teaching Explained",
+    summary: "Practical understanding of how to design and deliver competency-focused lessons.",
+    content: `
+<h3>What is Competency-Based Teaching?</h3>
+<p>Competency-based teaching (CBT) is an approach where the design and delivery of instruction is organized around specific, measurable competencies that students must demonstrate, rather than around the coverage of content topics. In CBT, a student progresses when they can demonstrate a competency — regardless of time spent.</p>
+<h3>Competencies vs. Learning Objectives</h3>
+<p>Traditional objectives ask: "What will students know after this lesson?" Competencies ask: "What will students be able to do?" A competency is broader, more integrated, and connects knowledge to real-world application. For example: knowing the properties of triangles (objective) vs. being able to use geometric principles to solve measurement problems in the real world (competency).</p>
+<h3>Designing CBT Lessons: The Backward Design Model</h3>
+<p>Understanding by Design (Wiggins & McTighe) recommends three stages: Stage 1 — identify desired results (what competency should be demonstrated?); Stage 2 — determine acceptable evidence (how will you know the competency has been achieved?); Stage 3 — plan learning experiences and instruction (what activities lead students to this competency?).</p>
+<p>This backward design model is explicitly endorsed by NCF 2023 and is the foundation of effective competency-based lesson planning.</p>
+<h3>Bloom's Taxonomy and Higher-Order Thinking</h3>
+<p>Bloom's Taxonomy (Revised) provides a useful framework for writing competency statements at different cognitive levels: Remember → Understand → Apply → Analyze → Evaluate → Create. NCF 2023 and NEP 2020 both emphasize that teaching in India has historically been concentrated at the lower two levels. Effective CBT requires deliberate design of activities that target the higher four levels.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>Choose a recent lesson. At which level of Bloom's Taxonomy were most activities?</li>
+<li>What would it look like if students were at the "Create" level with this content?</li>
+<li>How do you currently communicate competency expectations to your students?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Rewrite three of your lesson objectives as competency statements</li>
+<li>Map your next week's lessons against Bloom's Taxonomy levels</li>
+<li>Design one task that requires students to analyze or evaluate</li>
+<li>Share a student exemplar with the class to demonstrate competency expectations</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Constructivist Classroom Model",
+    summary: "Building classrooms where students actively construct knowledge through experience.",
+    content: `
+<h3>The Constructivist Philosophy</h3>
+<p>Constructivism, rooted in the work of Piaget, Vygotsky, and Dewey, holds that learners do not passively receive knowledge — they actively build it by connecting new information to prior knowledge and experience. This has profound implications for how we design learning environments in Indian classrooms.</p>
+<h3>Piaget's Constructivism</h3>
+<p>Jean Piaget described learning as a process of <strong>assimilation</strong> (fitting new information into existing mental models) and <strong>accommodation</strong> (revising mental models to incorporate new information that doesn't fit). A constructivist teacher deliberately creates experiences that challenge students' existing understanding — what Piaget called "cognitive disequilibrium" — leading to deeper learning.</p>
+<h3>Vygotsky's Social Constructivism</h3>
+<p>Lev Vygotsky emphasized the social nature of learning. His concept of the <strong>Zone of Proximal Development (ZPD)</strong> — the space between what a learner can do independently and what they can do with guidance — is central to effective teaching. The teacher's role is to provide "scaffolding" that supports learners in reaching the upper limit of their ZPD.</p>
+<h3>The 5E Constructivist Model in Practice</h3>
+<p>The 5E Model (Engage, Explore, Explain, Elaborate, Evaluate) provides a practical framework for constructivist lesson design. In the Engage phase, teachers activate prior knowledge and stimulate curiosity. The Explore phase gives students direct experience with phenomena. In Explain, concepts are formalized. Elaborate extends understanding to new contexts. Evaluate assesses competency development.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>How often do your lessons begin with activating students' prior knowledge?</li>
+<li>Where in the 5E cycle do you spend the most time? The least?</li>
+<li>How do you identify and work within individual students' ZPDs?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Plan one lesson using the 5E model explicitly</li>
+<li>Use a "K-W-L" chart (Know, Want to Know, Learned) at least once this week</li>
+<li>Identify three students who may benefit from additional scaffolding</li>
+<li>Build in peer discussion moments to leverage social constructivism</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Experiential Learning Strategies",
+    summary: "Kolb's cycle and practical strategies for learning through doing.",
+    content: `
+<h3>Kolb's Experiential Learning Theory</h3>
+<p>David Kolb's Experiential Learning Theory (1984) describes learning as a four-stage cycle: <strong>Concrete Experience</strong> (CE) → <strong>Reflective Observation</strong> (RO) → <strong>Abstract Conceptualization</strong> (AC) → <strong>Active Experimentation</strong> (AE). Effective learning requires engaging with all four stages, though entry into the cycle can occur at any point.</p>
+<h3>Learning Styles and the Experiential Cycle</h3>
+<p>Kolb proposed four learning styles corresponding to preferences in the cycle: <strong>Divergers</strong> (prefer CE + RO — imaginative, strong in brainstorming), <strong>Assimilators</strong> (prefer RO + AC — logical, good at abstract reasoning), <strong>Convergers</strong> (prefer AC + AE — practical problem solvers), and <strong>Accommodators</strong> (prefer AE + CE — hands-on, action-oriented).</p>
+<p>Rather than limiting students to one style, the goal is to design learning experiences that engage all four stages, thereby developing students' full repertoire of learning approaches.</p>
+<h3>Practical Experiential Strategies</h3>
+<p>Experiential learning can be implemented through: laboratory experiments (science), role-play and simulations (social studies, civics), field visits and community projects, case studies drawn from local contexts, design challenges and maker activities, and reflective journals and portfolios. NCF 2023 emphasizes that experiential learning is not limited to science labs — every subject can be taught experientially.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>Think of a lesson where students were most engaged. Which stage of Kolb's cycle was emphasized?</li>
+<li>Which of the four learning styles do you tend to design for most often?</li>
+<li>What is one local context or community resource you could bring into your classroom?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Design one lesson that moves through all four stages of Kolb's cycle</li>
+<li>Plan a field visit or community connection activity this term</li>
+<li>Incorporate a "reflection" stage into your next three lessons</li>
+<li>Try a simulation or role-play in an upcoming lesson</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Formative Assessment in Daily Practice",
+    summary: "Embedding assessment into everyday teaching to drive learning.",
+    content: `
+<h3>What Is Formative Assessment?</h3>
+<p>Formative assessment is any assessment activity undertaken by teachers or students that provides information to be used as feedback to modify learning and teaching activities. Dylan Wiliam's seminal research shows that effective formative assessment can accelerate learning by up to 8 months per year — making it one of the highest-impact instructional interventions available to teachers.</p>
+<h3>The Five Key Strategies (Wiliam & Thompson)</h3>
+<p>Research identifies five core formative assessment strategies: (1) <strong>Clarifying learning intentions and success criteria</strong> so students understand what they are learning and what success looks like; (2) <strong>Engineering effective discussions and activities</strong> that elicit evidence of understanding; (3) <strong>Providing feedback that moves learning forward</strong>; (4) <strong>Activating students as learning resources for each other</strong> through peer assessment; (5) <strong>Activating students as owners of their own learning</strong> through self-assessment.</p>
+<h3>Low-Stakes Daily Techniques</h3>
+<p>Practical daily formative techniques include: Exit Tickets (a brief written response at the end of class), Think-Pair-Share, Hinge Questions (diagnostic questions that reveal whether students are ready to move on), Traffic Light cards (students signal understanding with red/yellow/green), Mini whiteboards, Concept maps, and Peer marking with rubrics.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>How do you currently find out whether students have understood a concept before moving on?</li>
+<li>How often do students have access to clear success criteria for their work?</li>
+<li>What one formative technique could you add to your practice this week?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Use an exit ticket in your next lesson</li>
+<li>Share learning objectives AND success criteria with students</li>
+<li>Try a peer assessment activity this week</li>
+<li>Adjust your next lesson based on what formative evidence reveals</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Reflective Practice Model",
+    summary: "Using structured reflection to transform experience into professional learning.",
+    content: `
+<h3>Why Reflection Is the Engine of Growth</h3>
+<p>Donald Schön distinguished between <strong>reflection-in-action</strong> (thinking on one's feet during teaching) and <strong>reflection-on-action</strong> (deliberate thinking after teaching). Research consistently shows that teachers who engage in structured reflection grow more rapidly as professionals than those who simply accumulate experience without reflecting on it.</p>
+<h3>Gibbs' Reflective Cycle</h3>
+<p>Gibbs' Reflective Cycle (1988) provides a structured framework for reflection: <strong>Description</strong> (What happened?), <strong>Feelings</strong> (What were you thinking and feeling?), <strong>Evaluation</strong> (What was good and bad?), <strong>Analysis</strong> (What sense can you make of it?), <strong>Conclusion</strong> (What else could you have done?), and <strong>Action Plan</strong> (What will you do next time?).</p>
+<h3>The Teacher as Researcher</h3>
+<p>Reflective practice is the foundation of action research — where teachers systematically study their own practice to improve outcomes for students. Even without formal research structures, teachers who ask "Why did that work?" and "What would happen if I tried...?" are engaging in practitioner inquiry that drives both personal and school-wide improvement.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>When do you find time to reflect on your teaching? Is it structured or ad hoc?</li>
+<li>Think of a lesson that surprised you. What did you learn from it?</li>
+<li>What patterns do you notice in your reflections over the past month?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Use the Reflective Journal in this app daily for 2 weeks</li>
+<li>Apply Gibbs' cycle to one significant lesson experience this term</li>
+<li>Identify one recurring challenge and design an action research question</li>
+<li>Share a reflection with a trusted colleague for additional perspective</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Lesson Planning for Higher Order Thinking",
+    summary: "Designing lessons that develop critical thinking, analysis, and creativity.",
+    content: `
+<h3>The Challenge of Higher-Order Thinking in Indian Classrooms</h3>
+<p>Research indicates that a significant proportion of classroom time in Indian schools is spent at the "remember" and "understand" levels of Bloom's Taxonomy. NCF 2023 explicitly calls for a transformation: students should spend significant time analyzing, evaluating, and creating. This requires deliberate lesson design, not just good intentions.</p>
+<h3>Question Design for Higher-Order Thinking</h3>
+<p>The quality of questions is the single most powerful lever for developing higher-order thinking. Compare: "What is photosynthesis?" (Remember) vs. "Why might a plant growing in low light look different from one in bright light?" (Analyze) vs. "Design an experiment to test the effect of light color on photosynthesis rate" (Create). The skill of crafting higher-order questions is one of the most valuable a teacher can develop.</p>
+<h3>Webb's Depth of Knowledge Framework</h3>
+<p>Norman Webb's Depth of Knowledge (DOK) framework provides four levels of cognitive demand: Level 1 (Recall), Level 2 (Skills and Concepts), Level 3 (Strategic Thinking), and Level 4 (Extended Thinking). Tasks at DOK 3 and 4 require sustained, complex thinking and are the foundation of genuine academic rigor.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>Review the questions you asked in your last lesson. What DOK level were most of them?</li>
+<li>What would a DOK Level 3 task look like for your current unit?</li>
+<li>How do you create space and time for students to engage in extended thinking?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Write 3 questions for your next lesson at DOK levels 2, 3, and 4</li>
+<li>Plan one open-ended, multi-step problem for the week</li>
+<li>Give students a "choice board" with tasks at different complexity levels</li>
+<li>Replace one recall activity with an analysis or synthesis task</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Differentiated Instruction",
+    summary: "Meeting diverse learner needs through flexible, responsive teaching.",
+    content: `
+<h3>What is Differentiated Instruction?</h3>
+<p>Differentiated instruction (DI), developed comprehensively by Carol Ann Tomlinson, is a teaching philosophy premised on the recognition that students differ in readiness, learning profile, and interest — and that effective teaching responds to these differences rather than ignoring them. DI is not about creating individualized plans for every student; it is about building flexible routines and varied pathways to the same essential learning goals.</p>
+<h3>Three Dimensions of Differentiation</h3>
+<p>Tomlinson identifies three main dimensions for differentiation: <strong>Content</strong> (what students learn or how they access information), <strong>Process</strong> (how students make sense of content — the activities), and <strong>Product</strong> (how students demonstrate mastery). Additionally, <strong>Learning Environment</strong> (the physical and affective climate of the classroom) can be differentiated to support diverse learners.</p>
+<h3>Practical DI Strategies for Large Classes</h3>
+<p>Indian teachers often work with class sizes of 40–60 students, which makes DI challenging but not impossible. Practical strategies include: flexible grouping (regrouping students based on tasks), tiered assignments (same concept, different complexity), learning centers or stations, choice boards, anchor activities (for students who finish early), and peer tutoring systems.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>How do you currently differentiate instruction for students with different readiness levels?</li>
+<li>What is one student in your class who consistently struggles? What differentiated support could you provide?</li>
+<li>How do you use pre-assessment data to plan differentiated instruction?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Use a pre-assessment before your next unit to gauge student readiness</li>
+<li>Create a tiered assignment with at least two levels of complexity</li>
+<li>Try flexible grouping for one activity this week</li>
+<li>Identify three students who need differentiated support and plan specific strategies</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Integrating Technology Safely",
+    summary: "Using digital tools purposefully to enhance learning without dependence on connectivity.",
+    content: `
+<h3>Technology as a Tool, Not a Goal</h3>
+<p>NEP 2020 explicitly calls for the integration of technology in education while acknowledging the digital divide in India. The key principle is that technology should serve pedagogical goals — it should enhance learning, not merely replace one medium (textbook) with another (screen). The SAMR Model (Substitution, Augmentation, Modification, Redefinition) provides a useful framework for evaluating the quality of technology integration.</p>
+<h3>Offline-First Technology in Kashmir Context</h3>
+<p>In contexts like Jammu & Kashmir, where internet connectivity can be unreliable, offline-first technology solutions are particularly valuable. This includes downloaded educational apps, preloaded content on tablets or computers, SMS-based learning tools, and physical manipulatives enhanced by digital design. The principle of "technology where appropriate, not everywhere" is crucial.</p>
+<h3>Digital Citizenship and Safety</h3>
+<p>Any technology integration must include explicit teaching of digital citizenship: responsible use of online resources, awareness of misinformation, privacy and safety online, and the critical evaluation of digital content. Teachers have an ethical responsibility to prepare students for safe and productive participation in digital environments.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>At what level of the SAMR model does your current technology use fall?</li>
+<li>What offline technology tools are available in your school? Are they being fully used?</li>
+<li>How do you teach students to evaluate information they find online?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Map your technology use against the SAMR model</li>
+<li>Identify one offline digital resource relevant to your subject</li>
+<li>Plan one lesson that uses technology at the Modification or Redefinition level</li>
+<li>Discuss digital citizenship with your class this term</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Classroom Observation Framework",
+    summary: "Using structured observation as a tool for professional growth and school improvement.",
+    content: `
+<h3>Why Classroom Observation Matters</h3>
+<p>Classroom observation, when done well, is one of the most powerful tools for professional development. It provides concrete, specific, and contextualized evidence of teaching practice that no survey or self-report can match. The challenge is to create an observation culture that is collegial and developmental — focused on growth rather than judgment.</p>
+<h3>Models of Classroom Observation</h3>
+<p>There are several models: <strong>Evaluative observation</strong> (used for performance management), <strong>Developmental observation</strong> (used for professional growth with a focus on specific aspects of practice), <strong>Peer observation</strong> (between colleagues for mutual learning), and <strong>Learning walks</strong> (brief, focused visits to multiple classrooms to gather information on a specific theme). NEP 2020 and NCF 2023 both endorse developmental and peer observation models.</p>
+<h3>Evidence-Based Observation</h3>
+<p>Effective observation is evidence-based rather than judgmental. Rather than recording opinions ("The lesson was engaging"), effective observers record specific, concrete evidence ("12 of 22 students contributed verbally during the discussion"). Evidence-based notes form the basis of a productive professional conversation between the observer and the observed teacher.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>When were you last observed? How did it feel? Was the feedback useful?</li>
+<li>What aspects of your teaching would you most like collegial feedback on?</li>
+<li>How could you use peer observation to grow professionally this term?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Arrange one peer observation with a colleague this month</li>
+<li>Use the Classroom Observation Tool in this app for your next observation</li>
+<li>Establish a pre-observation conversation to align on focus areas</li>
+<li>Conduct a post-observation discussion within 24 hours of observing</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Professional Learning Communities",
+    summary: "Building collaborative cultures for sustained teacher and school improvement.",
+    content: `
+<h3>What is a Professional Learning Community?</h3>
+<p>A Professional Learning Community (PLC) is a group of educators who share and critically interrogate their practice in an ongoing, reflective, collaborative, inclusive, learning-oriented, and growth-promoting way (Mitchell & Sackney, 2000). PLCs are distinguished from conventional staff meetings by their focus on evidence of student learning and the continuous improvement of teaching practice.</p>
+<h3>The Three Big Ideas of PLCs (DuFour et al.)</h3>
+<p>Richard DuFour's influential work identifies three foundational commitments: (1) <strong>Focus on learning</strong> — the fundamental purpose is for all students to learn at high levels; (2) <strong>Collaborative culture</strong> — educators work interdependently in teams; (3) <strong>Results orientation</strong> — the team uses evidence of student learning to guide decisions. These three commitments create a culture of continuous improvement.</p>
+<h3>PLCs in the Indian School Context</h3>
+<p>While formal PLC structures may be new to many Indian schools, the collaborative culture they foster resonates deeply with Indian educational traditions of guru-shishya relationships and community learning. Subject-wise teacher meetings, cluster-level workshops, and DIET (District Institute of Education and Training) programs can all be structured as PLCs when focused on evidence and student outcomes.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>Is there a PLC structure at your school? If not, what would it take to start one?</li>
+<li>What evidence of student learning does your team currently examine collaboratively?</li>
+<li>Who is your most valuable "critical friend" — the colleague whose feedback helps you grow most?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Identify 2-3 colleagues who could form a subject PLC with you</li>
+<li>Schedule a monthly collaborative planning and review meeting</li>
+<li>Share one student work sample in your next team meeting</li>
+<li>Establish a collaborative norm: "What are students learning? How do we know?"</li>
+</ul>
+</div>`
+  },
+  {
+    title: "Academic Leadership & Mentoring",
+    summary: "Developing leadership capacity within the school to drive academic improvement.",
+    content: `
+<h3>Distributed Leadership in Education</h3>
+<p>Academic leadership is not confined to the principal's office. NEP 2020 envisions schools where leadership is distributed — where teachers, department heads, senior educators, and even students exercise leadership within their spheres of influence. A school's academic culture is created by the collective leadership of everyone in the building.</p>
+<h3>The Teacher as Mentor</h3>
+<p>Mentoring — a sustained, supportive relationship between an experienced educator and a newer colleague — is one of the most cost-effective professional development interventions available to schools. Effective mentors provide both <strong>instructional coaching</strong> (guidance on pedagogy and practice) and <strong>emotional support</strong> (helping new teachers navigate the complexities of professional life).</p>
+<h3>Creating a Culture of Academic Excellence</h3>
+<p>Academic leaders — whether principals, HODs, or teacher-leaders — shape culture through the conversations they lead and the behaviors they model. Key cultural drivers include high expectations for all students, celebration of learning (not just achievement), a safe environment for intellectual risk-taking, and a commitment to evidence-based improvement. The CPD Tracker and School Improvement Planner in this app support systematic, evidence-based approaches to academic leadership.</p>
+<div class="reflect-box">
+<h4>🪞 Reflection Prompts</h4>
+<ul>
+<li>In what ways do you currently exercise academic leadership beyond your classroom?</li>
+<li>Who could you mentor? Who could mentor you?</li>
+<li>What is one cultural shift that would most improve academic outcomes in your school?</li>
+</ul>
+</div>
+<div class="action-box">
+<h4>✅ Action Checklist</h4>
+<ul>
+<li>Identify one leadership opportunity you can take on this term</li>
+<li>Offer to mentor a newer colleague or student teacher</li>
+<li>Use the School Improvement Planner to identify one evidence-based improvement target</li>
+<li>Lead one evidence-based discussion in your next staff or team meeting</li>
+</ul>
+</div>`
+  }
+];
+
+// ─── BUILD POLICY GRID ──────────────────────────────────────
+function buildPolicyGrid() {
+  const container = document.getElementById('policy-grid-container');
+  container.innerHTML = APP.policyPages.map((pg, i) => `
+    <div class="policy-card" onclick="openPolicyPage(${i})">
+      <div class="policy-card-num">PAGE ${String(i+1).padStart(2,'0')}</div>
+      <h3>${pg.title}</h3>
+      <p>${pg.summary}</p>
+    </div>
+  `).join('');
+}
+
+function openPolicyPage(index) {
+  document.getElementById('policy-index').style.display = 'none';
+  const detail = document.getElementById('policy-detail-view');
+  detail.classList.add('show');
+  document.getElementById('detail-title').textContent = APP.policyPages[index].title;
+  document.getElementById('detail-content').innerHTML = APP.policyPages[index].content;
+  showPage('policy');
+}
+
+function closePolicyDetail() {
+  document.getElementById('policy-index').style.display = '';
+  document.getElementById('policy-detail-view').classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 2: LESSON PLAN BUILDER
+// ══════════════════════════════════════════════════════════════
+const competencies = [
+  'Critical Thinking','Problem Solving','Communication','Collaboration',
+  'Creativity','Digital Literacy','Self-Management','Cultural Awareness'
+];
+
+function buildCompetencyCheckboxes() {
+  const container = document.getElementById('competency-checkboxes');
+  container.innerHTML = competencies.map(c => `
+    <label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:#f3f4f6;border:1.5px solid #d1d5db;border-radius:20px;padding:5px 12px;font-size:12.5px;font-family:'Source Serif 4',serif;transition:all 0.2s;text-transform:none;letter-spacing:0" 
+      onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(!this.querySelector('input').checked)this.style.borderColor='#d1d5db'">
+      <input type="checkbox" value="${c}" style="width:14px;height:14px;accent-color:var(--navy);border:none" onchange="this.parentElement.style.background=this.checked?'var(--navy)':'#f3f4f6';this.parentElement.style.color=this.checked?'var(--gold-light)':'inherit';this.parentElement.style.borderColor=this.checked?'var(--navy)':'#d1d5db'"/>
+      ${c}
+    </label>`).join('');
+}
+
+function getSelectedCompetencies() {
+  return Array.from(document.querySelectorAll('#competency-checkboxes input:checked')).map(cb => cb.value);
+}
+
+function generateLessonPlan() {
+  const cls = document.getElementById('lp-class').value;
+  const subj = document.getElementById('lp-subject').value.trim();
+  const topic = document.getElementById('lp-topic').value.trim();
+  const duration = document.getElementById('lp-duration').value || '45';
+  const outcomes = document.getElementById('lp-outcomes').value.trim();
+  const strategy = document.getElementById('lp-strategy').value;
+  const assessment = document.getElementById('lp-assessment').value;
+  const materials = document.getElementById('lp-materials').value.trim();
+  const comps = getSelectedCompetencies();
+
+  if (!cls || !subj || !topic) { toast('⚠️ Please fill in Class, Subject, and Topic'); return; }
+
+  const dur = parseInt(duration);
+  const intro = Math.round(dur * 0.15);
+  const main = Math.round(dur * 0.55);
+  const practice = Math.round(dur * 0.2);
+  const closure = dur - intro - main - practice;
+
+  const outcomesList = outcomes ? outcomes.split('\n').filter(o => o.trim()).map(o => `<li>${o.trim()}</li>`).join('') : '<li>Students will demonstrate understanding of key concepts</li>';
+  const compList = comps.length > 0 ? comps.join(', ') : 'Critical Thinking, Communication';
+
+  const plan = `
+    <h3>📋 Competency-Based Lesson Plan</h3>
+    <div class="lesson-section">
+      <h4>Lesson Overview</h4>
+      <p><strong>Class:</strong> ${cls} &nbsp;|&nbsp; <strong>Subject:</strong> ${subj} &nbsp;|&nbsp; <strong>Topic:</strong> ${topic}</p>
+      <p><strong>Duration:</strong> ${duration} minutes &nbsp;|&nbsp; <strong>Strategy:</strong> ${strategy || 'Inquiry-Based Learning'}</p>
+    </div>
+    <div class="lesson-section">
+      <h4>Learning Outcomes</h4>
+      <ul>${outcomesList}</ul>
+    </div>
+    <div class="lesson-section">
+      <h4>Competencies Targeted</h4>
+      <p>${compList}</p>
+    </div>
+    ${materials ? `<div class="lesson-section"><h4>Materials & Resources</h4><p>${materials}</p></div>` : ''}
+    <div class="lesson-section">
+      <h4>Lesson Structure</h4>
+      <p><strong>1. Introduction / Hook (${intro} min):</strong> Activate prior knowledge, introduce the topic with a provocative question or real-world connection. Use think-pair-share to elicit initial understanding.</p>
+      <p><strong>2. Main Teaching Activity (${main} min):</strong> Implement ${strategy || 'the chosen teaching strategy'} to build understanding. Include at least one higher-order thinking prompt. Circulate and use formative questioning to check understanding.</p>
+      <p><strong>3. Guided Practice (${practice} min):</strong> Students work on a structured task (pairs or small groups) to apply new learning. Teacher provides scaffolded support and addresses misconceptions.</p>
+      <p><strong>4. Closure & Assessment (${closure} min):</strong> ${assessment || 'Exit ticket'} — students demonstrate achievement of learning outcomes. Connect lesson to broader unit goals.</p>
+    </div>
+    <div class="lesson-section">
+      <h4>Formative Assessment</h4>
+      <p><strong>Method:</strong> ${assessment || 'Exit Ticket'} — Students respond to one higher-order question before leaving. Teacher reviews responses to inform next lesson.</p>
+    </div>
+    <div class="lesson-section">
+      <h4>Differentiation</h4>
+      <p><strong>Support:</strong> Provide sentence starters, graphic organizers, or simplified task versions for students needing additional support.</p>
+      <p><strong>Extension:</strong> Offer analysis/evaluation-level questions or creative application tasks for advanced learners.</p>
+    </div>
+    <div class="lesson-section">
+      <h4>Teacher Reflection (to complete after lesson)</h4>
+      <p>□ Were learning outcomes achieved?  □ Was engagement high throughout?  □ What would I change?</p>
+    </div>
+    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px">
+      <button class="btn-action gold" onclick="saveLessonPlan()">💾 Save Lesson Plan</button>
+      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
+    </div>
+  `;
+
+  const output = document.getElementById('lesson-output');
+  output.innerHTML = plan;
+  output.classList.add('show');
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  
+  // Store draft for saving
+  window._currentLessonPlan = { cls, subj, topic, duration, outcomes, strategy, assessment, materials, comps, date: todayStr() };
+}
+
+function saveLessonPlan() {
+  if (!window._currentLessonPlan) { toast('⚠️ Generate a plan first'); return; }
+  const plans = LS.get('lessonPlans');
+  window._currentLessonPlan.id = Date.now();
+  plans.unshift(window._currentLessonPlan);
+  LS.set('lessonPlans', plans);
+  toast('✅ Lesson plan saved!');
+  renderSavedLessons();
+}
+
+function renderSavedLessons() {
+  const plans = LS.get('lessonPlans');
+  const container = document.getElementById('saved-lessons-list');
+  if (plans.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📝</div><p>No saved lesson plans yet. Create and save your first plan!</p></div>';
+    return;
+  }
+  container.innerHTML = plans.map(p => `
+    <div class="journal-entry">
+      <button class="delete-btn" onclick="deleteLessonPlan(${p.id})" title="Delete">×</button>
+      <div class="entry-date">${formatDate(p.date)}</div>
+      <div class="entry-title">${p.cls} – ${p.subj}: ${p.topic}</div>
+      <div class="entry-preview">Strategy: ${p.strategy || 'N/A'} · Assessment: ${p.assessment || 'N/A'} · Duration: ${p.duration} min</div>
+    </div>
+  `).join('');
+}
+
+function deleteLessonPlan(id) {
+  const plans = LS.get('lessonPlans').filter(p => p.id !== id);
+  LS.set('lessonPlans', plans);
+  renderSavedLessons();
+  toast('🗑️ Plan deleted');
+}
+
+function clearLessonForm() {
+  ['lp-class','lp-subject','lp-topic','lp-duration','lp-outcomes','lp-strategy','lp-assessment','lp-materials'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.querySelectorAll('#competency-checkboxes input').forEach(cb => {
+    cb.checked = false;
+    cb.parentElement.style.background = '#f3f4f6';
+    cb.parentElement.style.color = 'inherit';
+    cb.parentElement.style.borderColor = '#d1d5db';
+  });
+  document.getElementById('lesson-output').classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 3: REFLECTIVE JOURNAL
+// ══════════════════════════════════════════════════════════════
+function saveJournalEntry() {
+  const date = document.getElementById('jr-date').value;
+  const cls = document.getElementById('jr-class').value.trim();
+  const topic = document.getElementById('jr-topic').value.trim();
+  const worked = document.getElementById('jr-worked').value.trim();
+  const notworked = document.getElementById('jr-notworked').value.trim();
+  const engagement = document.getElementById('jr-engagement').value;
+  const competency = document.getElementById('jr-competency').value.trim();
+  const improve = document.getElementById('jr-improve').value.trim();
+
+  if (!date || !topic) { toast('⚠️ Please enter at least a date and topic'); return; }
+
+  const entries = LS.get('reflectionEntries');
+  const entry = { id: Date.now(), date, cls, topic, worked, notworked, engagement, competency, improve };
+  entries.unshift(entry);
+  LS.set('reflectionEntries', entries);
+  toast('✅ Journal entry saved!');
+  
+  // Clear form
+  ['jr-class','jr-topic','jr-worked','jr-notworked','jr-competency','jr-improve'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('jr-engagement').value = '';
+  document.getElementById('jr-date').value = todayStr();
+  
+  renderJournalEntries();
+  generateMonthlySummary();
+}
+
+function renderJournalEntries() {
+  const filter = document.getElementById('journal-filter-month').value;
+  let entries = LS.get('reflectionEntries');
+  if (filter) {
+    entries = entries.filter(e => e.date && e.date.startsWith(filter));
+  }
+  
+  const container = document.getElementById('journal-entries-list');
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📔</div><p>No entries found. Start your reflective journal today!</p></div>';
+    return;
+  }
+  
+  const stars = ['', '⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'];
+  container.innerHTML = entries.map(e => `
+    <div class="journal-entry">
+      <button class="delete-btn" onclick="deleteJournalEntry(${e.id})" title="Delete">×</button>
+      <div class="entry-date">${formatDate(e.date)} ${e.cls ? '· ' + e.cls : ''} ${e.engagement ? stars[e.engagement] : ''}</div>
+      <div class="entry-title">${e.topic}</div>
+      <div class="entry-preview">${e.worked ? '✅ ' + e.worked.substring(0,80) + (e.worked.length > 80 ? '...' : '') : ''}</div>
+    </div>
+  `).join('');
+}
+
+function deleteJournalEntry(id) {
+  const entries = LS.get('reflectionEntries').filter(e => e.id !== id);
+  LS.set('reflectionEntries', entries);
+  renderJournalEntries();
+  generateMonthlySummary();
+  toast('🗑️ Entry deleted');
+}
+
+function generateMonthlySummary() {
+  const entries = LS.get('reflectionEntries');
+  const container = document.getElementById('journal-summary-content');
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><p>Add journal entries to see your monthly summary.</p></div>';
+    return;
+  }
+
+  const engagements = entries.map(e => parseInt(e.engagement) || 0).filter(e => e > 0);
+  const avgEng = engagements.length > 0 ? (engagements.reduce((a,b) => a+b,0) / engagements.length).toFixed(1) : 'N/A';
+  
+  // Group by month
+  const byMonth = {};
+  entries.forEach(e => {
+    if (!e.date) return;
+    const month = e.date.substring(0,7);
+    if (!byMonth[month]) byMonth[month] = [];
+    byMonth[month].push(e);
+  });
+
+  const monthSummaries = Object.entries(byMonth).sort((a,b) => b[0].localeCompare(a[0])).slice(0,6).map(([month, ents]) => {
+    const monthEngs = ents.map(e => parseInt(e.engagement) || 0).filter(e => e > 0);
+    const monthAvg = monthEngs.length > 0 ? (monthEngs.reduce((a,b) => a+b,0) / monthEngs.length).toFixed(1) : 'N/A';
+    const date = new Date(month + '-01');
+    const label = date.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+    return `
+      <div class="form-section" style="margin-bottom:14px">
+        <h3>${label}</h3>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:8px">
+          ${ents.length} reflection${ents.length !== 1 ? 's' : ''} · Average engagement: ${monthAvg}/5
+        </p>
+        ${ents.slice(0,3).map(e => `<div style="font-size:13px;color:var(--text-primary);padding:6px 0;border-bottom:1px solid var(--border)">📅 ${formatDate(e.date)} — <em>${e.topic}</em></div>`).join('')}
+        ${ents.length > 3 ? `<div style="font-size:12px;color:var(--text-muted);margin-top:6px">+ ${ents.length - 3} more entries</div>` : ''}
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="cpd-stats" style="margin-bottom:20px">
+      <div class="stat-card"><div class="stat-num">${entries.length}</div><div class="stat-label">Total Reflections</div></div>
+      <div class="stat-card"><div class="stat-num">${avgEng}</div><div class="stat-label">Avg Engagement</div></div>
+      <div class="stat-card"><div class="stat-num">${Object.keys(byMonth).length}</div><div class="stat-label">Active Months</div></div>
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:var(--navy);margin-bottom:16px">Monthly Breakdown</h3>
+    ${monthSummaries}
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 4: STRATEGY BANK
+// ══════════════════════════════════════════════════════════════
+APP.strategies = [
+  { tag: 'Activity-Based', name: 'Activity-Based Learning (ABL)', desc: 'Learning through hands-on activities, manipulation, and direct engagement with materials.', steps: ['Design activity with clear learning objective', 'Provide materials and instructions', 'Facilitate student activity with guided questions', 'Debrief: What did we do? What did we learn? Why does it matter?'] },
+  { tag: 'Inquiry-Based', name: 'Inquiry-Based Learning (IBL)', desc: 'Students investigate questions, problems, or scenarios to build knowledge through discovery.', steps: ['Present a driving question or puzzling phenomenon', 'Students brainstorm hypotheses', 'Investigation and data collection', 'Analysis and interpretation', 'Communicate findings'] },
+  { tag: 'Project-Based', name: 'Project-Based Learning (PBL)', desc: 'Extended, real-world projects where students develop and apply competencies over time.', steps: ['Introduce meaningful challenge/problem', 'Plan the project (goals, timeline, roles)', 'Research and create', 'Critique and revise', 'Present publicly'] },
+  { tag: 'Cooperative', name: 'Cooperative Learning (Jigsaw)', desc: 'Students work in structured groups toward shared goals, developing collaboration and communication.', steps: ['Divide content into segments', 'Expert groups master each segment', 'Regroup — each expert teaches their segment', 'Assess individual and group learning'] },
+  { tag: 'Case-Based', name: 'Case-Based Teaching', desc: 'Real or simulated case scenarios to develop analytical and decision-making skills.', steps: ['Present the case (story or scenario)', 'Identify key issues and stakeholders', 'Analyze using subject knowledge', 'Propose and justify solutions', 'Reflect on real-world connections'] },
+  { tag: 'Peer Assessment', name: 'Structured Peer Assessment', desc: 'Students evaluate each other\'s work using clear criteria, developing metacognitive skills.', steps: ['Share clear rubric/criteria', 'Students review a partner\'s work', 'Provide written feedback (warm + cool)', 'Discuss feedback with the author', 'Author revises based on feedback'] },
+  { tag: 'Socratic', name: 'Socratic Seminars', desc: 'Text-based, student-led discussions that develop higher-order thinking through questioning.', steps: ['Assign a rich text or prompt', 'Students prepare discussion questions', 'Facilitate open, evidence-based discussion', 'Debrief on thinking and speaking skills'] },
+  { tag: 'Experiential', name: 'Role Play & Simulation', desc: 'Students take on roles to explore perspectives, processes, or historical events.', steps: ['Define the scenario and roles', 'Brief students on their roles', 'Run the simulation', 'Debrief: feelings, insights, connections to content'] },
+  { tag: 'Flipped', name: 'Flipped Classroom', desc: 'Content delivery happens before class, freeing in-class time for application and discussion.', steps: ['Prepare pre-class content (video, reading)', 'Students engage with content at home', 'In-class: application tasks, Q&A, collaboration', 'Address misconceptions identified from pre-class work'] },
+  { tag: 'Differentiated', name: 'Think-Pair-Share', desc: 'A versatile, low-preparation strategy to engage all learners and check understanding.', steps: ['Pose a question or prompt (Think – 1–2 min)', 'Students discuss with a partner (Pair – 2 min)', 'Pairs share with class (Share)', 'Teacher synthesizes responses'] },
+  { tag: 'Formative', name: 'Exit Ticket Strategy', desc: 'A brief end-of-lesson assessment that informs next steps and consolidates learning.', steps: ['Design 1–3 questions targeting lesson objectives', 'Give 3–5 minutes at end of class', 'Collect and review before next lesson', 'Use data to group students or adjust pacing'] },
+  { tag: 'HOT', name: 'Bloom\'s Question Ladder', desc: 'Deliberately design questions across all cognitive levels for deeper student thinking.', steps: ['Identify concept to question', 'Write one question at each Bloom\'s level (1–6)', 'Use higher-order questions for discussion', 'Challenge students to write their own questions'] }
+];
+
+function buildStrategyGrid() {
+  const container = document.getElementById('strategy-grid');
+  container.innerHTML = APP.strategies.map(s => `
+    <div class="strategy-card">
+      <span class="strategy-tag">${s.tag}</span>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <ol class="strategy-steps">${s.steps.map(st => `<li>${st}</li>`).join('')}</ol>
+    </div>
+  `).join('');
+}
+
+function filterStrategies() {
+  const q = document.getElementById('strategy-search').value.toLowerCase();
+  const filtered = q ? APP.strategies.filter(s =>
+    s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q) || s.tag.toLowerCase().includes(q)
+  ) : APP.strategies;
+
+  const container = document.getElementById('strategy-grid');
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>No strategies found for your search.</p></div>';
+    return;
+  }
+  container.innerHTML = filtered.map(s => `
+    <div class="strategy-card">
+      <span class="strategy-tag">${s.tag}</span>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <ol class="strategy-steps">${s.steps.map(st => `<li>${st}</li>`).join('')}</ol>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 5: CLASSROOM OBSERVATION
+// ══════════════════════════════════════════════════════════════
+APP.obsCriteria = [
+  { id: 'clarity', label: 'Teaching Clarity', desc: 'Lesson objectives were clear; explanations were easy to follow' },
+  { id: 'participation', label: 'Student Participation', desc: 'Students were actively engaged throughout the lesson' },
+  { id: 'questioning', label: 'Questioning Quality', desc: 'Teacher used a variety of question types including higher-order questions' },
+  { id: 'hot', label: 'Higher Order Thinking', desc: 'Students were challenged to analyze, evaluate, or create' },
+  { id: 'assessment', label: 'Assessment Alignment', desc: 'Assessment tasks were aligned to learning objectives' },
+  { id: 'classroom', label: 'Classroom Management', desc: 'Classroom environment was conducive to learning' },
+  { id: 'differentiation', label: 'Differentiation', desc: 'Lesson addressed diverse learning needs' },
+  { id: 'feedback', label: 'Teacher Feedback', desc: 'Feedback to students was specific, timely, and constructive' }
+];
+
+function buildObsCriteria() {
+  const container = document.getElementById('obs-criteria-list');
+  container.innerHTML = APP.obsCriteria.map(c => `
+    <div class="obs-item">
+      <h4>${c.label} <span class="tag">0</span></h4>
+      <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px">${c.desc}</p>
+      <div class="rating-btns">
+        ${[1,2,3,4,5].map(n => `<button class="rating-btn" data-crit="${c.id}" data-val="${n}" onclick="selectRating(this,'${c.id}',${n})">${n} – ${['Unsatisfactory','Developing','Satisfactory','Good','Excellent'][n-1]}</button>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectRating(btn, critId, val) {
+  document.querySelectorAll(`[data-crit="${critId}"]`).forEach(b => {
+    b.className = 'rating-btn';
+  });
+  btn.classList.add(`selected-${val}`);
+  // Update display label
+  const label = btn.closest('.obs-item').querySelector('.tag');
+  label.textContent = val;
+}
+
+function getObsRatings() {
+  const ratings = {};
+  APP.obsCriteria.forEach(c => {
+    const selected = document.querySelector(`[data-crit="${c.id}"].selected-1, [data-crit="${c.id}"].selected-2, [data-crit="${c.id}"].selected-3, [data-crit="${c.id}"].selected-4, [data-crit="${c.id}"].selected-5`);
+    ratings[c.id] = selected ? parseInt(selected.dataset.val) : 0;
+  });
+  return ratings;
+}
+
+function generateObsReport() {
+  const teacher = document.getElementById('ob-teacher').value.trim();
+  const date = document.getElementById('ob-date').value;
+  const cls = document.getElementById('ob-class').value.trim();
+  const observer = document.getElementById('ob-observer').value.trim();
+  const strengths = document.getElementById('ob-strengths').value.trim();
+  const growth = document.getElementById('ob-growth').value.trim();
+  const ratings = getObsRatings();
+
+  if (!teacher || !date) { toast('⚠️ Please enter teacher name and date'); return; }
+
+  const total = Object.values(ratings).filter(r => r > 0);
+  const avg = total.length > 0 ? (total.reduce((a,b) => a+b,0) / total.length).toFixed(1) : 'N/A';
+  
+  const getLabel = (n) => {
+    if (n === 0) return '—';
+    if (n <= 1) return '🔴 Unsatisfactory';
+    if (n <= 2) return '🟠 Developing';
+    if (n <= 3) return '🟡 Satisfactory';
+    if (n <= 4) return '🟢 Good';
+    return '⭐ Excellent';
+  };
+
+  const criteriaRows = APP.obsCriteria.map(c => `
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:8px 10px;font-size:13.5px">${c.label}</td>
+      <td style="padding:8px 10px;text-align:center;font-size:13.5px">${ratings[c.id] || '—'}/5</td>
+      <td style="padding:8px 10px;font-size:12.5px">${getLabel(ratings[c.id])}</td>
+    </tr>
+  `).join('');
+
+  const reportHTML = `
+    <h3>📊 Classroom Observation Report</h3>
+    <div class="lesson-section">
+      <h4>Observation Details</h4>
+      <p><strong>Teacher:</strong> ${teacher} &nbsp;|&nbsp; <strong>Date:</strong> ${formatDate(date)}</p>
+      ${cls ? `<p><strong>Class:</strong> ${cls}</p>` : ''}
+      ${observer ? `<p><strong>Observer:</strong> ${observer}</p>` : ''}
+      <p><strong>Overall Rating:</strong> ${avg}/5 — ${getLabel(Math.round(parseFloat(avg)))}</p>
+    </div>
+    <div class="lesson-section">
+      <h4>Criteria Ratings</h4>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:var(--section-bg)">
+          <th style="padding:8px 10px;text-align:left;font-size:12px">Criterion</th>
+          <th style="padding:8px 10px;font-size:12px">Score</th>
+          <th style="padding:8px 10px;text-align:left;font-size:12px">Rating</th>
+        </tr></thead>
+        <tbody>${criteriaRows}</tbody>
+      </table>
+    </div>
+    ${strengths ? `<div class="lesson-section"><h4>Strengths Observed</h4><p>${strengths}</p></div>` : ''}
+    ${growth ? `<div class="lesson-section"><h4>Areas for Growth</h4><p>${growth}</p></div>` : ''}
+    <div style="margin-top:16px;display:flex;gap:8px">
+      <button class="btn-action gold" onclick="saveObsReport()">💾 Save Report</button>
+      <button class="btn-action" onclick="window.print()">🖨️ Print</button>
+    </div>
+  `;
+
+  const output = document.getElementById('obs-output');
+  output.innerHTML = reportHTML;
+  output.classList.add('show');
+  output.scrollIntoView({ behavior: 'smooth' });
+
+  window._currentObs = { teacher, date, cls, observer, strengths, growth, ratings, avg, id: Date.now() };
+}
+
+function saveObsReport() {
+  if (!window._currentObs) { toast('⚠️ Generate a report first'); return; }
+  const reports = LS.get('obsReports');
+  reports.unshift(window._currentObs);
+  LS.set('obsReports', reports);
+  toast('✅ Report saved!');
+  renderSavedObs();
+}
+
+function renderSavedObs() {
+  const reports = LS.get('obsReports');
+  const container = document.getElementById('obs-saved-list');
+  if (reports.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">👁️</div><p>No saved observation reports yet.</p></div>';
+    return;
+  }
+  container.innerHTML = reports.map(r => `
+    <div class="journal-entry">
+      <button class="delete-btn" onclick="deleteObs(${r.id})" title="Delete">×</button>
+      <div class="entry-date">${formatDate(r.date)}</div>
+      <div class="entry-title">${r.teacher} ${r.cls ? '· ' + r.cls : ''}</div>
+      <div class="entry-preview">Overall: ${r.avg}/5 ${r.observer ? '· Observer: ' + r.observer : ''}</div>
+    </div>
+  `).join('');
+}
+
+function deleteObs(id) {
+  const reports = LS.get('obsReports').filter(r => r.id !== id);
+  LS.set('obsReports', reports);
+  renderSavedObs();
+  toast('🗑️ Report deleted');
+}
+
+function clearObsForm() {
+  ['ob-teacher','ob-date','ob-class','ob-observer','ob-strengths','ob-growth'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.rating-btn').forEach(btn => { btn.className = 'rating-btn'; });
+  document.querySelectorAll('.obs-item .tag').forEach(t => t.textContent = '0');
+  document.getElementById('obs-output').classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 6: CPD TRACKER
+// ══════════════════════════════════════════════════════════════
+function saveCPDLog() {
+  const type = document.getElementById('cpd-type').value;
+  const date = document.getElementById('cpd-date').value;
+  const title = document.getElementById('cpd-title').value.trim();
+  const hours = document.getElementById('cpd-hours').value;
+  const skill = document.getElementById('cpd-skill').value;
+  const reflection = document.getElementById('cpd-reflection').value.trim();
+
+  if (!type || !title || !date) { toast('⚠️ Please fill in type, title, and date'); return; }
+
+  const logs = LS.get('cpdLogs');
+  const entry = { id: Date.now(), type, date, title, hours: parseFloat(hours) || 1, skill, reflection };
+  logs.unshift(entry);
+  LS.set('cpdLogs', logs);
+  toast('✅ CPD activity logged!');
+  
+  ['cpd-type','cpd-date','cpd-title','cpd-hours','cpd-skill'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('cpd-reflection').value = '';
+  
+  renderCPDHistory();
+  renderRadarChart();
+}
+
+function renderCPDHistory() {
+  const logs = LS.get('cpdLogs');
+  
+  // Stats
+  const total = logs.length;
+  const totalHours = logs.reduce((sum, l) => sum + (l.hours || 0), 0);
+  const types = [...new Set(logs.map(l => l.type))].length;
+  
+  document.getElementById('cpd-stats-row').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Activities Logged</div></div>
+    <div class="stat-card"><div class="stat-num">${totalHours.toFixed(1)}</div><div class="stat-label">Total CPD Hours</div></div>
+    <div class="stat-card"><div class="stat-num">${types}</div><div class="stat-label">Activity Types</div></div>
+  `;
+
+  const container = document.getElementById('cpd-log-list');
+  if (logs.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><p>No CPD activities logged yet. Start logging your professional development!</p></div>';
+    return;
+  }
+
+  const typeIcons = { workshop: '🎓', course: '📚', 'self-study': '📖', reading: '📰', peer: '👥', mentoring: '🤝' };
+  container.innerHTML = logs.map(l => `
+    <div class="cpd-log-item ${l.type}">
+      <div class="cpd-info">
+        <h4>${typeIcons[l.type] || '📌'} ${l.title}</h4>
+        <p>${formatDate(l.date)} · ${l.hours}h · ${l.skill || 'General CPD'}</p>
+        ${l.reflection ? `<p style="font-size:11.5px;color:var(--text-muted);margin-top:4px;font-style:italic">${l.reflection.substring(0,80)}${l.reflection.length > 80 ? '...' : ''}</p>` : ''}
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <span class="cpd-badge">${l.type}</span>
+        <button class="delete-btn" style="float:none" onclick="deleteCPDLog(${l.id})">×</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteCPDLog(id) {
+  const logs = LS.get('cpdLogs').filter(l => l.id !== id);
+  LS.set('cpdLogs', logs);
+  renderCPDHistory();
+  renderRadarChart();
+  toast('🗑️ Activity deleted');
+}
+
+// Radar Chart
+function renderRadarChart() {
+  const logs = LS.get('cpdLogs');
+  const skills = ['Pedagogy & Instruction','Assessment & Evaluation','Curriculum Design','Technology Integration','Classroom Management','Leadership & Mentoring','Inclusive Education','Subject Knowledge'];
+  
+  const skillHours = {};
+  skills.forEach(s => skillHours[s] = 0);
+  logs.forEach(l => {
+    if (l.skill && skillHours[l.skill] !== undefined) {
+      skillHours[l.skill] += (l.hours || 1);
+    }
+  });
+
+  const maxHours = Math.max(...Object.values(skillHours), 10);
+  const values = skills.map(s => (skillHours[s] / maxHours) * 100);
+
+  const canvas = document.getElementById('radarChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 320, H = 320;
+  const cx = W/2, cy = H/2;
+  const R = 110;
+  const N = skills.length;
+  const angle = (i) => (i / N) * Math.PI * 2 - Math.PI / 2;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background rings
+  for (let r = 1; r <= 5; r++) {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const x = cx + (R * r / 5) * Math.cos(angle(i));
+      const y = cy + (R * r / 5) * Math.sin(angle(i));
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(10,22,40,0.08)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Axes
+  for (let i = 0; i < N; i++) {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(angle(i)), cy + R * Math.sin(angle(i)));
+    ctx.strokeStyle = 'rgba(10,22,40,0.1)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Data polygon
+  ctx.beginPath();
+  for (let i = 0; i < N; i++) {
+    const val = values[i] / 100;
+    const x = cx + R * val * Math.cos(angle(i));
+    const y = cy + R * val * Math.sin(angle(i));
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(201,168,76,0.2)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(201,168,76,0.9)';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Data points
+  for (let i = 0; i < N; i++) {
+    const val = values[i] / 100;
+    const x = cx + R * val * Math.cos(angle(i));
+    const y = cy + R * val * Math.sin(angle(i));
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#c9a84c';
+    ctx.fill();
+  }
+
+  // Labels
+  ctx.fillStyle = '#1a1a2e';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  const shortLabels = ['Pedagogy','Assessment','Curriculum','Technology','Classroom','Leadership','Inclusive','Subject'];
+  for (let i = 0; i < N; i++) {
+    const lx = cx + (R + 20) * Math.cos(angle(i));
+    const ly = cy + (R + 20) * Math.sin(angle(i));
+    ctx.fillText(shortLabels[i], lx, ly + 4);
+  }
+
+  // Summary
+  const totalHours = logs.reduce((s,l) => s + (l.hours || 0), 0);
+  document.getElementById('cpd-profile-summary').innerHTML = `
+    <div class="form-section">
+      <h3>Professional Development Summary</h3>
+      <p style="font-size:14px;margin-bottom:12px">Total CPD Hours: <strong>${totalHours.toFixed(1)}</strong> ${totalHours >= 50 ? '✅ NEP 2020 Annual Target Met!' : `(${Math.max(0, 50 - totalHours).toFixed(1)} hours to reach NEP 2020 annual target of 50 hours)`}</p>
+      ${skills.map(s => `
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px">
+            <span>${s}</span><span style="color:var(--gold)">${skillHours[s].toFixed(1)}h</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100, (skillHours[s]/Math.max(maxHours,1))*100)}%"></div></div>
+        </div>
+      `).join('')}
+      <button class="btn-action" style="margin-top:8px" onclick="window.print()">🖨️ Print CPD Profile</button>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════
+// SECTION 7: SCHOOL IMPROVEMENT PLANNER
+// ══════════════════════════════════════════════════════════════
+function saveSchoolGap() {
+  const gap = document.getElementById('sg-gap').value.trim();
+  const area = document.getElementById('sg-area').value;
+  const cause = document.getElementById('sg-cause').value.trim();
+  const intervention = document.getElementById('sg-intervention').value.trim();
+  const target = document.getElementById('sg-target').value;
+  const priority = document.getElementById('sg-priority').value;
+
+  if (!gap) { toast('⚠️ Please describe the academic gap'); return; }
+
+  const plans = LS.get('schoolPlans');
+  const entry = { id: Date.now(), gap, area, cause, intervention, target, priority, progress: 0, dateAdded: todayStr() };
+  plans.unshift(entry);
+  LS.set('schoolPlans', plans);
+  toast('✅ Added to action plan!');
+
+  ['sg-gap','sg-area','sg-cause','sg-intervention','sg-target'].forEach(id => document.getElementById(id).value = '');
+  
+  renderSchoolGaps();
+  switchTab('school', 'plans');
+}
+
+function renderSchoolGaps() {
+  const plans = LS.get('schoolPlans');
+  const container = document.getElementById('school-gaps-list');
+  
+  if (plans.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">🏫</div><p>No action plans yet. Identify an academic gap to get started.</p></div>';
+    return;
+  }
+
+  const priorityColor = { high: 'var(--error)', medium: '#f59e0b', low: var_success };
+  const priorityLabel = { high: '🔴 High Priority', medium: '🟡 Medium Priority', low: '🟢 Low Priority' };
+
+  container.innerHTML = plans.map(p => `
+    <div class="gap-item" style="border-left-color:${p.priority === 'high' ? 'var(--error)' : p.priority === 'medium' ? '#f59e0b' : '#2d6a4f'}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <h4>${p.gap}</h4>
+        <button class="delete-btn" style="float:none" onclick="deleteSchoolGap(${p.id})">×</button>
+      </div>
+      <div class="gap-meta">
+        ${p.area ? `📌 ${p.area} · ` : ''}${priorityLabel[p.priority] || ''} · Added ${formatDate(p.dateAdded)}
+        ${p.target ? ` · Target: ${formatDate(p.target)}` : ''}
+      </div>
+      ${p.cause ? `<p style="font-size:13px;color:var(--text-muted);margin-top:6px"><strong>Root Cause:</strong> ${p.cause}</p>` : ''}
+      ${p.intervention ? `<p style="font-size:13px;margin-top:4px"><strong>Intervention:</strong> ${p.intervention}</p>` : ''}
+      <div style="margin-top:10px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span>Progress</span>
+          <span>${p.progress}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${p.progress}%"></div>
+        </div>
+        <input type="range" min="0" max="100" value="${p.progress}" 
+          style="width:100%;margin-top:6px;accent-color:var(--gold)"
+          oninput="updateProgress(${p.id}, this.value)"/>
+      </div>
+    </div>
+  `).join('');
+}
+
+const var_success = '#2d6a4f';
+
+function updateProgress(id, val) {
+  const plans = LS.get('schoolPlans');
+  const plan = plans.find(p => p.id === id);
+  if (plan) { plan.progress = parseInt(val); LS.set('schoolPlans', plans); }
+}
+
+function deleteSchoolGap(id) {
+  const plans = LS.get('schoolPlans').filter(p => p.id !== id);
+  LS.set('schoolPlans', plans);
+  renderSchoolGaps();
+  toast('🗑️ Plan removed');
+}
+
+// ══════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ══════════════════════════════════════════════════════════════
+function init() {
+  // Set default dates
+  document.getElementById('jr-date').value = todayStr();
+  document.getElementById('ob-date').value = todayStr();
+  document.getElementById('cpd-date').value = todayStr();
+  
+  // Build static components
+  buildPolicyGrid();
+  buildCompetencyCheckboxes();
+  buildStrategyGrid();
+  buildObsCriteria();
+}
+
+// Run on DOM ready
+document.addEventListener('DOMContentLoaded', init);
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(() => {});
+}
+</script>
+</body>
+</html>
